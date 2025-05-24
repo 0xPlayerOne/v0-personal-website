@@ -10,9 +10,7 @@ import { createGameState, updateGameState } from "@/helpers/pong-game"
 export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const gameStateRef = useRef<GameState | null>(null)
-  const [canvasHeight, setCanvasHeight] = useState(
-    typeof window !== "undefined" ? window.innerHeight - navbarHeight : 600,
-  )
+  const [canvasHeight, setCanvasHeight] = useState(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -53,13 +51,17 @@ export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
       initializeGame()
     }
 
-    // Start the game
-    initializeGame()
+    // Ensure we initialize after component mounts
+    const timeoutId = setTimeout(() => {
+      initializeGame()
+      gameLoop()
+    }, 0)
+
     window.addEventListener("resize", handleResize)
-    gameLoop()
 
     // Cleanup
     return () => {
+      clearTimeout(timeoutId)
       window.removeEventListener("resize", handleResize)
     }
   }, [navbarHeight])
@@ -68,8 +70,11 @@ export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
     <div className="relative w-full h-full">
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
-        style={{ height: `${canvasHeight}px` }}
+        className="w-full h-full block"
+        style={{
+          height: canvasHeight > 0 ? `${canvasHeight}px` : "100%",
+          display: "block",
+        }}
         aria-label="Retro pong header with pixel art"
       />
     </div>

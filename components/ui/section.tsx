@@ -12,12 +12,13 @@ interface SectionProps {
 }
 
 export function Section({ id, children }: SectionProps) {
-  const [sectionHeight, setSectionHeight] = useState("100vh")
+  const [sectionHeight, setSectionHeight] = useState("auto")
 
   useEffect(() => {
     const updateHeight = () => {
-      const height = Math.max(600, window.innerHeight - NAVBAR_HEIGHT)
-      setSectionHeight(`${height}px`)
+      // Use min-height instead of fixed height for better mobile experience
+      const minHeight = Math.max(600, window.innerHeight - NAVBAR_HEIGHT)
+      setSectionHeight(`${minHeight}px`)
     }
 
     updateHeight()
@@ -28,9 +29,9 @@ export function Section({ id, children }: SectionProps) {
   return (
     <section
       id={id}
-      className="flex items-center justify-center"
+      className="flex items-center justify-center py-8 sm:py-12 md:py-16"
       style={{
-        height: sectionHeight,
+        minHeight: sectionHeight,
         backgroundColor: SITE_BG_COLOR,
         color: SITE_TEXT_COLOR,
       }}
