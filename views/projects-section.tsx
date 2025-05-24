@@ -1,13 +1,14 @@
-import { Section } from "./section"
-import { TextHeader } from "@/components/ui/text-header"
-import { TextSubheader } from "@/components/ui/text-subheader"
-import { SITE_TEXT_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
+import { Section } from "@/components/ui/section"
+import { Typography } from "@/components/ui/typography"
+import { SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
 
 export function ProjectsSection() {
   return (
     <Section id="projects">
-      <TextHeader>Projects</TextHeader>
-      <div className="max-w-6xl mx-auto" style={{ color: SITE_TEXT_COLOR }}>
+      <Typography variant="h2" align="center" color="primary" gutterBottom>
+        Projects
+      </Typography>
+      <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {[
             {
@@ -36,8 +37,12 @@ export function ProjectsSection() {
             },
           ].map((project, index) => (
             <div key={index} className="p-6 sm:p-8 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-              <TextSubheader className="text-xl sm:text-2xl">{project.title}</TextSubheader>
-              <p className="mb-6 text-sm sm:text-base">{project.description}</p>
+              <Typography variant="h3" color="secondary" gutterBottom>
+                {project.title}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                {project.description}
+              </Typography>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, techIndex) => (
                   <span
