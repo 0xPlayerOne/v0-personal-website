@@ -10,9 +10,12 @@ import { createGameState, updateGameState } from "@/helpers/pong-game"
 export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const gameStateRef = useRef<GameState | null>(null)
+  const [isClient, setIsClient] = useState(false)
   const [canvasHeight, setCanvasHeight] = useState(0)
 
   useEffect(() => {
+    setIsClient(true)
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -51,20 +54,27 @@ export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
       initializeGame()
     }
 
-    // Ensure we initialize after component mounts
-    const timeoutId = setTimeout(() => {
-      initializeGame()
-      gameLoop()
-    }, 0)
+    // Initialize after client-side hydration
+    initializeGame()
+    gameLoop()
 
     window.addEventListener("resize", handleResize)
 
     // Cleanup
     return () => {
-      clearTimeout(timeoutId)
       window.removeEventListener("resize", handleResize)
     }
   }, [navbarHeight])
+
+  if (!isClient) {
+    return (
+      <div className="relative w-full h-full bg-gray-900">
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="text-green-400 font-mono">Loading...</div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="relative w-full h-full">
