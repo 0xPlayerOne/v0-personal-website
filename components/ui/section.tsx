@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+
 import { useEffect, useState } from "react"
 import { NAVBAR_HEIGHT } from "@/constants/config"
 import { SITE_BG_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
@@ -11,17 +12,13 @@ interface SectionProps {
 }
 
 export function Section({ id, children }: SectionProps) {
-  const [isClient, setIsClient] = useState(false)
-  const [sectionHeight, setSectionHeight] = useState("100vh")
+  const [sectionHeight, setSectionHeight] = useState("auto")
 
   useEffect(() => {
-    setIsClient(true)
-
     const updateHeight = () => {
-      if (typeof window !== "undefined") {
-        const minHeight = Math.max(600, window.innerHeight - NAVBAR_HEIGHT)
-        setSectionHeight(`${minHeight}px`)
-      }
+      // Use min-height instead of fixed height for better mobile experience
+      const minHeight = Math.max(600, window.innerHeight - NAVBAR_HEIGHT)
+      setSectionHeight(`${minHeight}px`)
     }
 
     updateHeight()
@@ -34,7 +31,7 @@ export function Section({ id, children }: SectionProps) {
       id={id}
       className="flex items-center justify-center py-8 sm:py-12 md:py-16"
       style={{
-        minHeight: isClient ? sectionHeight : "100vh",
+        minHeight: sectionHeight,
         backgroundColor: SITE_BG_COLOR,
         color: SITE_TEXT_COLOR,
       }}

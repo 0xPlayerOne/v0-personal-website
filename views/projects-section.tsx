@@ -1,6 +1,5 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
-import { ResponsiveGrid } from "@/components/ui/responsive-grid"
 import { SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
 
 export function ProjectsSection() {
@@ -10,7 +9,7 @@ export function ProjectsSection() {
         Projects
       </Typography>
       <div className="max-w-6xl mx-auto">
-        <ResponsiveGrid cols={{ default: 1, lg: 2 }} gap={24}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {[
             {
               title: "Nifty League",
@@ -60,7 +59,7 @@ export function ProjectsSection() {
               </div>
             </div>
           ))}
-        </ResponsiveGrid>
+        </div>
       </div>
     </Section>
   )

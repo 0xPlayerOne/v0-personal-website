@@ -1,6 +1,5 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
-import { ResponsiveGrid } from "@/components/ui/responsive-grid"
 import { SITE_TEXT_COLOR, SITE_BORDER_COLOR } from "@/constants/colors"
 
 export function SkillsSection() {
@@ -10,7 +9,7 @@ export function SkillsSection() {
         Skills & Expertise
       </Typography>
       <div className="max-w-6xl mx-auto">
-        <ResponsiveGrid cols={{ default: 1, sm: 2, lg: 3 }} gap={24}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {[
             { category: "Blockchain", skills: ["Solidity", "Web3", "NFTs", "DeFi", "Smart Contracts"] },
             { category: "Development", skills: ["React", "TypeScript", "Node.js", "Python", "Next.js"] },
@@ -36,7 +35,7 @@ export function SkillsSection() {
               </ul>
             </div>
           ))}
-        </ResponsiveGrid>
+        </div>
       </div>
     </Section>
   )
