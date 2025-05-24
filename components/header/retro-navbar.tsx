@@ -32,7 +32,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
       }}
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">
-        <ul className="flex justify-center space-x-3 sm:space-x-6 md:space-x-8 lg:space-x-12 font-['Press_Start_2P'] text-[10px] sm:text-xs md:text-sm lg:text-base">
+        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8 font-['Press_Start_2P'] text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
           {[
             { id: "about", label: "ABOUT" },
             { id: "skills", label: "SKILLS" },
@@ -42,7 +42,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
             <li key={item.id} className="flex-shrink-0">
               <button
                 onClick={() => scrollToSection(item.id)}
-                className="transition-colors block whitespace-nowrap"
+                className="transition-colors block whitespace-nowrap px-1 sm:px-2"
                 style={{
                   color: hoveredItem === item.id ? NAV_HOVER_COLOR : NAV_TEXT_COLOR,
                   borderColor: activeSection === item.id ? NAV_BORDER_COLOR : "transparent",
@@ -50,8 +50,6 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
                   borderBottomStyle: "solid",
                   lineHeight: "1",
                   paddingTop: "6px",
-                  paddingLeft: "0",
-                  paddingRight: "0",
                   paddingBottom: "12px",
                   margin: "0",
                   verticalAlign: "baseline",

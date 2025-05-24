@@ -16,14 +16,14 @@ export const VARIANT_MAPPING: Record<TypographyVariant, keyof JSX.IntrinsicEleme
 }
 
 export const VARIANT_STYLES: Record<TypographyVariant, string> = {
-  h1: "text-3xl sm:text-4xl md:text-5xl font-bold",
-  h2: "text-2xl sm:text-3xl md:text-4xl font-bold",
-  h3: "text-lg sm:text-xl md:text-2xl font-semibold",
-  h4: "text-base sm:text-lg md:text-xl font-semibold",
-  h5: "text-sm sm:text-base md:text-lg font-semibold",
-  h6: "text-xs sm:text-sm md:text-base font-semibold",
-  body1: "text-sm sm:text-base md:text-lg",
-  body2: "text-xs sm:text-sm md:text-base",
+  h1: "text-4xl sm:text-5xl font-bold",
+  h2: "text-3xl sm:text-4xl font-bold",
+  h3: "text-lg sm:text-xl font-semibold",
+  h4: "text-base sm:text-lg font-semibold",
+  h5: "text-sm sm:text-base font-semibold",
+  h6: "text-xs sm:text-sm font-semibold",
+  body1: "text-base sm:text-lg",
+  body2: "text-sm sm:text-base",
   caption: "text-xs sm:text-sm",
   overline: "text-xs uppercase tracking-wide",
 }

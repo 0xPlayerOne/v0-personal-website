@@ -18,8 +18,10 @@ export function Section({ id, children }: SectionProps) {
     setIsClient(true)
 
     const updateHeight = () => {
-      const minHeight = Math.max(600, window.innerHeight - NAVBAR_HEIGHT)
-      setSectionHeight(`${minHeight}px`)
+      if (typeof window !== "undefined") {
+        const minHeight = Math.max(600, window.innerHeight - NAVBAR_HEIGHT)
+        setSectionHeight(`${minHeight}px`)
+      }
     }
 
     updateHeight()
