@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
-import { ClientWrapper } from "@/components/ui/client-wrapper"
+import { ResponsiveGrid } from "@/components/ui/responsive-grid"
 import { SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
 
 export function ProjectsSection() {
@@ -10,71 +10,57 @@ export function ProjectsSection() {
         Projects
       </Typography>
       <div className="max-w-6xl mx-auto">
-        <ClientWrapper
-          fallback={
-            <div className="grid grid-cols-1 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-                  <Typography variant="h3" color="secondary" gutterBottom>
-                    Loading...
-                  </Typography>
-                </div>
-              ))}
-            </div>
-          }
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {[
-              {
-                title: "Nifty League",
-                description:
-                  "A blockchain-based gaming platform combining NFTs with competitive gameplay. Building the future of play-to-earn gaming.",
-                tech: ["Blockchain", "Gaming", "NFTs", "React"],
-              },
-              {
-                title: "Retro Pong Header",
-                description:
-                  "An interactive retro-style header with pixel art and physics-based animations. Showcasing creative web development.",
-                tech: ["Canvas", "TypeScript", "Animation", "Pixel Art"],
-              },
-              {
-                title: "DeFi Protocol",
-                description:
-                  "Decentralized finance protocol enabling innovative yield farming and liquidity provision mechanisms.",
-                tech: ["Solidity", "DeFi", "Smart Contracts", "Web3"],
-              },
-              {
-                title: "Metaverse Platform",
-                description:
-                  "Virtual world platform where users can create, explore, and monetize digital experiences and assets.",
-                tech: ["Unity", "Blockchain", "VR", "Metaverse"],
-              },
-            ].map((project, index) => (
-              <div key={index} className="p-6 sm:p-8 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-                <Typography variant="h3" color="secondary" gutterBottom>
-                  {project.title}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  {project.description}
-                </Typography>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 rounded text-xs sm:text-sm font-semibold"
-                      style={{
-                        backgroundColor: SITE_BTN_COLOR,
-                        color: CANVAS_COLOR,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+        <ResponsiveGrid cols={{ default: 1, lg: 2 }} gap={24}>
+          {[
+            {
+              title: "Nifty League",
+              description:
+                "A blockchain-based gaming platform combining NFTs with competitive gameplay. Building the future of play-to-earn gaming.",
+              tech: ["Blockchain", "Gaming", "NFTs", "React"],
+            },
+            {
+              title: "Retro Pong Header",
+              description:
+                "An interactive retro-style header with pixel art and physics-based animations. Showcasing creative web development.",
+              tech: ["Canvas", "TypeScript", "Animation", "Pixel Art"],
+            },
+            {
+              title: "DeFi Protocol",
+              description:
+                "Decentralized finance protocol enabling innovative yield farming and liquidity provision mechanisms.",
+              tech: ["Solidity", "DeFi", "Smart Contracts", "Web3"],
+            },
+            {
+              title: "Metaverse Platform",
+              description:
+                "Virtual world platform where users can create, explore, and monetize digital experiences and assets.",
+              tech: ["Unity", "Blockchain", "VR", "Metaverse"],
+            },
+          ].map((project, index) => (
+            <div key={index} className="p-6 sm:p-8 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
+              <Typography variant="h3" color="secondary" gutterBottom>
+                {project.title}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                {project.description}
+              </Typography>
+              <div className="flex flex-wrap gap-2">
+                {project.tech.map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="px-3 py-1 rounded text-xs sm:text-sm font-semibold"
+                    style={{
+                      backgroundColor: SITE_BTN_COLOR,
+                      color: CANVAS_COLOR,
+                    }}
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
-        </ClientWrapper>
+            </div>
+          ))}
+        </ResponsiveGrid>
       </div>
     </Section>
   )

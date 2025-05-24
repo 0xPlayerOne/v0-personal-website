@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
-import { ClientWrapper } from "@/components/ui/client-wrapper"
+import { ResponsiveGrid } from "@/components/ui/responsive-grid"
 import { SITE_BORDER_COLOR } from "@/constants/colors"
 
 export function AboutSection() {
@@ -18,24 +18,8 @@ export function AboutSection() {
           My journey combines technical expertise with business acumen, creating products that push the boundaries of
           what's possible in the digital space.
         </Typography>
-        <ClientWrapper
-          fallback={
-            <div className="grid grid-cols-1 gap-6 mt-8">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="text-center p-4 rounded-lg"
-                  style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}
-                >
-                  <Typography variant="h3" align="center" color="secondary" gutterBottom>
-                    Loading...
-                  </Typography>
-                </div>
-              ))}
-            </div>
-          }
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
+        <div className="mt-8 sm:mt-12">
+          <ResponsiveGrid cols={{ default: 1, md: 3 }} gap={24}>
             <div className="text-center p-4 sm:p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
               <Typography variant="h3" align="center" color="secondary" gutterBottom>
                 Innovation
@@ -60,8 +44,8 @@ export function AboutSection() {
                 Focused on the future of gaming, blockchain, and interactive entertainment.
               </Typography>
             </div>
-          </div>
-        </ClientWrapper>
+          </ResponsiveGrid>
+        </div>
       </div>
     </Section>
   )

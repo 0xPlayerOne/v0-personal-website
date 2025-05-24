@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
-import { ClientWrapper } from "@/components/ui/client-wrapper"
+import { ResponsiveGrid } from "@/components/ui/responsive-grid"
 import { SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
 
 export function ContactSection() {
@@ -13,20 +13,8 @@ export function ContactSection() {
         <Typography variant="body1" align="center" gutterBottom>
           Interested in collaborating, discussing opportunities, or just want to connect? I'd love to hear from you.
         </Typography>
-        <ClientWrapper
-          fallback={
-            <div className="grid grid-cols-1 gap-6 mb-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="p-4 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-                  <Typography variant="h3" align="center" color="secondary" gutterBottom>
-                    Loading...
-                  </Typography>
-                </div>
-              ))}
-            </div>
-          }
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
+        <div className="mb-8 sm:mb-12">
+          <ResponsiveGrid cols={{ default: 1, sm: 3 }} gap={24}>
             <div className="p-4 sm:p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
               <Typography variant="h3" align="center" color="secondary" gutterBottom>
                 Twitter
@@ -51,8 +39,8 @@ export function ContactSection() {
                 @AMahoneyFernandes
               </Typography>
             </div>
-          </div>
-        </ClientWrapper>
+          </ResponsiveGrid>
+        </div>
         <button
           className="font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg text-base sm:text-lg transition-colors hover:opacity-80"
           style={{
