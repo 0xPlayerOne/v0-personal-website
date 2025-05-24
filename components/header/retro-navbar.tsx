@@ -31,18 +31,18 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
         boxShadow: isSticky ? "0 2px 8px rgba(0, 0, 0, 0.2)" : "none",
       }}
     >
-      <div className="container mx-auto px-4 w-full">
-        <ul className="flex flex-wrap justify-center space-x-8 md:space-x-12 font-['Press_Start_2P'] text-lg">
+      <div className="container mx-auto px-2 sm:px-4 w-full">
+        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-8 lg:space-x-12 font-['Press_Start_2P'] text-xs sm:text-sm md:text-base lg:text-lg">
           {[
             { id: "about", label: "ABOUT" },
             { id: "skills", label: "SKILLS" },
             { id: "projects", label: "PROJECTS" },
             { id: "contact", label: "CONTACT" },
           ].map((item) => (
-            <li key={item.id}>
+            <li key={item.id} className="flex-shrink-0">
               <button
                 onClick={() => scrollToSection(item.id)}
-                className="transition-colors block"
+                className="transition-colors block whitespace-nowrap"
                 style={{
                   color: hoveredItem === item.id ? NAV_HOVER_COLOR : NAV_TEXT_COLOR,
                   borderColor: activeSection === item.id ? NAV_BORDER_COLOR : "transparent",

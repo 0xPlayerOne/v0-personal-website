@@ -8,7 +8,7 @@ export function ProjectsSection() {
         Projects
       </h2>
       <div className="max-w-6xl mx-auto" style={{ color: SITE_TEXT_COLOR }}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {[
             {
               title: "Nifty League",
@@ -35,16 +35,16 @@ export function ProjectsSection() {
               tech: ["Unity", "Blockchain", "VR", "Metaverse"],
             },
           ].map((project, index) => (
-            <div key={index} className="p-8 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-              <h3 className="text-2xl font-semibold mb-4" style={{ color: SITE_HEADER_COLOR }}>
+            <div key={index} className="p-6 sm:p-8 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4" style={{ color: SITE_HEADER_COLOR }}>
                 {project.title}
               </h3>
-              <p className="mb-6">{project.description}</p>
+              <p className="mb-6 text-sm sm:text-base">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="px-3 py-1 rounded text-sm font-semibold"
+                    className="px-3 py-1 rounded text-xs sm:text-sm font-semibold"
                     style={{
                       backgroundColor: SITE_BTN_COLOR,
                       color: CANVAS_COLOR,
