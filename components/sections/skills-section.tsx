@@ -1,12 +1,12 @@
 import { Section } from "./section"
-import { SITE_HEADER_COLOR, SITE_TEXT_COLOR, SITE_BORDER_COLOR } from "@/constants/colors"
+import { TextHeader } from "@/components/ui/text-header"
+import { TextSubheader } from "@/components/ui/text-subheader"
+import { SITE_TEXT_COLOR, SITE_BORDER_COLOR } from "@/constants/colors"
 
 export function SkillsSection() {
   return (
     <Section id="skills">
-      <h2 className="text-4xl font-bold mb-8 text-center" style={{ color: SITE_HEADER_COLOR }}>
-        Skills & Expertise
-      </h2>
+      <TextHeader>Skills & Expertise</TextHeader>
       <div className="max-w-6xl mx-auto" style={{ color: SITE_TEXT_COLOR }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {[
@@ -18,9 +18,7 @@ export function SkillsSection() {
             { category: "Design", skills: ["UI/UX", "Pixel Art", "Branding", "Creative Direction"] },
           ].map((skillGroup, index) => (
             <div key={index} className="p-4 sm:p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-              <h3 className="text-lg sm:text-xl font-semibold mb-4" style={{ color: SITE_HEADER_COLOR }}>
-                {skillGroup.category}
-              </h3>
+              <TextSubheader>{skillGroup.category}</TextSubheader>
               <ul className="space-y-2">
                 {skillGroup.skills.map((skill, skillIndex) => (
                   <li key={skillIndex} className="flex items-center text-sm sm:text-base">

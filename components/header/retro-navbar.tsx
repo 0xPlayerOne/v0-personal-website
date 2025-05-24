@@ -32,7 +32,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
       }}
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">
-        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-8 lg:space-x-12 font-['Press_Start_2P'] text-xs sm:text-sm md:text-base lg:text-lg">
+        <ul className="flex justify-center space-x-3 sm:space-x-6 md:space-x-8 lg:space-x-12 font-['Press_Start_2P'] text-[10px] sm:text-xs md:text-sm lg:text-base">
           {[
             { id: "about", label: "ABOUT" },
             { id: "skills", label: "SKILLS" },

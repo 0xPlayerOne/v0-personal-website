@@ -1,12 +1,12 @@
 import { Section } from "./section"
-import { SITE_HEADER_COLOR, SITE_TEXT_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
+import { TextHeader } from "@/components/ui/text-header"
+import { TextSubheader } from "@/components/ui/text-subheader"
+import { SITE_TEXT_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
 
 export function ProjectsSection() {
   return (
     <Section id="projects">
-      <h2 className="text-4xl font-bold mb-8 text-center" style={{ color: SITE_HEADER_COLOR }}>
-        Projects
-      </h2>
+      <TextHeader>Projects</TextHeader>
       <div className="max-w-6xl mx-auto" style={{ color: SITE_TEXT_COLOR }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {[
@@ -36,9 +36,7 @@ export function ProjectsSection() {
             },
           ].map((project, index) => (
             <div key={index} className="p-6 sm:p-8 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
-              <h3 className="text-xl sm:text-2xl font-semibold mb-4" style={{ color: SITE_HEADER_COLOR }}>
-                {project.title}
-              </h3>
+              <TextSubheader className="text-xl sm:text-2xl">{project.title}</TextSubheader>
               <p className="mb-6 text-sm sm:text-base">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, techIndex) => (
