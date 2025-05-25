@@ -1,6 +1,6 @@
 import type { Pixel, Particle, Ball } from "./types"
+import { PIXEL_MAP } from "./pixel-map"
 import {
-  PIXEL_MAP,
   HEADER_TEXT,
   LETTER_SPACING,
   WORD_SPACING,
