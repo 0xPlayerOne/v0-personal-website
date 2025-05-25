@@ -4,26 +4,26 @@ export const SKILLS_DATA = [
     skills: [
       { name: "React / Next.js", level: 98 },
       { name: "TypeScript / JavaScript", level: 95 },
-      { name: "Node.js", level: 92 },
-      { name: "Python (FastAPI/Django)", level: 75 },
+      { name: "Node.js (Express/Fastify)", level: 82 },
+      { name: "Python (FastAPI/Django)", level: 70 },
     ],
   },
   {
     category: "Gaming",
     skills: [
-      { name: "Unity", level: 80 },
-      { name: "C#", level: 95 },
-      { name: "Game Design", level: 92 },
-      { name: "Progression Systems", level: 85 },
+      { name: "Unity / C#", level: 78 },
+      { name: "Game UI/UX", level: 92 },
+      { name: "DevOps / LiveOps", level: 83 },
+      { name: "Systems & Economy Design", level: 88 },
     ],
   },
   {
     category: "Blockchain",
     skills: [
-      { name: "Solidity", level: 88 },
-      { name: "NFTs", level: 96 },
-      { name: "DeFi & Tokenomics", level: 85 },
-      { name: "Smart Contracts", level: 92 },
+      { name: "Solidity (Smart Contracts)", level: 84 },
+      { name: "NFTs & Digital Assets", level: 92 },
+      { name: "DeFi & Tokenomics", level: 78 },
+      { name: "DAOs & Governance", level: 85 },
     ],
   },
   {
@@ -38,16 +38,16 @@ export const SKILLS_DATA = [
   {
     category: "Business",
     skills: [
+      { name: "Operations", level: 80 },
       { name: "Fundraising", level: 92 },
       { name: "Partnerships", level: 88 },
       { name: "Marketing", level: 75 },
-      { name: "Operations", level: 80 },
     ],
   },
   {
-    category: "Design",
+    category: "Product",
     skills: [
-      { name: "UI/UX", level: 85 },
+      { name: "UI/UX Design", level: 85 },
       { name: "Pixel Art", level: 90 },
       { name: "Branding", level: 80 },
       { name: "Creative Direction", level: 92 },

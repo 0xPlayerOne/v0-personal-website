@@ -14,7 +14,7 @@ const SKILL_ICONS = {
   Blockchain: Blocks,
   Leadership: Users,
   Business: Briefcase,
-  Design: Palette,
+  Product: Palette,
 } as const
 
 export function SkillsSection() {
