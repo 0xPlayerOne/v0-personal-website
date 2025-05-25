@@ -1,14 +1,17 @@
 // Game physics
 export const BALL_SPEED = 3
-export const BALL_SIZE = 8
-export const PADDLE_SIZE = 12
+export const BALL_SIZE = 12
+export const PADDLE_WIDTH = 8
+export const PADDLE_LENGTH = 80
 export const PADDLE_SPEED = 0.08
 
 // Text rendering
 export const LETTER_SPACING = 1
 export const WORD_SPACING = 3
-export const LARGE_PIXEL_SIZE = 6
-export const SMALL_PIXEL_SIZE = 3
+export const LARGE_PIXEL_SIZE = 8
+export const SMALL_PIXEL_SIZE = 4
+export const TEXT_WIDTH_FACTOR = 0.8
+export const TEXT_SPACING_FACTOR = 2
 
 // Particle effects
 export const PARTICLE_COUNT = 8

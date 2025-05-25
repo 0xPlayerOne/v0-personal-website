@@ -1,38 +1,26 @@
-import type { GameState, PongColors } from "./types"
+import type { GameState, PongColors, Pixel, Particle } from "./types"
 import {
   BALL_SPEED,
   BALL_SIZE,
-  PADDLE_SIZE,
+  PADDLE_WIDTH,
+  PADDLE_LENGTH,
   PADDLE_SPEED,
   LARGE_PIXEL_SIZE,
   SMALL_PIXEL_SIZE,
   LETTER_SPACING,
+  TEXT_WIDTH_FACTOR,
+  TEXT_SPACING_FACTOR,
   PIXEL_MAP,
   PARTICLE_COUNT,
   PARTICLE_LIFE,
   PARTICLE_DECAY,
 } from "./constants"
 
-export interface Particle {
-  x: number
-  y: number
-  dx: number
-  dy: number
-  alpha: number
-  life: number
-}
-
-export interface Pixel {
-  x: number
-  y: number
-  size: number
-  hit: boolean
-}
-
 export function createGame(width: number, height: number, colors: PongColors, headerText: string[]): GameState {
   const scale = Math.min(width / 1000, height / 600)
-  const ballRadius = Math.max(2, BALL_SIZE * scale)
-  const paddleSize = Math.max(4, PADDLE_SIZE * scale)
+  const ballRadius = Math.max(3, BALL_SIZE * scale)
+  const paddleWidth = Math.max(4, PADDLE_WIDTH * scale)
+  const paddleLength = Math.max(20, PADDLE_LENGTH * scale)
 
   return {
     width,
@@ -47,40 +35,44 @@ export function createGame(width: number, height: number, colors: PongColors, he
       radius: ballRadius,
     },
     paddles: [
+      // Left paddle
       {
         x: 0,
-        y: height / 2 - paddleSize,
-        width: paddleSize / 3,
-        height: paddleSize * 2,
+        y: height / 2 - paddleLength / 2,
+        width: paddleWidth,
+        height: paddleLength,
         targetX: 0,
-        targetY: height / 2 - paddleSize,
+        targetY: height / 2 - paddleLength / 2,
         isVertical: true,
       },
+      // Right paddle
       {
-        x: width - paddleSize / 3,
-        y: height / 2 - paddleSize,
-        width: paddleSize / 3,
-        height: paddleSize * 2,
-        targetX: width - paddleSize / 3,
-        targetY: height / 2 - paddleSize,
+        x: width - paddleWidth,
+        y: height / 2 - paddleLength / 2,
+        width: paddleWidth,
+        height: paddleLength,
+        targetX: width - paddleWidth,
+        targetY: height / 2 - paddleLength / 2,
         isVertical: true,
       },
+      // Top paddle
       {
-        x: width / 2 - paddleSize,
+        x: width / 2 - paddleLength / 2,
         y: 0,
-        width: paddleSize * 2,
-        height: paddleSize / 3,
-        targetX: width / 2 - paddleSize,
+        width: paddleLength,
+        height: paddleWidth,
+        targetX: width / 2 - paddleLength / 2,
         targetY: 0,
         isVertical: false,
       },
+      // Bottom paddle
       {
-        x: width / 2 - paddleSize,
-        y: height - paddleSize / 3,
-        width: paddleSize * 2,
-        height: paddleSize / 3,
-        targetX: width / 2 - paddleSize,
-        targetY: height - paddleSize / 3,
+        x: width / 2 - paddleLength / 2,
+        y: height - paddleWidth,
+        width: paddleLength,
+        height: paddleWidth,
+        targetX: width / 2 - paddleLength / 2,
+        targetY: height - paddleWidth,
         isVertical: false,
       },
     ],
@@ -133,14 +125,14 @@ export function updateGame(game: GameState): GameState {
         game.ball.dx = game.ball.x < paddle.x + paddle.width / 2 ? -Math.abs(game.ball.dx) : Math.abs(game.ball.dx)
         game.ball.x =
           game.ball.x < paddle.x + paddle.width / 2
-            ? paddle.x - game.ball.radius
-            : paddle.x + paddle.width + game.ball.radius
+            ? paddle.x - game.ball.radius - 1
+            : paddle.x + paddle.width + game.ball.radius + 1
       } else {
         game.ball.dy = game.ball.y < paddle.y + paddle.height / 2 ? -Math.abs(game.ball.dy) : Math.abs(game.ball.dy)
         game.ball.y =
           game.ball.y < paddle.y + paddle.height / 2
-            ? paddle.y - game.ball.radius
-            : paddle.y + paddle.height + game.ball.radius
+            ? paddle.y - game.ball.radius - 1
+            : paddle.y + paddle.height + game.ball.radius + 1
       }
     }
   }
@@ -209,16 +201,20 @@ function generateText(width: number, height: number, scale: number, headerText: 
   const maxWidth = Math.max(largeWidth, smallWidth)
 
   // Scale to fit
-  const scaleFactor = (width * 0.8) / maxWidth
+  const scaleFactor = (width * TEXT_WIDTH_FACTOR) / maxWidth
   const adjustedLargePx = largePx * scaleFactor
   const adjustedSmallPx = smallPx * scaleFactor
 
   // Position text
-  let y = (height - (adjustedLargePx * 5 + adjustedSmallPx * 5 + adjustedLargePx * 2)) / 2
+  const largeHeight = TEXT_SPACING_FACTOR * adjustedLargePx * 5
+  const spacing = TEXT_SPACING_FACTOR * adjustedLargePx
+  const smallHeight = TEXT_SPACING_FACTOR * adjustedSmallPx * 5
+  const totalHeight = largeHeight + spacing + smallHeight
+  let y = (height - totalHeight) / 2
 
   // Add large text
   addText(largeText, width, y, adjustedLargePx, pixels)
-  y += adjustedLargePx * 7
+  y += largeHeight + spacing
 
   // Add small text
   addText(smallText, width, y, adjustedSmallPx, pixels)
