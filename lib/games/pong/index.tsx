@@ -6,6 +6,8 @@ import { createGameState } from "./game-state"
 import { updateGameState } from "./physics"
 import { renderGame } from "./renderer"
 
+export type { PongColors, PongDimensions } from "./types"
+
 interface PongGameProps {
   navbarHeight: number
   colors: PongColors
