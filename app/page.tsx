@@ -1,7 +1,5 @@
-"use client"
+export { default as Page } from "../src/app/page"
 
-import { PongHeader } from "../src/components/header/index"
-
-export default function SyntheticV0PageForDeployment() {
-  return <PongHeader />
+export default function HomePage() {
+  return <Page />
 }
