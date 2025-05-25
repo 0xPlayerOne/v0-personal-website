@@ -9,9 +9,9 @@ import { SKILLS_DATA } from "@/constants/content"
 import { Code2, Gamepad2, Users, Briefcase, Palette, Blocks } from "lucide-react"
 
 const SKILL_ICONS = {
-  Blockchain: Blocks,
-  Development: Code2,
+  "Web & Full-Stack": Code2,
   Gaming: Gamepad2,
+  Blockchain: Blocks,
   Leadership: Users,
   Business: Briefcase,
   Design: Palette,
