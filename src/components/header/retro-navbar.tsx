@@ -3,19 +3,14 @@
 import { useState } from "react"
 import { NAV_BG_COLOR, NAV_BORDER_COLOR, NAV_TEXT_COLOR, NAV_HOVER_COLOR } from "@/constants/colors"
 import type { RetroNavbarProps } from "@/types/components"
+import { smoothScrollToSection } from "@/lib/smooth-scroll"
+import { NAVIGATION_SECTIONS } from "@/constants/navigation"
 
 export function RetroNavbar({ height = 100, isSticky = false, activeSection = "" }: RetroNavbarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      const elementPosition = element.offsetTop - height
-      window.scrollTo({
-        top: elementPosition,
-        behavior: "smooth",
-      })
-    }
+    smoothScrollToSection(sectionId, height)
   }
 
   return (
@@ -33,12 +28,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">
         <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8 font-['Press_Start_2P'] text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
-          {[
-            { id: "about", label: "ABOUT" },
-            { id: "skills", label: "SKILLS" },
-            { id: "projects", label: "PROJECTS" },
-            { id: "contact", label: "CONTACT" },
-          ].map((item) => (
+          {NAVIGATION_SECTIONS.map((item) => (
             <li key={item.id} className="flex-shrink-0">
               <button
                 onClick={() => scrollToSection(item.id)}

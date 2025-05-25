@@ -1,5 +1,6 @@
 import type { TypographyProps } from "@/types/typography"
 import { VARIANT_MAPPING, VARIANT_STYLES, COLOR_MAPPING, ALIGN_MAPPING } from "@/constants/typography"
+import { cn } from "@/lib/utils"
 
 export function Typography({
   variant = "body1",
@@ -20,7 +21,7 @@ export function Typography({
   const gutterClass = gutterBottom ? "mb-4" : ""
   const wrapClass = noWrap ? "whitespace-nowrap overflow-hidden text-ellipsis" : ""
 
-  const combinedClassName = [variantClass, alignClass, gutterClass, wrapClass, className].filter(Boolean).join(" ")
+  const combinedClassName = cn(variantClass, alignClass, gutterClass, wrapClass, className)
 
   const combinedStyle = {
     color: color !== "inherit" ? COLOR_MAPPING[color] : undefined,

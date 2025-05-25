@@ -1,48 +1,17 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { RetroCanvas } from "./retro-canvas"
 import { RetroNavbar } from "./retro-navbar"
 import { NAVBAR_HEIGHT } from "@/constants/config"
+import { useScrollSpy } from "@/hooks/use-scroll-spy"
+import { NAVIGATION_SECTIONS } from "@/constants/navigation"
 
 export function PongHeader() {
-  const [isSticky, setIsSticky] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      const headerHeight = window.innerHeight - NAVBAR_HEIGHT
-
-      setIsSticky(scrollPosition > headerHeight)
-
-      // Update active section based on scroll position
-      const sections = ["about", "skills", "projects", "contact"]
-      const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean)
-
-      // If we're in the header area, no section should be active
-      if (scrollPosition <= headerHeight) {
-        setActiveSection("")
-        return
-      }
-
-      // Find which section is currently in view
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const element = sectionElements[i]
-        if (element) {
-          const elementTop = element.offsetTop - NAVBAR_HEIGHT - 50
-          if (scrollPosition >= elementTop) {
-            setActiveSection(sections[i])
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  const sectionIds = NAVIGATION_SECTIONS.map((section) => section.id)
+  const { activeSection, isSticky } = useScrollSpy({
+    sectionIds,
+    headerHeight: window.innerHeight - NAVBAR_HEIGHT,
+    offset: 50,
+  })
 
   return (
     <>
