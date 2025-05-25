@@ -1,6 +1,7 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
 import { Card, CardContent } from "@/components/ui/card"
+import { SITE_CARD_COLOR, SITE_BORDER_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
 import { ABOUT_CONTENT } from "@/constants/content"
 
@@ -18,7 +19,7 @@ export function AboutSection() {
           {ABOUT_CONTENT.mission}
         </Typography>
         <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12")}>
-          <Card>
+          <Card style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
             <CardContent className="text-center p-4 sm:p-6">
               <Typography variant="h3" align="center" color="secondary" gutterBottom>
                 {ABOUT_CONTENT.values.innovation.title}
@@ -28,7 +29,7 @@ export function AboutSection() {
               </Typography>
             </CardContent>
           </Card>
-          <Card>
+          <Card style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
             <CardContent className="text-center p-4 sm:p-6">
               <Typography variant="h3" align="center" color="secondary" gutterBottom>
                 {ABOUT_CONTENT.values.leadership.title}
@@ -38,7 +39,7 @@ export function AboutSection() {
               </Typography>
             </CardContent>
           </Card>
-          <Card>
+          <Card style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
             <CardContent className="text-center p-4 sm:p-6">
               <Typography variant="h3" align="center" color="secondary" gutterBottom>
                 {ABOUT_CONTENT.values.vision.title}
