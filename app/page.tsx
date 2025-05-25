@@ -1,7 +1,19 @@
-"use client"
+import { PongHeader } from "@/components/header"
+import { AboutSection } from "@/views/about-section"
+import { SkillsSection } from "@/views/skills-section"
+import { ProjectsSection } from "@/views/projects-section"
+import { ContactSection } from "@/views/contact-section"
 
-import { PongHeader } from "../src/components/header/index"
-
-export default function SyntheticV0PageForDeployment() {
-  return <PongHeader />
+export default function Page() {
+  return (
+    <div className="min-h-screen">
+      <PongHeader />
+      <main>
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
+    </div>
+  )
 }

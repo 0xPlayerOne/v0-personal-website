@@ -1,15 +1,4 @@
 import type { GameState, Pixel, Particle } from "@/types/pong"
-import { CANVAS_WIDTH_REFERENCE, CANVAS_HEIGHT_REFERENCE } from "@/constants/config"
-
-export function setupCanvas(canvas: HTMLCanvasElement, navbarHeight: number) {
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight - navbarHeight
-  return {
-    width: canvas.width,
-    height: canvas.height,
-    scale: Math.max(0.1, Math.min(canvas.width / CANVAS_WIDTH_REFERENCE, canvas.height / CANVAS_HEIGHT_REFERENCE)),
-  }
-}
 
 export function renderGame(ctx: CanvasRenderingContext2D, gameState: GameState): void {
   const { width, height, pixels, ball, paddles, particles, backgroundColor, colors } = gameState
