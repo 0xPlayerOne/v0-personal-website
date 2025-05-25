@@ -27,6 +27,10 @@ export function SkillsSection() {
         <div className={cn("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8")}>
           {SKILLS_DATA.map((skillGroup, index) => {
             const IconComponent = SKILL_ICONS[skillGroup.category as keyof typeof SKILL_ICONS]
+            const avgLevel = Math.round(
+              skillGroup.skills.reduce((sum, skill) => sum + skill.level, 0) / skillGroup.skills.length,
+            )
+
             return (
               <Card
                 key={index}
@@ -63,40 +67,42 @@ export function SkillsSection() {
                   </div>
 
                   <div className="space-y-3">
-                    {skillGroup.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex} className="group/skill">
-                        <div className={cn("flex items-center justify-between mb-1")}>
-                          <Typography variant="body2" className="font-medium">
-                            {skill}
-                          </Typography>
-                          <div className="flex gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <div
-                                key={i}
-                                className="w-2 h-2 rounded-full transition-all duration-300"
-                                style={{
-                                  backgroundColor:
-                                    i < 3 + Math.floor(Math.random() * 3) ? SITE_BTN_COLOR : `${SITE_TEXT_COLOR}30`,
-                                }}
-                              />
-                            ))}
+                    {skillGroup.skills.map((skill, skillIndex) => {
+                      const filledDots = Math.round((skill.level / 100) * 5)
+                      return (
+                        <div key={skillIndex} className="group/skill">
+                          <div className={cn("flex items-center justify-between mb-1")}>
+                            <Typography variant="body2" className="font-medium">
+                              {skill.name}
+                            </Typography>
+                            <div className="flex gap-1">
+                              {[...Array(5)].map((_, i) => (
+                                <div
+                                  key={i}
+                                  className="w-2 h-2 rounded-full transition-all duration-300"
+                                  style={{
+                                    backgroundColor: i < filledDots ? SITE_BTN_COLOR : `${SITE_TEXT_COLOR}30`,
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <div
+                            className="h-1 rounded-full transition-all duration-500 group-hover/skill:h-2"
+                            style={{ backgroundColor: `${SITE_TEXT_COLOR}20` }}
+                          >
+                            <div
+                              className="h-full rounded-full transition-all duration-700 ease-out"
+                              style={{
+                                backgroundColor: SITE_BTN_COLOR,
+                                width: `${skill.level}%`,
+                                boxShadow: `0 0 8px ${SITE_BTN_COLOR}60`,
+                              }}
+                            />
                           </div>
                         </div>
-                        <div
-                          className="h-1 rounded-full transition-all duration-500 group-hover/skill:h-2"
-                          style={{ backgroundColor: `${SITE_TEXT_COLOR}20` }}
-                        >
-                          <div
-                            className="h-full rounded-full transition-all duration-700 ease-out"
-                            style={{
-                              backgroundColor: SITE_BTN_COLOR,
-                              width: `${60 + Math.floor(Math.random() * 40)}%`,
-                              boxShadow: `0 0 8px ${SITE_BTN_COLOR}60`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
 
                   <div className="mt-4 pt-4 border-t" style={{ borderColor: `${SITE_BORDER_COLOR}40` }}>
@@ -109,7 +115,7 @@ export function SkillsSection() {
                           color: SITE_BTN_COLOR,
                         }}
                       >
-                        LVL {Math.floor(Math.random() * 20) + 80}
+                        LVL {avgLevel}
                       </span>
                     </div>
                   </div>

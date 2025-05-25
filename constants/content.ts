@@ -1,10 +1,61 @@
 export const SKILLS_DATA = [
-  { category: "Blockchain", skills: ["Solidity", "Web3", "NFTs", "DeFi", "Smart Contracts"] },
-  { category: "Development", skills: ["React", "TypeScript", "Node.js", "Python", "Next.js"] },
-  { category: "Gaming", skills: ["Unity", "Game Design", "Tokenomics", "P2E", "Metaverse"] },
-  { category: "Leadership", skills: ["Team Building", "Strategy", "Product Management", "Vision"] },
-  { category: "Business", skills: ["Fundraising", "Partnerships", "Marketing", "Operations"] },
-  { category: "Design", skills: ["UI/UX", "Pixel Art", "Branding", "Creative Direction"] },
+  {
+    category: "Blockchain",
+    skills: [
+      { name: "Solidity", level: 95 },
+      { name: "Web3", level: 90 },
+      { name: "NFTs", level: 98 },
+      { name: "DeFi", level: 85 },
+      { name: "Smart Contracts", level: 92 },
+    ],
+  },
+  {
+    category: "Development",
+    skills: [
+      { name: "React", level: 95 },
+      { name: "TypeScript", level: 88 },
+      { name: "Node.js", level: 85 },
+      { name: "Python", level: 75 },
+      { name: "Next.js", level: 90 },
+    ],
+  },
+  {
+    category: "Gaming",
+    skills: [
+      { name: "Unity", level: 80 },
+      { name: "Game Design", level: 95 },
+      { name: "Tokenomics", level: 92 },
+      { name: "P2E", level: 98 },
+      { name: "Metaverse", level: 85 },
+    ],
+  },
+  {
+    category: "Leadership",
+    skills: [
+      { name: "Team Building", level: 95 },
+      { name: "Strategy", level: 90 },
+      { name: "Product Management", level: 88 },
+      { name: "Vision", level: 98 },
+    ],
+  },
+  {
+    category: "Business",
+    skills: [
+      { name: "Fundraising", level: 92 },
+      { name: "Partnerships", level: 88 },
+      { name: "Marketing", level: 75 },
+      { name: "Operations", level: 80 },
+    ],
+  },
+  {
+    category: "Design",
+    skills: [
+      { name: "UI/UX", level: 85 },
+      { name: "Pixel Art", level: 90 },
+      { name: "Branding", level: 80 },
+      { name: "Creative Direction", level: 92 },
+    ],
+  },
 ] as const
 
 export const PROJECTS_DATA = [
