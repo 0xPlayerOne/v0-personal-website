@@ -1,5 +1,7 @@
-export { default as Page } from "../src/app/page"
+"use client"
 
-export default function HomePage() {
-  return <Page />
+import Home from "../src/app/page"
+
+export default function SyntheticV0PageForDeployment() {
+  return <Home />
 }
