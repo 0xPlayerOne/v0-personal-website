@@ -71,4 +71,16 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  // Ensure consistent rendering across server and client
+  corePlugins: {
+    preflight: true,
+  },
+  // Force consistent breakpoints
+  screens: {
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+    "2xl": "1536px",
+  },
 }
