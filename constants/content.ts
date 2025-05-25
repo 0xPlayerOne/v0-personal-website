@@ -1,32 +1,29 @@
 export const SKILLS_DATA = [
   {
-    category: "Blockchain",
+    category: "Web & Full-Stack",
     skills: [
-      { name: "Solidity", level: 95 },
-      { name: "Web3", level: 90 },
-      { name: "NFTs", level: 98 },
-      { name: "DeFi", level: 85 },
-      { name: "Smart Contracts", level: 92 },
-    ],
-  },
-  {
-    category: "Development",
-    skills: [
-      { name: "React", level: 95 },
-      { name: "TypeScript", level: 88 },
-      { name: "Node.js", level: 85 },
-      { name: "Python", level: 75 },
-      { name: "Next.js", level: 90 },
+      { name: "React / Next.js", level: 98 },
+      { name: "TypeScript / JavaScript", level: 95 },
+      { name: "Node.js", level: 92 },
+      { name: "Python (FastAPI/Django)", level: 75 },
     ],
   },
   {
     category: "Gaming",
     skills: [
       { name: "Unity", level: 80 },
-      { name: "Game Design", level: 95 },
-      { name: "Tokenomics", level: 92 },
-      { name: "P2E", level: 98 },
-      { name: "Metaverse", level: 85 },
+      { name: "C#", level: 95 },
+      { name: "Game Design", level: 92 },
+      { name: "Progression Systems", level: 85 },
+    ],
+  },
+  {
+    category: "Blockchain",
+    skills: [
+      { name: "Solidity", level: 88 },
+      { name: "NFTs", level: 96 },
+      { name: "DeFi & Tokenomics", level: 85 },
+      { name: "Smart Contracts", level: 92 },
     ],
   },
   {
