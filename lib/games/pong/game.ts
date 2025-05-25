@@ -114,7 +114,7 @@ export function updateGame(game: GameState): GameState {
       paddle.x += (paddle.targetX - paddle.x) * PADDLE_SPEED
     }
 
-    // Paddle collision - just reverse direction, keep speed
+    // Paddle collision - hit closer to center
     if (
       game.ball.x + game.ball.radius > paddle.x &&
       game.ball.x - game.ball.radius < paddle.x + paddle.width &&
@@ -122,17 +122,29 @@ export function updateGame(game: GameState): GameState {
       game.ball.y - game.ball.radius < paddle.y + paddle.height
     ) {
       if (paddle.isVertical) {
-        game.ball.dx = game.ball.x < paddle.x + paddle.width / 2 ? -Math.abs(game.ball.dx) : Math.abs(game.ball.dx)
-        game.ball.x =
-          game.ball.x < paddle.x + paddle.width / 2
-            ? paddle.x - game.ball.radius - 1
-            : paddle.x + paddle.width + game.ball.radius + 1
+        // For vertical paddles, check if ball is in the center 60% of the paddle
+        const paddleCenter = paddle.y + paddle.height / 2
+        const paddleCenterZone = paddle.height * 0.3 // 30% on each side of center
+
+        if (Math.abs(game.ball.y - paddleCenter) <= paddleCenterZone) {
+          game.ball.dx = game.ball.x < paddle.x + paddle.width / 2 ? -Math.abs(game.ball.dx) : Math.abs(game.ball.dx)
+          game.ball.x =
+            game.ball.x < paddle.x + paddle.width / 2
+              ? paddle.x - game.ball.radius - 1
+              : paddle.x + paddle.width + game.ball.radius + 1
+        }
       } else {
-        game.ball.dy = game.ball.y < paddle.y + paddle.height / 2 ? -Math.abs(game.ball.dy) : Math.abs(game.ball.dy)
-        game.ball.y =
-          game.ball.y < paddle.y + paddle.height / 2
-            ? paddle.y - game.ball.radius - 1
-            : paddle.y + paddle.height + game.ball.radius + 1
+        // For horizontal paddles, check if ball is in the center 60% of the paddle
+        const paddleCenter = paddle.x + paddle.width / 2
+        const paddleCenterZone = paddle.width * 0.3 // 30% on each side of center
+
+        if (Math.abs(game.ball.x - paddleCenter) <= paddleCenterZone) {
+          game.ball.dy = game.ball.y < paddle.y + paddle.height / 2 ? -Math.abs(game.ball.dy) : Math.abs(game.ball.dy)
+          game.ball.y =
+            game.ball.y < paddle.y + paddle.height / 2
+              ? paddle.y - game.ball.radius - 1
+              : paddle.y + paddle.height + game.ball.radius + 1
+        }
       }
     }
   }
