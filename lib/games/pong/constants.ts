@@ -3,7 +3,7 @@ export const BALL_SPEED = 5
 export const BALL_SIZE = 8
 export const PADDLE_WIDTH = 10
 export const PADDLE_LENGTH = 110
-export const PADDLE_SPEED = 0.08
+export const PADDLE_SPEED = 0.15
 
 // Text rendering
 export const LETTER_SPACING = 1
