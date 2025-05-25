@@ -10,15 +10,19 @@ import {
 import { generatePixelsFromText, processPixelCollisions, updateAndFilterParticles } from "./pong-pixels"
 
 export function createGameState(width: number, height: number, scale: number, colors: GameState["colors"]): GameState {
-  const baseSize = LARGE_PIXEL_SIZE_FACTOR * scale
+  // Ensure minimum scale and dimensions
+  const safeScale = Math.max(0.1, scale)
+  const safeWidth = Math.max(100, width)
+  const safeHeight = Math.max(100, height)
+  const baseSize = LARGE_PIXEL_SIZE_FACTOR * safeScale
 
   return {
-    width,
-    height,
-    scale,
-    pixels: generatePixelsFromText(width, height, scale),
-    ball: createBall(width, height, scale, baseSize),
-    paddles: createPaddles(width, height, baseSize),
+    width: safeWidth,
+    height: safeHeight,
+    scale: safeScale,
+    pixels: generatePixelsFromText(safeWidth, safeHeight, safeScale),
+    ball: createBall(safeWidth, safeHeight, safeScale, baseSize),
+    paddles: createPaddles(safeWidth, safeHeight, baseSize),
     particles: [],
     backgroundColor: colors.background,
     colors,
@@ -26,19 +30,21 @@ export function createGameState(width: number, height: number, scale: number, co
 }
 
 function createBall(width: number, height: number, scale: number, baseSize: number): Ball {
-  const baseSpeed = BALL_SPEED_FACTOR * scale
+  const baseSpeed = Math.max(0.5, BALL_SPEED_FACTOR * scale)
+  const radius = Math.max(1, baseSize * BALL_SIZE_FACTOR)
+
   return {
     x: width * 0.9,
     y: height * 0.3,
     dx: -baseSpeed,
     dy: baseSpeed,
-    radius: baseSize * BALL_SIZE_FACTOR,
+    radius,
   }
 }
 
 function createPaddles(width: number, height: number, baseSize: number): Paddle[] {
-  const paddleWidth = baseSize * PADDLE_WIDTH_FACTOR
-  const paddleLength = baseSize * PADDLE_LENGTH_FACTOR
+  const paddleWidth = Math.max(2, baseSize * PADDLE_WIDTH_FACTOR)
+  const paddleLength = Math.max(10, baseSize * PADDLE_LENGTH_FACTOR)
   const halfLength = paddleLength / 2
 
   return [
@@ -80,12 +86,12 @@ export function updateGameState(gameState: GameState): GameState {
 }
 
 function normalizeBallSpeed(ball: Ball, scale: number): void {
-  const targetSpeed = BALL_SPEED_FACTOR * scale
+  const targetSpeed = Math.max(0.5, BALL_SPEED_FACTOR * scale)
   const currentSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy)
 
   // If speed is too different from target, normalize it
   if (currentSpeed < targetSpeed * 0.5 || currentSpeed > targetSpeed * 1.5) {
-    const ratio = targetSpeed / currentSpeed
+    const ratio = currentSpeed > 0 ? targetSpeed / currentSpeed : 1
     ball.dx *= ratio
     ball.dy *= ratio
   }

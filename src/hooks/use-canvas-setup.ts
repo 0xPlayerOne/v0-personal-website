@@ -18,9 +18,9 @@ export function useCanvasSetup(navbarHeight: number) {
     if (!canvas) return
 
     const updateDimensions = () => {
-      const width = window.innerWidth
-      const height = window.innerHeight - navbarHeight
-      const scale = Math.min(width / 1000, height / 600) // Reference dimensions
+      const width = Math.max(100, window.innerWidth) // Ensure minimum width
+      const height = Math.max(100, window.innerHeight - navbarHeight) // Ensure minimum height
+      const scale = Math.max(0.1, Math.min(width / 1000, height / 600)) // Ensure minimum scale
 
       canvas.width = width
       canvas.height = height
