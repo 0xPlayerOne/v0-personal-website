@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { NAVBAR_HEIGHT } from "@/constants/config"
+import { NAVBAR_HEIGHT } from "@/constants/header"
 import { SITE_BG_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
 

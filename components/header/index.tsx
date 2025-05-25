@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { RetroCanvas } from "./retro-canvas"
 import { RetroNavbar } from "./retro-navbar"
-import { NAVBAR_HEIGHT } from "@/constants/config"
+import { NAVBAR_HEIGHT } from "@/constants/header"
 import { useScrollSpy } from "@/hooks/use-scroll-spy"
 import { NAVIGATION_SECTIONS } from "@/constants/navigation"
 
