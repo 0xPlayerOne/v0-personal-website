@@ -7,7 +7,7 @@ interface UseScrollSpyProps {
   offset?: number
 }
 
-const useScrollSpy = ({ sectionIds, offset = 0 }: UseScrollSpyProps) => {
+export const useScrollSpy = ({ sectionIds, offset = 0 }: UseScrollSpyProps) => {
   const [activeSection, setActiveSection] = useState<string | null>(null)
 
   useEffect(() => {
@@ -39,5 +39,3 @@ const useScrollSpy = ({ sectionIds, offset = 0 }: UseScrollSpyProps) => {
 
   return activeSection
 }
-
-export default useScrollSpy
