@@ -5,7 +5,7 @@ import "@/styles/globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Prompting Is All You Need",
+  title: "AndrewMF",
   description: "A website with a retro game-style header",
     generator: 'v0.dev'
 }
