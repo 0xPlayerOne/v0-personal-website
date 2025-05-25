@@ -80,19 +80,24 @@ export function processPixelCollisions(ball: Ball, pixels: Pixel[], pixelColor: 
       collisionCount++
       createExplosionParticles(pixel, pixelColor, newParticles)
 
-      // Determine bounce direction and move ball out of pixel
+      // Determine bounce direction and maintain speed
       const centerX = pixel.x + pixel.size / 2
       const centerY = pixel.y + pixel.size / 2
       const deltaX = ball.x - centerX
       const deltaY = ball.y - centerY
 
+      // Get current speed magnitude
+      const currentSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy)
+
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal collision
-        ball.dx = deltaX > 0 ? Math.abs(ball.dx) : -Math.abs(ball.dx)
+        // Horizontal collision - reverse X direction, maintain speed
+        ball.dx = deltaX > 0 ? currentSpeed : -currentSpeed
+        ball.dy = ball.dy // Keep Y velocity unchanged
         ball.x = deltaX > 0 ? pixel.x + pixel.size + ball.radius : pixel.x - ball.radius
       } else {
-        // Vertical collision
-        ball.dy = deltaY > 0 ? Math.abs(ball.dy) : -Math.abs(ball.dy)
+        // Vertical collision - reverse Y direction, maintain speed
+        ball.dy = deltaY > 0 ? currentSpeed : -currentSpeed
+        ball.dx = ball.dx // Keep X velocity unchanged
         ball.y = deltaY > 0 ? pixel.y + pixel.size + ball.radius : pixel.y - ball.radius
       }
     }

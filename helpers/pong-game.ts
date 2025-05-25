@@ -64,37 +64,19 @@ function createPaddle(x: number, y: number, width: number, height: number, isVer
 export function updateGameState(gameState: GameState): GameState {
   const { width, height, ball, paddles, pixels, particles, colors, scale } = gameState
 
-  // Normalize ball speed before any updates
-  normalizeBallSpeed(ball, scale)
-
   // Update ball physics
   updateBall(ball, width, height)
 
   // Update paddles and handle collisions
-  updatePaddles(paddles, ball, width, height)
+  updatePaddles(paddles, ball, width, height, gameState)
 
   // Handle pixel collisions and create particles
   const newParticles = processPixelCollisions(ball, pixels, colors.pixel)
-
-  // Normalize speed again after collisions
-  normalizeBallSpeed(ball, scale)
 
   // Update particles with filtering
   const activeParticles = updateAndFilterParticles([...particles, ...newParticles])
 
   return { ...gameState, particles: activeParticles }
-}
-
-function normalizeBallSpeed(ball: Ball, scale: number): void {
-  const targetSpeed = Math.max(0.5, BALL_SPEED_FACTOR * scale)
-  const currentSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy)
-
-  // If speed is too different from target, normalize it
-  if (currentSpeed < targetSpeed * 0.5 || currentSpeed > targetSpeed * 1.5) {
-    const ratio = currentSpeed > 0 ? targetSpeed / currentSpeed : 1
-    ball.dx *= ratio
-    ball.dy *= ratio
-  }
 }
 
 function updateBall(ball: Ball, width: number, height: number): void {
@@ -119,7 +101,7 @@ function updateBall(ball: Ball, width: number, height: number): void {
   }
 }
 
-function updatePaddles(paddles: Paddle[], ball: Ball, width: number, height: number): void {
+function updatePaddles(paddles: Paddle[], ball: Ball, width: number, height: number, gameState: GameState): void {
   for (const paddle of paddles) {
     // Check collision with optimized bounds checking
     const hasCollision = paddle.isVertical
@@ -134,22 +116,22 @@ function updatePaddles(paddles: Paddle[], ball: Ball, width: number, height: num
 
     if (hasCollision) {
       if (paddle.isVertical) {
-        // Move ball out of paddle and reverse direction
+        // Move ball out of paddle and set consistent speed
         if (ball.x < paddle.x + paddle.width / 2) {
-          ball.x = paddle.x - ball.radius - 1 // Extra pixel to prevent re-collision
-          ball.dx = -Math.abs(ball.dx)
+          ball.x = paddle.x - ball.radius - 1
+          ball.dx = -Math.abs(BALL_SPEED_FACTOR * gameState.scale)
         } else {
-          ball.x = paddle.x + paddle.width + ball.radius + 1 // Extra pixel to prevent re-collision
-          ball.dx = Math.abs(ball.dx)
+          ball.x = paddle.x + paddle.width + ball.radius + 1
+          ball.dx = Math.abs(BALL_SPEED_FACTOR * gameState.scale)
         }
       } else {
-        // Move ball out of paddle and reverse direction
+        // Move ball out of paddle and set consistent speed
         if (ball.y < paddle.y + paddle.height / 2) {
-          ball.y = paddle.y - ball.radius - 1 // Extra pixel to prevent re-collision
-          ball.dy = -Math.abs(ball.dy)
+          ball.y = paddle.y - ball.radius - 1
+          ball.dy = -Math.abs(BALL_SPEED_FACTOR * gameState.scale)
         } else {
-          ball.y = paddle.y + paddle.height + ball.radius + 1 // Extra pixel to prevent re-collision
-          ball.dy = Math.abs(ball.dy)
+          ball.y = paddle.y + paddle.height + ball.radius + 1
+          ball.dy = Math.abs(BALL_SPEED_FACTOR * gameState.scale)
         }
       }
     }
