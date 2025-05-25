@@ -8,7 +8,7 @@ import {
   LARGE_PIXEL_SIZE_FACTOR,
 } from "./constants"
 
-export function createGameState(dimensions: PongDimensions, colors: PongColors): GameState {
+export function createGameState(dimensions: PongDimensions, colors: PongColors, headerText: string[]): GameState {
   const { width, height, scale } = dimensions
   const safeScale = Math.max(0.1, scale)
   const safeWidth = Math.max(100, width)
@@ -19,7 +19,7 @@ export function createGameState(dimensions: PongDimensions, colors: PongColors):
     width: safeWidth,
     height: safeHeight,
     scale: safeScale,
-    pixels: generatePixelsFromText(safeWidth, safeHeight, safeScale),
+    pixels: generatePixelsFromText(safeWidth, safeHeight, safeScale, headerText),
     ball: createBall(safeWidth, safeHeight, safeScale),
     paddles: createPaddles(safeWidth, safeHeight, baseSize),
     particles: [],

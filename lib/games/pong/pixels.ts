@@ -1,7 +1,6 @@
 import type { Pixel, Particle, Ball } from "./types"
-import { PIXEL_MAP } from "./pixel-map"
+import { PIXEL_MAP } from "./constants"
 import {
-  HEADER_TEXT,
   LETTER_SPACING,
   WORD_SPACING,
   TEXT_WIDTH_FACTOR,
@@ -19,9 +18,14 @@ import {
   PARTICLE_LIFE_MAX,
 } from "./constants"
 
-export function generatePixelsFromText(canvasWidth: number, canvasHeight: number, scale: number): Pixel[] {
+export function generatePixelsFromText(
+  canvasWidth: number,
+  canvasHeight: number,
+  scale: number,
+  headerText: string[],
+): Pixel[] {
   const pixels: Pixel[] = []
-  const [largeText, smallText] = HEADER_TEXT
+  const [largeText, smallText] = headerText
 
   const largePx = LARGE_PIXEL_SIZE_FACTOR * scale
   const smallPx = SMALL_PIXEL_SIZE_FACTOR * scale

@@ -11,10 +11,11 @@ export type { PongColors, PongDimensions } from "./types"
 interface PongGameProps {
   navbarHeight: number
   colors: PongColors
+  headerText: string[]
   className?: string
 }
 
-export function PongGame({ navbarHeight, colors, className }: PongGameProps) {
+export function PongGame({ navbarHeight, colors, headerText, className }: PongGameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const gameStateRef = useRef<GameState | null>(null)
 
@@ -35,7 +36,7 @@ export function PongGame({ navbarHeight, colors, className }: PongGameProps) {
       canvas.style.height = `${height}px`
 
       // Create/update game state
-      gameStateRef.current = createGameState({ width, height, scale }, colors)
+      gameStateRef.current = createGameState({ width, height, scale }, colors, headerText)
     }
 
     // Initial setup
@@ -60,7 +61,7 @@ export function PongGame({ navbarHeight, colors, className }: PongGameProps) {
       cancelAnimationFrame(animationId)
       window.removeEventListener("resize", handleResize)
     }
-  }, [navbarHeight, colors])
+  }, [navbarHeight, colors, headerText])
 
   return (
     <canvas

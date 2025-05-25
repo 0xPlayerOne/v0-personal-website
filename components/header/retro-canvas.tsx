@@ -9,6 +9,7 @@ export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
     <div className="relative w-full h-full">
       <PongGame
         navbarHeight={navbarHeight}
+        headerText={["ANDREW M-F", "CEO OF NIFTY LEAGUE"]}
         colors={{
           background: CANVAS_COLOR,
           pixel: PIXEL_COLOR,

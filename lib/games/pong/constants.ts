@@ -6,7 +6,6 @@ export const PADDLE_LENGTH_FACTOR = 15
 export const PADDLE_FOLLOW_SPEED = 0.1
 
 // Text rendering
-export const HEADER_TEXT = ["ANDREW M-F", "CEO OF NIFTY LEAGUE"]
 export const LETTER_SPACING = 1
 export const WORD_SPACING = 3
 export const TEXT_WIDTH_FACTOR = 0.8
