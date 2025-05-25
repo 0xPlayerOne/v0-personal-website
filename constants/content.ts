@@ -37,3 +37,31 @@ export const CONTACT_LINKS = [
   { platform: "GitHub", handle: "@0xPlayerOne" },
   { platform: "LinkedIn", handle: "@AMahoneyFernandes" },
 ] as const
+
+export const ABOUT_CONTENT = {
+  intro:
+    "I'm a passionate developer and entrepreneur with a focus on blockchain technology, gaming, and innovative digital experiences. As the CEO of Nifty League, I'm building the future of gaming and NFTs.",
+  mission:
+    "My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+  values: {
+    innovation: {
+      title: "Innovation",
+      description: "Constantly exploring new technologies and pushing creative boundaries.",
+    },
+    leadership: {
+      title: "Leadership",
+      description: "Building and leading teams to create exceptional digital experiences.",
+    },
+    vision: {
+      title: "Vision",
+      description: "Focused on the future of gaming, blockchain, and interactive entertainment.",
+    },
+  },
+} as const
+
+export const CONTACT_CONTENT = {
+  title: "Get In Touch",
+  description:
+    "Interested in collaborating, discussing opportunities, or just want to connect? I'd love to hear from you.",
+  buttonText: "Let's Connect",
+} as const

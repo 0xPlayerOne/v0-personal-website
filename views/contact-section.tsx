@@ -2,17 +2,17 @@ import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
 import { SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
-import { CONTACT_LINKS } from "@/constants/content"
+import { CONTACT_LINKS, CONTACT_CONTENT } from "@/constants/content"
 
 export function ContactSection() {
   return (
     <Section id="contact">
       <Typography variant="h2" align="center" color="primary" gutterBottom>
-        Get In Touch
+        {CONTACT_CONTENT.title}
       </Typography>
       <div className="max-w-4xl mx-auto text-center">
         <Typography variant="body1" align="center" gutterBottom>
-          Interested in collaborating, discussing opportunities, or just want to connect? I'd love to hear from you.
+          {CONTACT_CONTENT.description}
         </Typography>
         <div className={cn("grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12")}>
           {CONTACT_LINKS.map((contact, index) => (
@@ -39,7 +39,7 @@ export function ContactSection() {
             color: CANVAS_COLOR,
           }}
         >
-          Let's Connect
+          {CONTACT_CONTENT.buttonText}
         </button>
       </div>
     </Section>
