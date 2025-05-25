@@ -1,8 +1,8 @@
 import type { TypographyVariant, TypographyAlign, TypographyColor } from "@/types/typography"
 import { SITE_HEADER_COLOR, SITE_SUBHEADER_COLOR, SITE_TEXT_COLOR } from "./colors"
-import type { JSX } from "react"
+import type React from "react"
 
-export const VARIANT_MAPPING: Record<TypographyVariant, keyof JSX.IntrinsicElements> = {
+export const VARIANT_MAPPING: Record<TypographyVariant, React.ElementType> = {
   h1: "h1",
   h2: "h2",
   h3: "h3",
