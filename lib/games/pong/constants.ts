@@ -1,5 +1,5 @@
 // Game physics
-export const BALL_SPEED = 55
+export const BALL_SPEED = 5
 export const BALL_SIZE = 8
 export const PADDLE_WIDTH = 10
 export const PADDLE_LENGTH = 100
