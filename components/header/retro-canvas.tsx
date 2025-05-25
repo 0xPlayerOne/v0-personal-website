@@ -2,6 +2,7 @@
 
 import { PongGame } from "@/lib/games/pong"
 import { CANVAS_COLOR, BALL_COLOR, PIXEL_COLOR, HIT_COLOR, PADDLE_COLOR } from "@/constants/colors"
+import { HEADER_TEXT } from "@/constants/config"
 import type { RetroCanvasProps } from "@/types/components"
 
 export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
@@ -9,7 +10,7 @@ export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
     <div className="relative w-full h-full">
       <PongGame
         navbarHeight={navbarHeight}
-        headerText={["ANDREW M-F", "CEO OF NIFTY LEAGUE"]}
+        headerText={HEADER_TEXT}
         colors={{
           background: CANVAS_COLOR,
           pixel: PIXEL_COLOR,
