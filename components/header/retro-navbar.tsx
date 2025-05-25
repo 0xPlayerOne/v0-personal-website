@@ -2,9 +2,14 @@
 
 import { useState } from "react"
 import { NAV_BG_COLOR, NAV_BORDER_COLOR, NAV_TEXT_COLOR, NAV_HOVER_COLOR } from "@/constants/colors"
-import type { RetroNavbarProps } from "@/types/components"
 import { smoothScrollToSection } from "@/lib/utils"
 import { NAVIGATION_SECTIONS } from "@/constants/navigation"
+
+interface RetroNavbarProps {
+  height: number
+  isSticky?: boolean
+  activeSection?: string
+}
 
 export function RetroNavbar({ height = 100, isSticky = false, activeSection = "" }: RetroNavbarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)

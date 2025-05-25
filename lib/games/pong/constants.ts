@@ -1,4 +1,24 @@
-// 5x5 pixel maps for all letters A-Z and special characters
+// Game physics
+export const BALL_SPEED = 5
+export const BALL_SIZE = 8
+export const PADDLE_WIDTH = 10
+export const PADDLE_LENGTH = 100
+export const PADDLE_SPEED = 0.08
+
+// Text rendering
+export const LETTER_SPACING = 1
+export const WORD_SPACING = 3
+export const LARGE_PIXEL_SIZE = 8
+export const SMALL_PIXEL_SIZE = 4
+export const TEXT_WIDTH_FACTOR = 0.8
+export const TEXT_SPACING_FACTOR = 2
+
+// Particle effects
+export const PARTICLE_COUNT = 8
+export const PARTICLE_LIFE = 40
+export const PARTICLE_DECAY = 0.96
+
+// Pixel map for letters
 export const PIXEL_MAP = {
   A: [
     [0, 1, 1, 0],
@@ -189,7 +209,6 @@ export const PIXEL_MAP = {
     [0, 0, 0],
     [0, 0, 0],
   ],
-  // Special characters
   "-": [
     [0, 0, 0],
     [0, 0, 0],
@@ -203,12 +222,5 @@ export const PIXEL_MAP = {
     [0, 1, 1, 0],
     [1, 0, 0, 1],
     [0, 1, 1, 1],
-  ],
-  "@": [
-    [0, 1, 1, 1, 0],
-    [1, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1],
-    [1, 0, 1, 0, 1],
-    [0, 1, 1, 1, 0],
   ],
 }
