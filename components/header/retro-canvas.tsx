@@ -16,10 +16,10 @@ export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
         headerText={HEADER_TEXT}
         colors={{
           background: CANVAS_COLOR,
-          pixel: PIXEL_COLOR,
-          hitPixel: HIT_COLOR,
           ball: BALL_COLOR,
           paddle: PADDLE_COLOR,
+          pixel: PIXEL_COLOR,
+          hitPixel: HIT_COLOR,
         }}
       />
     </div>
