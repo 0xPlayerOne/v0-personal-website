@@ -30,9 +30,7 @@ export function PongHeader() {
   return (
     <>
       <header className="w-full h-screen flex flex-col">
-        <div className="flex-1">
-          <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
-        </div>
+        <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
         <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSection || ""} />
       </header>
 
