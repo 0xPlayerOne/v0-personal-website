@@ -1,17 +1,6 @@
-import type React from "react"
 import { cn } from "@/lib/utils"
 import { SITE_HEADER_COLOR, SITE_SUBHEADER_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
-
-interface TypographyProps {
-  variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body1" | "body2" | "caption" | "overline"
-  align?: "left" | "center" | "right" | "justify"
-  color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "inherit"
-  className?: string
-  children: React.ReactNode
-  gutterBottom?: boolean
-  component?: React.ElementType
-  [key: string]: any
-}
+import type { TypographyProps } from "@/types/typography"
 
 export function Typography({
   variant = "body1",
