@@ -1,44 +1,50 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef, useState, useEffect } from "react"
+import { usePongGame } from "@/lib/games/pong"
 import { CANVAS_COLOR, BALL_COLOR, PIXEL_COLOR, HIT_COLOR, PADDLE_COLOR } from "@/constants/colors"
-import type { GameState } from "@/types/pong"
 import type { RetroCanvasProps } from "@/types/components"
-import { renderGame } from "@/helpers/pong-canvas"
-import { createGameState, updateGameState } from "@/helpers/pong-game"
-import { useCanvasSetup } from "@/hooks/use-canvas-setup"
 
 export function RetroCanvas({ navbarHeight }: RetroCanvasProps) {
-  const { canvasRef, dimensions, canvasHeight } = useCanvasSetup(navbarHeight)
-  const gameStateRef = useRef<GameState | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0, scale: 1 })
+  const [canvasHeight, setCanvasHeight] = useState(0)
 
+  // Setup canvas dimensions
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas || !dimensions.width) return
+    if (!canvas) return
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const updateDimensions = () => {
+      const width = Math.max(100, window.innerWidth)
+      const height = Math.max(100, window.innerHeight - navbarHeight)
+      const scale = Math.max(0.1, Math.min(width / 1000, height / 600))
 
-    // Create game state with all objects
-    gameStateRef.current = createGameState(dimensions.width, dimensions.height, dimensions.scale, {
-      background: CANVAS_COLOR,
-      pixel: PIXEL_COLOR,
-      hitPixel: HIT_COLOR,
-      ball: BALL_COLOR,
-      paddle: PADDLE_COLOR,
-    })
+      canvas.width = width
+      canvas.height = height
 
-    // Game loop
-    const gameLoop = () => {
-      if (gameStateRef.current) {
-        gameStateRef.current = updateGameState(gameStateRef.current)
-        renderGame(ctx, gameStateRef.current)
-      }
-      requestAnimationFrame(gameLoop)
+      setDimensions({ width, height, scale })
+      setCanvasHeight(height)
     }
 
-    gameLoop()
-  }, [dimensions, navbarHeight])
+    const timeoutId = setTimeout(updateDimensions, 0)
+    const handleResize = () => updateDimensions()
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [navbarHeight])
+
+  // Initialize pong game
+  usePongGame(canvasRef, dimensions, {
+    background: CANVAS_COLOR,
+    pixel: PIXEL_COLOR,
+    hitPixel: HIT_COLOR,
+    ball: BALL_COLOR,
+    paddle: PADDLE_COLOR,
+  })
 
   return (
     <div className="relative w-full h-full">

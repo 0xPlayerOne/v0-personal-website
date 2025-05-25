@@ -1,8 +1,13 @@
-import { PIXEL_MAP } from "@/constants/pixel-map"
+import type { Pixel, Particle, Ball } from "./types"
 import {
+  PIXEL_MAP,
+  HEADER_TEXT,
   LETTER_SPACING,
   WORD_SPACING,
-  HEADER_TEXT,
+  TEXT_WIDTH_FACTOR,
+  LARGE_PIXEL_SIZE_FACTOR,
+  SMALL_PIXEL_SIZE_FACTOR,
+  TEXT_SPACING_FACTOR,
   PARTICLE_DECAY,
   PARTICLE_COUNT_MIN,
   PARTICLE_COUNT_MAX,
@@ -12,18 +17,12 @@ import {
   PARTICLE_SIZE_MAX,
   PARTICLE_LIFE_MIN,
   PARTICLE_LIFE_MAX,
-  TEXT_WIDTH_FACTOR,
-  LARGE_PIXEL_SIZE_FACTOR,
-  SMALL_PIXEL_SIZE_FACTOR,
-  TEXT_SPACING_FACTOR,
-} from "@/constants/config"
-import type { Pixel, Particle, Ball } from "@/types/pong"
+} from "./constants"
 
 export function generatePixelsFromText(canvasWidth: number, canvasHeight: number, scale: number): Pixel[] {
   const pixels: Pixel[] = []
   const [largeText, smallText] = HEADER_TEXT
 
-  // Calculate sizes and scaling
   const largePx = LARGE_PIXEL_SIZE_FACTOR * scale
   const smallPx = SMALL_PIXEL_SIZE_FACTOR * scale
   const largeWidth = getTextWidth(largeText, largePx)
@@ -37,7 +36,6 @@ export function generatePixelsFromText(canvasWidth: number, canvasHeight: number
   const adjustedLargePx = largePx * scaleFactor
   const adjustedSmallPx = smallPx * scaleFactor
 
-  // Calculate positioning
   const largeHeight = TEXT_SPACING_FACTOR * adjustedLargePx
   const spacing = TEXT_SPACING_FACTOR * adjustedLargePx
   const totalHeight = largeHeight + spacing + TEXT_SPACING_FACTOR * adjustedSmallPx
@@ -67,9 +65,8 @@ export function processPixelCollisions(ball: Ball, pixels: Pixel[], pixelColor: 
   let collisionCount = 0
 
   for (const pixel of pixels) {
-    if (pixel.hit || collisionCount > 0) continue // Only allow one collision per frame
+    if (pixel.hit || collisionCount > 0) continue
 
-    // Check collision
     if (
       ball.x + ball.radius > pixel.x &&
       ball.x - ball.radius < pixel.x + pixel.size &&
@@ -80,24 +77,17 @@ export function processPixelCollisions(ball: Ball, pixels: Pixel[], pixelColor: 
       collisionCount++
       createExplosionParticles(pixel, pixelColor, newParticles)
 
-      // Determine bounce direction and maintain speed
       const centerX = pixel.x + pixel.size / 2
       const centerY = pixel.y + pixel.size / 2
       const deltaX = ball.x - centerX
       const deltaY = ball.y - centerY
-
-      // Get current speed magnitude
       const currentSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy)
 
       if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal collision - reverse X direction, maintain speed
         ball.dx = deltaX > 0 ? currentSpeed : -currentSpeed
-        ball.dy = ball.dy // Keep Y velocity unchanged
         ball.x = deltaX > 0 ? pixel.x + pixel.size + ball.radius : pixel.x - ball.radius
       } else {
-        // Vertical collision - reverse Y direction, maintain speed
         ball.dy = deltaY > 0 ? currentSpeed : -currentSpeed
-        ball.dx = ball.dx // Keep X velocity unchanged
         ball.y = deltaY > 0 ? pixel.y + pixel.size + ball.radius : pixel.y - ball.radius
       }
     }
@@ -107,22 +97,15 @@ export function processPixelCollisions(ball: Ball, pixels: Pixel[], pixelColor: 
 }
 
 export function updateAndFilterParticles(particles: Particle[]): Particle[] {
-  const activeParticles: Particle[] = []
-
-  for (const particle of particles) {
+  return particles.filter((particle) => {
     particle.x += particle.dx
     particle.y += particle.dy
     particle.life++
     particle.alpha = 1 - particle.life / particle.maxLife
     particle.dx *= PARTICLE_DECAY
     particle.dy *= PARTICLE_DECAY
-
-    if (particle.life < particle.maxLife) {
-      activeParticles.push(particle)
-    }
-  }
-
-  return activeParticles
+    return particle.life < particle.maxLife
+  })
 }
 
 function createExplosionParticles(pixel: Pixel, color: string, particles: Particle[]): void {
