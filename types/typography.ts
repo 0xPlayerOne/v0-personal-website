@@ -10,7 +10,7 @@ export interface TypographyProps {
   variant?: TypographyVariant
   align?: TypographyAlign
   color?: TypographyColor
-  component?: keyof JSX.IntrinsicElements
+  component?: React.ElementType
   className?: string
   style?: React.CSSProperties
   children: React.ReactNode

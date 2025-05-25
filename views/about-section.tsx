@@ -1,6 +1,7 @@
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
 import { SITE_BORDER_COLOR } from "@/constants/colors"
+import { cn } from "@/lib/utils"
 
 export function AboutSection() {
   return (
@@ -17,8 +18,8 @@ export function AboutSection() {
           My journey combines technical expertise with business acumen, creating products that push the boundaries of
           what's possible in the digital space.
         </Typography>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
-          <div className="text-center p-4 sm:p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
+        <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12")}>
+          <div className={cn("text-center p-4 sm:p-6 rounded-lg")} style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
             <Typography variant="h3" align="center" color="secondary" gutterBottom>
               Innovation
             </Typography>
@@ -26,7 +27,7 @@ export function AboutSection() {
               Constantly exploring new technologies and pushing creative boundaries.
             </Typography>
           </div>
-          <div className="text-center p-4 sm:p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
+          <div className={cn("text-center p-4 sm:p-6 rounded-lg")} style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
             <Typography variant="h3" align="center" color="secondary" gutterBottom>
               Leadership
             </Typography>
@@ -34,7 +35,7 @@ export function AboutSection() {
               Building and leading teams to create exceptional digital experiences.
             </Typography>
           </div>
-          <div className="text-center p-4 sm:p-6 rounded-lg" style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
+          <div className={cn("text-center p-4 sm:p-6 rounded-lg")} style={{ border: `1px solid ${SITE_BORDER_COLOR}` }}>
             <Typography variant="h3" align="center" color="secondary" gutterBottom>
               Vision
             </Typography>
