@@ -25,7 +25,7 @@ export function PongGame({ navbarHeight, colors, headerText, className }: PongGa
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const resize = () => {
+    const updateCanvasSize = () => {
       const width = window.innerWidth
       const height = window.innerHeight - navbarHeight
 
@@ -33,10 +33,60 @@ export function PongGame({ navbarHeight, colors, headerText, className }: PongGa
       canvas.height = height
       canvas.style.height = `${height}px`
 
-      gameRef.current = createGame(width, height, colors, headerText)
+      // Only create new game if it doesn't exist
+      if (!gameRef.current) {
+        gameRef.current = createGame(width, height, colors, headerText)
+      } else {
+        // Update existing game dimensions without resetting state
+        const oldWidth = gameRef.current.width
+        const oldHeight = gameRef.current.height
+        const scaleX = width / oldWidth
+        const scaleY = height / oldHeight
+
+        // Update game dimensions
+        gameRef.current.width = width
+        gameRef.current.height = height
+        gameRef.current.scale = Math.min(width / 1000, height / 600)
+
+        // Scale ball position
+        gameRef.current.ball.x *= scaleX
+        gameRef.current.ball.y *= scaleY
+
+        // Scale paddle positions
+        for (const paddle of gameRef.current.paddles) {
+          paddle.x *= scaleX
+          paddle.y *= scaleY
+          paddle.targetX *= scaleX
+          paddle.targetY *= scaleY
+
+          // Update paddle sizes based on new scale
+          const newScale = gameRef.current.scale
+          if (paddle.isVertical) {
+            paddle.width = Math.max(4, 10 * newScale)
+            paddle.height = Math.max(20, 100 * newScale)
+          } else {
+            paddle.width = Math.max(20, 100 * newScale)
+            paddle.height = Math.max(4, 10 * newScale)
+          }
+        }
+
+        // Scale pixel positions and sizes
+        for (const pixel of gameRef.current.pixels) {
+          pixel.x *= scaleX
+          pixel.y *= scaleY
+          pixel.size *= Math.min(scaleX, scaleY)
+        }
+
+        // Scale particle positions
+        for (const particle of gameRef.current.particles) {
+          particle.x *= scaleX
+          particle.y *= scaleY
+        }
+      }
     }
 
-    resize()
+    // Initial setup
+    updateCanvasSize()
 
     let animationId: number
     const loop = () => {
@@ -48,10 +98,11 @@ export function PongGame({ navbarHeight, colors, headerText, className }: PongGa
     }
     loop()
 
-    window.addEventListener("resize", resize)
+    // Handle resize without recreating the game
+    window.addEventListener("resize", updateCanvasSize)
     return () => {
       cancelAnimationFrame(animationId)
-      window.removeEventListener("resize", resize)
+      window.removeEventListener("resize", updateCanvasSize)
     }
   }, [navbarHeight, colors, headerText])
 
