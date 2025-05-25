@@ -1,8 +1,8 @@
 // Game physics
 export const BALL_SPEED = 3
-export const BALL_SIZE = 12
-export const PADDLE_WIDTH = 8
-export const PADDLE_LENGTH = 80
+export const BALL_SIZE = 8
+export const PADDLE_WIDTH = 10
+export const PADDLE_LENGTH = 100
 export const PADDLE_SPEED = 0.08
 
 // Text rendering
