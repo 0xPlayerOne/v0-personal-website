@@ -1,2 +1,2 @@
-export { usePongGame } from "./hooks/use-pong-game"
+export { usePongGame } from "./use-pong-game"
 export type { PongColors, PongDimensions } from "./types"
