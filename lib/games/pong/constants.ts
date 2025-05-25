@@ -1,28 +1,19 @@
 // Game physics
-export const BALL_SPEED_FACTOR = 5
-export const BALL_SIZE_FACTOR = 0.9
-export const PADDLE_WIDTH_FACTOR = 1.5
-export const PADDLE_LENGTH_FACTOR = 15
-export const PADDLE_FOLLOW_SPEED = 0.1
+export const BALL_SPEED = 3
+export const BALL_SIZE = 8
+export const PADDLE_SIZE = 12
+export const PADDLE_SPEED = 0.08
 
 // Text rendering
 export const LETTER_SPACING = 1
 export const WORD_SPACING = 3
-export const TEXT_WIDTH_FACTOR = 0.8
-export const TEXT_SPACING_FACTOR = 5
-export const LARGE_PIXEL_SIZE_FACTOR = 8
-export const SMALL_PIXEL_SIZE_FACTOR = 4
+export const LARGE_PIXEL_SIZE = 6
+export const SMALL_PIXEL_SIZE = 3
 
 // Particle effects
-export const PARTICLE_DECAY = 0.95
-export const PARTICLE_COUNT_MIN = 5
-export const PARTICLE_COUNT_MAX = 10
-export const PARTICLE_SPEED_MIN = 0.5
-export const PARTICLE_SPEED_MAX = 1.0
-export const PARTICLE_SIZE_MIN = 0.2
-export const PARTICLE_SIZE_MAX = 0.5
-export const PARTICLE_LIFE_MIN = 30
-export const PARTICLE_LIFE_MAX = 50
+export const PARTICLE_COUNT = 8
+export const PARTICLE_LIFE = 40
+export const PARTICLE_DECAY = 0.96
 
 // Pixel map for letters
 export const PIXEL_MAP = {

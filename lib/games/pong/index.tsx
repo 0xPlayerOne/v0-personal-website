@@ -2,11 +2,10 @@
 
 import { useEffect, useRef } from "react"
 import type { GameState, PongColors } from "./types"
-import { createGameState } from "./game-state"
-import { updateGameState } from "./physics"
-import { renderGame } from "./renderer"
+import { createGame, updateGame } from "./game"
+import { render } from "./renderer"
 
-export type { PongColors, PongDimensions } from "./types"
+export type { PongColors } from "./types"
 
 interface PongGameProps {
   navbarHeight: number
@@ -17,7 +16,7 @@ interface PongGameProps {
 
 export function PongGame({ navbarHeight, colors, headerText, className }: PongGameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const gameStateRef = useRef<GameState | null>(null)
+  const gameRef = useRef<GameState | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -26,40 +25,33 @@ export function PongGame({ navbarHeight, colors, headerText, className }: PongGa
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const updateDimensions = () => {
-      const width = Math.max(100, window.innerWidth)
-      const height = Math.max(100, window.innerHeight - navbarHeight)
-      const scale = Math.max(0.1, Math.min(width / 1000, height / 600))
+    const resize = () => {
+      const width = window.innerWidth
+      const height = window.innerHeight - navbarHeight
 
       canvas.width = width
       canvas.height = height
       canvas.style.height = `${height}px`
 
-      // Create/update game state
-      gameStateRef.current = createGameState({ width, height, scale }, colors, headerText)
+      gameRef.current = createGame(width, height, colors, headerText)
     }
 
-    // Initial setup
-    updateDimensions()
+    resize()
 
-    // Game loop
     let animationId: number
-    const gameLoop = () => {
-      if (gameStateRef.current) {
-        gameStateRef.current = updateGameState(gameStateRef.current)
-        renderGame(ctx, gameStateRef.current)
+    const loop = () => {
+      if (gameRef.current) {
+        gameRef.current = updateGame(gameRef.current)
+        render(ctx, gameRef.current)
       }
-      animationId = requestAnimationFrame(gameLoop)
+      animationId = requestAnimationFrame(loop)
     }
-    gameLoop()
+    loop()
 
-    // Handle resize
-    const handleResize = () => updateDimensions()
-    window.addEventListener("resize", handleResize)
-
+    window.addEventListener("resize", resize)
     return () => {
       cancelAnimationFrame(animationId)
-      window.removeEventListener("resize", handleResize)
+      window.removeEventListener("resize", resize)
     }
   }, [navbarHeight, colors, headerText])
 
