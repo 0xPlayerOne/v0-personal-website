@@ -38,19 +38,19 @@ export const SKILLS_DATA = [
   {
     category: "Leadership",
     skills: [
-      { name: "Engineering Management", level: 98 },
-      { name: "Team Building", level: 95 },
-      { name: "Strategy", level: 90 },
-      { name: "Startup Scaling", level: 88 },
+      { name: "Team Building", level: 78 },
+      { name: "Engineering Management", level: 82 },
+      { name: "Strategy", level: 88 },
+      { name: "Startup Scaling", level: 83 },
     ],
   },
   {
     category: "Product",
     skills: [
-      { name: "UI/UX Design", level: 85 },
-      { name: "Product Management", level: 90 },
-      { name: "Agile/Scrum", level: 80 },
-      { name: "User Research / Testing", level: 92 },
+      { name: "Product Management", level: 75 },
+      { name: "UI/UX Design", level: 79 },
+      { name: "Agile & Scrum", level: 88 },
+      { name: "User Research & Testing", level: 84 },
     ],
   },
 ] as const

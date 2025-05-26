@@ -11,7 +11,7 @@ import { Code2, Gamepad2, Users, Briefcase, Palette, Blocks } from "lucide-react
 const SKILL_ICONS = {
   "Web & Full-Stack": Code2,
   "Game Development": Gamepad2,
-  "Blockchain & Web3": Blocks,
+  "Blockchain / Web3": Blocks,
   Leadership: Users,
   Business: Briefcase,
   Product: Palette,
