@@ -92,48 +92,52 @@ export const ABOUT_CONTENT = {
   mission:
     "My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
   stats: [
-    { label: "Years Experience", value: "10+", icon: "⚡" },
-    { label: "Projects Shipped", value: "50+", icon: "🚀" },
-    { label: "Team Members Led", value: "20+", icon: "👥" },
-    { label: "Startups Founded", value: "3", icon: "💻" },
+    { label: "Years Experience", value: "10+", icon: "zap" },
+    { label: "Projects Shipped", value: "50+", icon: "rocket" },
+    { label: "Team Members Led", value: "20+", icon: "users" },
+    { label: "Startups Founded", value: "3", icon: "building" },
   ],
   journey: [
     {
       year: "2015",
       title: "Started Coding",
       description: "Began my journey with web development and fell in love with creating digital experiences.",
+      icon: "code",
     },
     {
       year: "2017",
       title: "Blockchain Roots",
       description: "Dove deep into blockchain technology and built several GPU mining rigs for Ethereum.",
+      icon: "blocks",
     },
     {
       year: "2018",
       title: "First 2 Startups",
       description: "Co-founded my first tech startups, learning the ropes of entrepreneurship and product development.",
+      icon: "lightbulb",
     },
     {
       year: "2021",
       title: "Founded Nifty League",
       description: "Launched Nifty League, combining my passion for gaming with cutting-edge Web3 technology.",
+      icon: "gamepad2",
     },
   ],
   values: {
     innovation: {
       title: "Innovation",
       description: "Constantly exploring new technologies and pushing creative boundaries.",
-      icon: "🔬",
+      icon: "flask",
     },
     leadership: {
       title: "Leadership",
       description: "Building and leading teams to create exceptional digital experiences.",
-      icon: "🎯",
+      icon: "target",
     },
     vision: {
       title: "Vision",
       description: "Focused on the future of technology, and interactive entertainment.",
-      icon: "🔮",
+      icon: "eye",
     },
   },
 } as const

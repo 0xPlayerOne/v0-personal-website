@@ -8,6 +8,33 @@ import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, SITE_TEXT_COLOR } f
 import { cn } from "@/lib/utils"
 import { ABOUT_CONTENT } from "@/constants/content"
 import { useState } from "react"
+import {
+  Zap,
+  Rocket,
+  Users,
+  Building,
+  Code,
+  Blocks,
+  Lightbulb,
+  Gamepad2,
+  FlaskRoundIcon as Flask,
+  Target,
+  Eye,
+} from "lucide-react"
+
+const ICON_MAP = {
+  zap: Zap,
+  rocket: Rocket,
+  users: Users,
+  building: Building,
+  code: Code,
+  blocks: Blocks,
+  lightbulb: Lightbulb,
+  gamepad2: Gamepad2,
+  flask: Flask,
+  target: Target,
+  eye: Eye,
+} as const
 
 export function AboutSection() {
   const [activeTab, setActiveTab] = useState<"overview" | "journey" | "stats">("overview")
@@ -58,31 +85,43 @@ export function AboutSection() {
             </div>
 
             <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8")}>
-              {Object.entries(ABOUT_CONTENT.values).map(([key, value]) => (
-                <Card
-                  key={key}
-                  className="group transition-all duration-300 hover:scale-105 cursor-pointer"
-                  style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = `0 0 20px ${SITE_BTN_COLOR}40`
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "none"
-                  }}
-                >
-                  <CardContent className="text-center p-6">
-                    <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                      {value.icon}
-                    </div>
-                    <Typography variant="h3" align="center" color="secondary" gutterBottom>
-                      {value.title}
-                    </Typography>
-                    <Typography variant="body2" align="center">
-                      {value.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              ))}
+              {Object.entries(ABOUT_CONTENT.values).map(([key, value]) => {
+                const IconComponent = ICON_MAP[value.icon as keyof typeof ICON_MAP]
+                return (
+                  <Card
+                    key={key}
+                    className="group transition-all duration-300 hover:scale-105 cursor-pointer"
+                    style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = `0 0 20px ${SITE_BTN_COLOR}40`
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = "none"
+                    }}
+                  >
+                    <CardContent className="text-center p-6">
+                      <div className="mb-4 flex justify-center">
+                        <div
+                          className="p-3 rounded-lg group-hover:scale-110 transition-transform duration-300"
+                          style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                        >
+                          <IconComponent
+                            size={32}
+                            style={{ color: SITE_BTN_COLOR }}
+                            className="transition-transform duration-300 group-hover:rotate-12"
+                          />
+                        </div>
+                      </div>
+                      <Typography variant="h3" align="center" color="secondary" gutterBottom>
+                        {value.title}
+                      </Typography>
+                      <Typography variant="body2" align="center">
+                        {value.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                )
+              })}
             </div>
           </div>
         )}
@@ -95,39 +134,44 @@ export function AboutSection() {
               <div className="absolute left-8 top-0 bottom-0 w-0.5" style={{ backgroundColor: SITE_BORDER_COLOR }} />
 
               <div className="space-y-8">
-                {ABOUT_CONTENT.journey.map((item, index) => (
-                  <div key={index} className="relative flex items-start gap-6">
-                    {/* Timeline dot */}
-                    <div
-                      className="w-4 h-4 rounded-full border-2 flex-shrink-0 mt-2"
-                      style={{
-                        backgroundColor: SITE_BTN_COLOR,
-                        borderColor: SITE_BORDER_COLOR,
-                        boxShadow: `0 0 10px ${SITE_BTN_COLOR}60`,
-                      }}
-                    />
+                {ABOUT_CONTENT.journey.map((item, index) => {
+                  const IconComponent = ICON_MAP[item.icon as keyof typeof ICON_MAP]
+                  return (
+                    <div key={index} className="relative flex items-start gap-6">
+                      {/* Timeline dot with icon */}
+                      <div
+                        className="w-16 h-16 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
+                        style={{
+                          backgroundColor: SITE_CARD_COLOR,
+                          borderColor: SITE_BORDER_COLOR,
+                          boxShadow: `0 0 10px ${SITE_BTN_COLOR}60`,
+                        }}
+                      >
+                        <IconComponent size={24} style={{ color: SITE_BTN_COLOR }} />
+                      </div>
 
-                    <Card
-                      className="flex-1 group transition-all duration-300 hover:scale-102"
-                      style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-3 mb-2">
-                          <Badge
-                            variant="secondary"
-                            style={{ backgroundColor: SITE_BTN_COLOR, color: SITE_CARD_COLOR }}
-                          >
-                            {item.year}
-                          </Badge>
-                          <Typography variant="h3" color="secondary">
-                            {item.title}
-                          </Typography>
-                        </div>
-                        <Typography variant="body2">{item.description}</Typography>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
+                      <Card
+                        className="flex-1 group transition-all duration-300 hover:scale-102"
+                        style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                      >
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-3 mb-2">
+                            <Badge
+                              variant="secondary"
+                              style={{ backgroundColor: SITE_BTN_COLOR, color: SITE_CARD_COLOR }}
+                            >
+                              {item.year}
+                            </Badge>
+                            <Typography variant="h3" color="secondary">
+                              {item.title}
+                            </Typography>
+                          </div>
+                          <Typography variant="body2">{item.description}</Typography>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -136,36 +180,48 @@ export function AboutSection() {
         {/* Stats Tab */}
         {activeTab === "stats" && (
           <div className={cn("grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8")}>
-            {ABOUT_CONTENT.stats.map((stat, index) => (
-              <Card
-                key={index}
-                className="group transition-all duration-300 hover:scale-110 cursor-pointer"
-                style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 25px ${SITE_BTN_COLOR}50`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "none"
-                }}
-              >
-                <CardContent className="text-center p-6">
-                  <div className="text-4xl mb-3 group-hover:scale-125 transition-transform duration-300">
-                    {stat.icon}
-                  </div>
-                  <Typography
-                    variant="h2"
-                    align="center"
-                    color="primary"
-                    className="mb-2 group-hover:text-glow transition-all duration-300"
-                  >
-                    {stat.value}
-                  </Typography>
-                  <Typography variant="body2" align="center" color="secondary">
-                    {stat.label}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
+            {ABOUT_CONTENT.stats.map((stat, index) => {
+              const IconComponent = ICON_MAP[stat.icon as keyof typeof ICON_MAP]
+              return (
+                <Card
+                  key={index}
+                  className="group transition-all duration-300 hover:scale-110 cursor-pointer"
+                  style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 25px ${SITE_BTN_COLOR}50`
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "none"
+                  }}
+                >
+                  <CardContent className="text-center p-6">
+                    <div className="mb-4 flex justify-center">
+                      <div
+                        className="p-3 rounded-lg group-hover:scale-125 transition-transform duration-300"
+                        style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                      >
+                        <IconComponent
+                          size={32}
+                          style={{ color: SITE_BTN_COLOR }}
+                          className="transition-transform duration-300 group-hover:rotate-12"
+                        />
+                      </div>
+                    </div>
+                    <Typography
+                      variant="h2"
+                      align="center"
+                      color="primary"
+                      className="mb-2 group-hover:text-glow transition-all duration-300"
+                    >
+                      {stat.value}
+                    </Typography>
+                    <Typography variant="body2" align="center" color="secondary">
+                      {stat.label}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
         )}
       </div>
