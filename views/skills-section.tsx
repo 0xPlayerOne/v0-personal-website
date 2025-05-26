@@ -12,8 +12,8 @@ const SKILL_ICONS = {
   "Web & Full-Stack": Code2,
   "Game Development": Gamepad2,
   "Blockchain / Web3": Blocks,
-  Leadership: Users,
   Business: Briefcase,
+  Leadership: Users,
   Product: Palette,
 } as const
 
@@ -107,7 +107,7 @@ export function SkillsSection() {
 
                   <div className="mt-4 pt-4 border-t" style={{ borderColor: `${SITE_BORDER_COLOR}40` }}>
                     <div className="flex items-center justify-between text-xs">
-                      <span style={{ color: SITE_TEXT_COLOR }}>{skillGroup.skills.length} skills</span>
+                      <span style={{ color: SITE_TEXT_COLOR }}>{skillGroup.skills.length} core skills</span>
                       <span
                         className="px-2 py-1 rounded font-mono"
                         style={{
