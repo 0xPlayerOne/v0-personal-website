@@ -1,55 +1,173 @@
+"use client"
+
 import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
 import { Card, CardContent } from "@/components/ui/card"
-import { SITE_CARD_COLOR, SITE_BORDER_COLOR } from "@/constants/colors"
+import { Badge } from "@/components/ui/badge"
+import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
 import { ABOUT_CONTENT } from "@/constants/content"
+import { useState } from "react"
 
 export function AboutSection() {
+  const [activeTab, setActiveTab] = useState<"overview" | "journey" | "stats">("overview")
+
   return (
     <Section id="about">
       <Typography variant="h2" align="center" color="primary" gutterBottom>
         About Me
       </Typography>
-      <div className="max-w-4xl mx-auto">
-        <Typography variant="body1" align="center" gutterBottom>
-          {ABOUT_CONTENT.intro}
-        </Typography>
-        <Typography variant="body1" align="center" gutterBottom>
-          {ABOUT_CONTENT.mission}
-        </Typography>
-        <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12")}>
-          <Card style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
-            <CardContent className="text-center p-4 sm:p-6">
-              <Typography variant="h3" align="center" color="secondary" gutterBottom>
-                {ABOUT_CONTENT.values.innovation.title}
-              </Typography>
-              <Typography variant="body2" align="center">
-                {ABOUT_CONTENT.values.innovation.description}
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
-            <CardContent className="text-center p-4 sm:p-6">
-              <Typography variant="h3" align="center" color="secondary" gutterBottom>
-                {ABOUT_CONTENT.values.leadership.title}
-              </Typography>
-              <Typography variant="body2" align="center">
-                {ABOUT_CONTENT.values.leadership.description}
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
-            <CardContent className="text-center p-4 sm:p-6">
-              <Typography variant="h3" align="center" color="secondary" gutterBottom>
-                {ABOUT_CONTENT.values.vision.title}
-              </Typography>
-              <Typography variant="body2" align="center">
-                {ABOUT_CONTENT.values.vision.description}
-              </Typography>
-            </CardContent>
-          </Card>
+
+      {/* Tab Navigation */}
+      <div className="flex justify-center mb-8">
+        <div className="flex gap-2 p-1 rounded-lg" style={{ backgroundColor: `${SITE_CARD_COLOR}80` }}>
+          {[
+            { id: "overview", label: "Overview" },
+            { id: "journey", label: "Journey" },
+            { id: "stats", label: "Stats" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as typeof activeTab)}
+              className={cn(
+                "px-4 py-2 rounded-md text-sm font-medium transition-all duration-300",
+                activeTab === tab.id ? "scale-105" : "hover:scale-102",
+              )}
+              style={{
+                backgroundColor: activeTab === tab.id ? SITE_BTN_COLOR : "transparent",
+                color: activeTab === tab.id ? SITE_CARD_COLOR : SITE_TEXT_COLOR,
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto">
+        {/* Overview Tab */}
+        {activeTab === "overview" && (
+          <div className="space-y-8">
+            <div className="text-center max-w-4xl mx-auto">
+              <Typography variant="body1" align="center" gutterBottom>
+                {ABOUT_CONTENT.intro}
+              </Typography>
+              <Typography variant="body1" align="center" gutterBottom>
+                {ABOUT_CONTENT.mission}
+              </Typography>
+            </div>
+
+            <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8")}>
+              {Object.entries(ABOUT_CONTENT.values).map(([key, value]) => (
+                <Card
+                  key={key}
+                  className="group transition-all duration-300 hover:scale-105 cursor-pointer"
+                  style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 20px ${SITE_BTN_COLOR}40`
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "none"
+                  }}
+                >
+                  <CardContent className="text-center p-6">
+                    <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                      {value.icon}
+                    </div>
+                    <Typography variant="h3" align="center" color="secondary" gutterBottom>
+                      {value.title}
+                    </Typography>
+                    <Typography variant="body2" align="center">
+                      {value.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Journey Tab */}
+        {activeTab === "journey" && (
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5" style={{ backgroundColor: SITE_BORDER_COLOR }} />
+
+              <div className="space-y-8">
+                {ABOUT_CONTENT.journey.map((item, index) => (
+                  <div key={index} className="relative flex items-start gap-6">
+                    {/* Timeline dot */}
+                    <div
+                      className="w-4 h-4 rounded-full border-2 flex-shrink-0 mt-2"
+                      style={{
+                        backgroundColor: SITE_BTN_COLOR,
+                        borderColor: SITE_BORDER_COLOR,
+                        boxShadow: `0 0 10px ${SITE_BTN_COLOR}60`,
+                      }}
+                    />
+
+                    <Card
+                      className="flex-1 group transition-all duration-300 hover:scale-102"
+                      style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Badge
+                            variant="secondary"
+                            style={{ backgroundColor: SITE_BTN_COLOR, color: SITE_CARD_COLOR }}
+                          >
+                            {item.year}
+                          </Badge>
+                          <Typography variant="h3" color="secondary">
+                            {item.title}
+                          </Typography>
+                        </div>
+                        <Typography variant="body2">{item.description}</Typography>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Stats Tab */}
+        {activeTab === "stats" && (
+          <div className={cn("grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8")}>
+            {ABOUT_CONTENT.stats.map((stat, index) => (
+              <Card
+                key={index}
+                className="group transition-all duration-300 hover:scale-110 cursor-pointer"
+                style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 25px ${SITE_BTN_COLOR}50`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none"
+                }}
+              >
+                <CardContent className="text-center p-6">
+                  <div className="text-4xl mb-3 group-hover:scale-125 transition-transform duration-300">
+                    {stat.icon}
+                  </div>
+                  <Typography
+                    variant="h2"
+                    align="center"
+                    color="primary"
+                    className="mb-2 group-hover:text-glow transition-all duration-300"
+                  >
+                    {stat.value}
+                  </Typography>
+                  <Typography variant="body2" align="center" color="secondary">
+                    {stat.label}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </Section>
   )
