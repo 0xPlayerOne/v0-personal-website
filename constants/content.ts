@@ -11,14 +11,14 @@ export const SKILLS_DATA = [
   {
     category: "Game Development",
     skills: [
-      { name: "Unity / C#", level: 75 },
+      { name: "Unity & C#", level: 75 },
       { name: "Game UI/UX", level: 90 },
       { name: "DevOps / LiveOps", level: 83 },
       { name: "Systems & Economy Design", level: 86 },
     ],
   },
   {
-    category: "Web3 & Blockchain",
+    category: "Blockchain / Web3",
     skills: [
       { name: "Solidity (Smart Contracts)", level: 84 },
       { name: "NFTs & Digital Assets", level: 92 },
