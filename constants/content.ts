@@ -18,7 +18,7 @@ export const SKILLS_DATA = [
     ],
   },
   {
-    category: "Blockchain",
+    category: "Web3 & Blockchain",
     skills: [
       { name: "Solidity (Smart Contracts)", level: 84 },
       { name: "NFTs & Digital Assets", level: 92 },
