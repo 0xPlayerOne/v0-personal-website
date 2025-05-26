@@ -9,12 +9,12 @@ export const SKILLS_DATA = [
     ],
   },
   {
-    category: "Gaming",
+    category: "Game Development",
     skills: [
-      { name: "Unity / C#", level: 78 },
-      { name: "Game UI/UX", level: 92 },
+      { name: "Unity / C#", level: 75 },
+      { name: "Game UI/UX", level: 90 },
       { name: "DevOps / LiveOps", level: 83 },
-      { name: "Systems & Economy Design", level: 88 },
+      { name: "Systems & Economy Design", level: 86 },
     ],
   },
   {
@@ -27,30 +27,30 @@ export const SKILLS_DATA = [
     ],
   },
   {
-    category: "Leadership",
+    category: "Business",
     skills: [
-      { name: "Team Building", level: 95 },
-      { name: "Strategy", level: 90 },
-      { name: "Product Management", level: 88 },
-      { name: "Vision", level: 98 },
+      { name: "Operations", level: 90 },
+      { name: "Fundraising", level: 86 },
+      { name: "Partnerships", level: 78 },
+      { name: "Marketing", level: 60 },
     ],
   },
   {
-    category: "Business",
+    category: "Leadership",
     skills: [
-      { name: "Operations", level: 80 },
-      { name: "Fundraising", level: 92 },
-      { name: "Partnerships", level: 88 },
-      { name: "Marketing", level: 75 },
+      { name: "Engineering Management", level: 98 },
+      { name: "Team Building", level: 95 },
+      { name: "Strategy", level: 90 },
+      { name: "Startup Scaling", level: 88 },
     ],
   },
   {
     category: "Product",
     skills: [
       { name: "UI/UX Design", level: 85 },
-      { name: "Pixel Art", level: 90 },
-      { name: "Branding", level: 80 },
-      { name: "Creative Direction", level: 92 },
+      { name: "Product Management", level: 90 },
+      { name: "Agile/Scrum", level: 80 },
+      { name: "User Research / Testing", level: 92 },
     ],
   },
 ] as const
