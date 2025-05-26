@@ -27,3 +27,7 @@ export const SITE_TEXT_COLOR = LIGHT_GREEN
 export const SITE_BORDER_COLOR = NEON_PURPLE
 export const SITE_BTN_COLOR = LIGHT_PURPLE
 export const SITE_LINK_COLOR = LIGHT_PURPLE
+export const SITE_CARD_COLOR = BG
+
+// Export individual colors for more granular use
+// export const NEON_GREEN = NEON_GREEN

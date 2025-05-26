@@ -107,14 +107,20 @@ export function updateGame(game: GameState): GameState {
   // Update paddles
   for (const paddle of game.paddles) {
     if (paddle.isVertical) {
-      paddle.targetY = Math.max(0, Math.min(game.height - paddle.height, game.ball.y - paddle.height / 2))
+      // Aim to hit ball with a position that's 1/3 from the center towards the ball's direction
+      const paddleCenter = paddle.height / 2
+      const offset = paddleCenter * 0.33 * (game.ball.dy > 0 ? 1 : -1)
+      paddle.targetY = Math.max(0, Math.min(game.height - paddle.height, game.ball.y - paddleCenter - offset))
       paddle.y += (paddle.targetY - paddle.y) * PADDLE_SPEED
     } else {
-      paddle.targetX = Math.max(0, Math.min(game.width - paddle.width, game.ball.x - paddle.width / 2))
+      // Aim to hit ball with a position that's 1/3 from the center towards the ball's direction
+      const paddleCenter = paddle.width / 2
+      const offset = paddleCenter * 0.33 * (game.ball.dx > 0 ? 1 : -1)
+      paddle.targetX = Math.max(0, Math.min(game.width - paddle.width, game.ball.x - paddleCenter - offset))
       paddle.x += (paddle.targetX - paddle.x) * PADDLE_SPEED
     }
 
-    // Paddle collision - just reverse direction, keep speed
+    // Paddle collision - restore original collision detection
     if (
       game.ball.x + game.ball.radius > paddle.x &&
       game.ball.x - game.ball.radius < paddle.x + paddle.width &&

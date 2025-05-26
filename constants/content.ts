@@ -1,10 +1,58 @@
 export const SKILLS_DATA = [
-  { category: "Blockchain", skills: ["Solidity", "Web3", "NFTs", "DeFi", "Smart Contracts"] },
-  { category: "Development", skills: ["React", "TypeScript", "Node.js", "Python", "Next.js"] },
-  { category: "Gaming", skills: ["Unity", "Game Design", "Tokenomics", "P2E", "Metaverse"] },
-  { category: "Leadership", skills: ["Team Building", "Strategy", "Product Management", "Vision"] },
-  { category: "Business", skills: ["Fundraising", "Partnerships", "Marketing", "Operations"] },
-  { category: "Design", skills: ["UI/UX", "Pixel Art", "Branding", "Creative Direction"] },
+  {
+    category: "Web & Full-Stack",
+    skills: [
+      { name: "React / Next.js", level: 95 },
+      { name: "TypeScript / JavaScript", level: 95 },
+      { name: "Node.js (Express/Fastify)", level: 80 },
+      { name: "Python (FastAPI/Django)", level: 65 },
+    ],
+  },
+  {
+    category: "Game Development",
+    skills: [
+      { name: "Unity & C#", level: 65 },
+      { name: "Game UI/UX", level: 80 },
+      { name: "DevOps / LiveOps", level: 69 },
+      { name: "Systems & Economy Design", level: 78 },
+    ],
+  },
+  {
+    category: "Blockchain / Web3",
+    skills: [
+      { name: "Solidity (Smart Contracts)", level: 82 },
+      { name: "NFTs & Digital Assets", level: 90 },
+      { name: "DeFi & Tokenomics", level: 75 },
+      { name: "DAOs & Governance", level: 85 },
+    ],
+  },
+  {
+    category: "Business",
+    skills: [
+      { name: "Operations", level: 90 },
+      { name: "Fundraising", level: 84 },
+      { name: "Partnerships", level: 75 },
+      { name: "Marketing", level: 60 },
+    ],
+  },
+  {
+    category: "Leadership",
+    skills: [
+      { name: "Team Building", level: 70 },
+      { name: "Engineering Management", level: 78 },
+      { name: "Strategy", level: 84 },
+      { name: "Startup Scaling", level: 75 },
+    ],
+  },
+  {
+    category: "Product",
+    skills: [
+      { name: "Product Management", level: 65 },
+      { name: "UI/UX Design", level: 69 },
+      { name: "Agile & Scrum", level: 85 },
+      { name: "User Research & Testing", level: 68 },
+    ],
+  },
 ] as const
 
 export const PROJECTS_DATA = [
@@ -37,3 +85,31 @@ export const CONTACT_LINKS = [
   { platform: "GitHub", handle: "@0xPlayerOne" },
   { platform: "LinkedIn", handle: "@AMahoneyFernandes" },
 ] as const
+
+export const ABOUT_CONTENT = {
+  intro:
+    "I'm a passionate developer and entrepreneur with a focus on blockchain technology, gaming, and innovative digital experiences. As the CEO of Nifty League, I'm building the future of gaming and NFTs.",
+  mission:
+    "My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+  values: {
+    innovation: {
+      title: "Innovation",
+      description: "Constantly exploring new technologies and pushing creative boundaries.",
+    },
+    leadership: {
+      title: "Leadership",
+      description: "Building and leading teams to create exceptional digital experiences.",
+    },
+    vision: {
+      title: "Vision",
+      description: "Focused on the future of gaming, blockchain, and interactive entertainment.",
+    },
+  },
+} as const
+
+export const CONTACT_CONTENT = {
+  title: "Get In Touch",
+  description:
+    "Interested in collaborating, discussing opportunities, or just want to connect? I'd love to hear from you.",
+  buttonText: "Let's Connect",
+} as const
