@@ -88,35 +88,35 @@ export const CONTACT_LINKS = [
 
 export const ABOUT_CONTENT = {
   intro:
-    "I'm a passionate developer and entrepreneur with a focus on blockchain technology, gaming, and innovative digital experiences. As the CEO of Nifty League, I'm building the future of gaming and NFTs.",
+    "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain technology, and innovative digital experiences. As the CEO of Nifty League, I'm creating a new path for indie studios to develop & publish games",
   mission:
     "My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
   stats: [
-    { label: "Years Experience", value: "8+", icon: "⚡" },
+    { label: "Years Experience", value: "10+", icon: "⚡" },
     { label: "Projects Shipped", value: "50+", icon: "🚀" },
-    { label: "Team Members Led", value: "25+", icon: "👥" },
-    { label: "Lines of Code", value: "500K+", icon: "💻" },
+    { label: "Team Members Led", value: "20+", icon: "👥" },
+    { label: "Startups Founded", value: "3", icon: "💻" },
   ],
   journey: [
     {
-      year: "2016",
+      year: "2015",
       title: "Started Coding",
       description: "Began my journey with web development and fell in love with creating digital experiences.",
     },
     {
-      year: "2019",
-      title: "First Startup",
-      description: "Co-founded my first tech startup, learning the ropes of entrepreneurship and product development.",
+      year: "2017",
+      title: "Blockchain Roots",
+      description: "Dove deep into blockchain technology and built several GPU mining rigs for Ethereum.",
+    },
+    {
+      year: "2018",
+      title: "First 2 Startups",
+      description: "Co-founded my first tech startups, learning the ropes of entrepreneurship and product development.",
     },
     {
       year: "2021",
-      title: "Entered Web3",
-      description: "Dove deep into blockchain technology and discovered the potential of decentralized gaming.",
-    },
-    {
-      year: "2022",
       title: "Founded Nifty League",
-      description: "Launched Nifty League, combining my passion for gaming with cutting-edge blockchain technology.",
+      description: "Launched Nifty League, combining my passion for gaming with cutting-edge Web3 technology.",
     },
   ],
   values: {
@@ -132,7 +132,7 @@ export const ABOUT_CONTENT = {
     },
     vision: {
       title: "Vision",
-      description: "Focused on the future of gaming, blockchain, and interactive entertainment.",
+      description: "Focused on the future of technology, and interactive entertainment.",
       icon: "🔮",
     },
   },
