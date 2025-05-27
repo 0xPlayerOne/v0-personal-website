@@ -31,7 +31,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
       }}
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">
-        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8 font-['Press_Start_2P'] text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
+        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8 font-['Press_Start_2P'] text-[10px] sm:text-xs md:text-sm lg:text-base">
           {NAVIGATION_SECTIONS.map((item) => (
             <li key={item.id} className="flex-shrink-0">
               <button
