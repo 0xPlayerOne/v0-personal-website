@@ -2,8 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force consistent font rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar to match header colors */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #33ff33;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #22cc22;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #33ff33 #0a0a0a;
+}
+
+/* Pixel font styling */
+.font-pixel {
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0a;
 }
 
 @layer utilities {
@@ -90,5 +128,30 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Force consistent responsive behavior */
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 }
