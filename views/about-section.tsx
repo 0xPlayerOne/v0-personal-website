@@ -51,7 +51,6 @@ export function AboutSection() {
           {[
             { id: "overview", label: "Overview" },
             { id: "journey", label: "Journey" },
-            { id: "stats", label: "Stats" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -87,7 +86,8 @@ export function AboutSection() {
               ) : null}
             </div>
 
-            <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8")}>
+            {/* Overview Cards - Hidden on small screens */}
+            <div className={cn("hidden md:grid md:grid-cols-3 gap-6 sm:gap-8")}>
               {Object.entries(ABOUT_CONTENT.values).map(([key, value]) => {
                 const IconComponent = ICON_MAP[value.icon as keyof typeof ICON_MAP]
                 return (
@@ -123,6 +123,55 @@ export function AboutSection() {
                       </Typography>
                       <Typography variant="body2" align="center">
                         {value.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+
+            {/* Stats Cards - Always visible */}
+            <div className={cn("grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8")}>
+              {ABOUT_CONTENT.stats.map((stat, index) => {
+                const IconComponent = ICON_MAP[stat.icon as keyof typeof ICON_MAP]
+                return (
+                  <Card
+                    key={index}
+                    className="group transition-all duration-300 hover:scale-110 cursor-pointer border-0"
+                    style={{
+                      backgroundColor: SITE_CARD_COLOR,
+                      boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 25px ${SITE_BTN_COLOR}50`
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
+                    }}
+                  >
+                    <CardContent className="text-center p-6">
+                      <div className="mb-4 flex justify-center">
+                        <div
+                          className="p-3 rounded-lg group-hover:scale-125 transition-transform duration-300"
+                          style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                        >
+                          <IconComponent
+                            size={32}
+                            style={{ color: SITE_BTN_COLOR }}
+                            className="transition-transform duration-300 group-hover:rotate-12"
+                          />
+                        </div>
+                      </div>
+                      <Typography
+                        variant="h2"
+                        align="center"
+                        color="primary"
+                        className="mb-2 group-hover:text-glow transition-all duration-300"
+                      >
+                        {stat.value}
+                      </Typography>
+                      <Typography variant="body2" align="center" color="secondary">
+                        {stat.label}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -182,57 +231,6 @@ export function AboutSection() {
                 })}
               </div>
             </div>
-          </div>
-        )}
-
-        {/* Stats Tab */}
-        {activeTab === "stats" && (
-          <div className={cn("grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8")}>
-            {ABOUT_CONTENT.stats.map((stat, index) => {
-              const IconComponent = ICON_MAP[stat.icon as keyof typeof ICON_MAP]
-              return (
-                <Card
-                  key={index}
-                  className="group transition-all duration-300 hover:scale-110 cursor-pointer border-0"
-                  style={{
-                    backgroundColor: SITE_CARD_COLOR,
-                    boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 25px ${SITE_BTN_COLOR}50`
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
-                  }}
-                >
-                  <CardContent className="text-center p-6">
-                    <div className="mb-4 flex justify-center">
-                      <div
-                        className="p-3 rounded-lg group-hover:scale-125 transition-transform duration-300"
-                        style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
-                      >
-                        <IconComponent
-                          size={32}
-                          style={{ color: SITE_BTN_COLOR }}
-                          className="transition-transform duration-300 group-hover:rotate-12"
-                        />
-                      </div>
-                    </div>
-                    <Typography
-                      variant="h2"
-                      align="center"
-                      color="primary"
-                      className="mb-2 group-hover:text-glow transition-all duration-300"
-                    >
-                      {stat.value}
-                    </Typography>
-                    <Typography variant="body2" align="center" color="secondary">
-                      {stat.label}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              )
-            })}
           </div>
         )}
       </div>
