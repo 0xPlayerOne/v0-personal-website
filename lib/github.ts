@@ -65,7 +65,17 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
         const urlParts = repo.url.split("/")
         const owner = urlParts[urlParts.length - 2]
         const repoName = urlParts[urlParts.length - 1]
-        const languages = await fetchRepoLanguages(owner, repoName)
+        let languages = await fetchRepoLanguages(owner, repoName)
+
+        // If languages fetch failed and this is a fallback project, use fallback languages
+        if (languages.length === 0) {
+          const fallbackProjects = [...getFallbackPinnedProjects(), ...getFallbackPopularProjects()]
+          const fallbackProject = fallbackProjects.find((p) => p.url === repo.url)
+          if (fallbackProject) {
+            languages = fallbackProject.languages
+          }
+        }
+
         return {
           ...repo,
           languages,
@@ -76,7 +86,7 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
     return reposWithLanguages
   } catch (error) {
     console.error("Error fetching GitHub repos:", error)
-    return getFallbackProjects()
+    return getFallbackPinnedProjects()
   }
 }
 
@@ -93,7 +103,13 @@ async function fetchSpecificRepos(
           Accept: "application/vnd.github.v3+json",
           "User-Agent": "AndrewMF-Portfolio",
         },
+        next: { revalidate: 3600 }, // Cache for 1 hour
       })
+
+      if (response.status === 403) {
+        console.warn(`Rate limited for ${config.owner}/${config.repo}`)
+        continue
+      }
 
       if (response.ok) {
         const repo: GitHubRepo = await response.json()
@@ -123,7 +139,13 @@ async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "AndrewMF-Portfolio",
       },
+      next: { revalidate: 3600 }, // Cache for 1 hour
     })
+
+    if (response.status === 403) {
+      console.warn("GitHub API rate limited, using fallback projects")
+      return []
+    }
 
     if (!response.ok) {
       throw new Error(`GitHub API error: ${response.status}`)
@@ -157,7 +179,7 @@ async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">
     }))
   } catch (error) {
     console.error("Error fetching popular repos:", error)
-    return []
+    return getFallbackPopularProjects()
   }
 }
 
@@ -168,7 +190,13 @@ async function fetchRepoLanguages(owner: string, repoName: string): Promise<{ na
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "AndrewMF-Portfolio",
       },
+      next: { revalidate: 3600 }, // Cache for 1 hour
     })
+
+    if (response.status === 403) {
+      console.warn(`Rate limited for languages ${owner}/${repoName}`)
+      return []
+    }
 
     if (!response.ok) {
       return []
@@ -199,7 +227,7 @@ function formatRepoName(name: string): string {
     .join(" ")
 }
 
-function getFallbackProjects(): PinnedRepo[] {
+function getFallbackPinnedProjects(): PinnedRepo[] {
   return [
     {
       title: "Nifty League Frontend",
@@ -227,6 +255,37 @@ function getFallbackProjects(): PinnedRepo[] {
         { name: "Solidity", percentage: 12 },
       ],
       isPinned: true,
+    },
+  ]
+}
+
+function getFallbackPopularProjects(): PinnedRepo[] {
+  return [
+    {
+      title: "NowInStock Bot",
+      description: "Bot to alert you when watched items are available in stock.",
+      tech: ["scripting", "python"],
+      url: "https://github.com/0xPlayerOne/NowInStock-bot",
+      stars: 14,
+      forks: 2,
+      languages: [
+        { name: "HTML", percentage: 80 },
+        { name: "Python", percentage: 20 },
+      ],
+      isPinned: false,
+    },
+    {
+      title: "Binance Us Cryptobot",
+      description: "Terminal bot for auto trading on binance.us exchange.",
+      tech: ["blockchain", "ethereum", "web3", "utilities"],
+      url: "https://github.com/0xPlayerOne/binance-us-cryptobot",
+      stars: 13,
+      forks: 1,
+      languages: [
+        { name: "JavaScript", percentage: 98 },
+        { name: "Dockerfile", percentage: 2 },
+      ],
+      isPinned: false,
     },
   ]
 }
