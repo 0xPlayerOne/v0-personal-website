@@ -249,24 +249,32 @@ function getFallbackPinnedProjects(): PinnedRepo[] {
   ]
 }
 
-function getFallbackPopularProjects(): Omit<PinnedRepo, "languages">[] {
+function getFallbackPopularProjects(): PinnedRepo[] {
   return [
     {
-      title: "Portfolio Website",
-      description: "Personal portfolio website built with Next.js and TypeScript.",
-      tech: ["nextjs", "typescript", "tailwind", "portfolio"],
-      url: "https://github.com/0xPlayerOne/v0-portfolio",
-      stars: 0,
-      forks: 0,
+      title: "NowInStock Bot",
+      description: "Bot to alert you when watched items are available in stock.",
+      tech: ["scripting", "python"],
+      url: "https://github.com/0xPlayerOne/NowInStock-bot",
+      stars: 14,
+      forks: 2,
+      languages: [
+        { name: "HTML", percentage: 80 },
+        { name: "Python", percentage: 20 },
+      ],
       isPinned: false,
     },
     {
-      title: "Blockchain Utils",
-      description: "Utility functions and helpers for blockchain development.",
+      title: "Binance Us Cryptobot",
+      description: "Terminal bot for auto trading on binance.us exchange.",
       tech: ["blockchain", "ethereum", "web3", "utilities"],
-      url: "https://github.com/0xPlayerOne/blockchain-utils",
-      stars: 0,
-      forks: 0,
+      url: "https://github.com/0xPlayerOne/binance-us-cryptobot",
+      stars: 13,
+      forks: 1,
+      languages: [
+        { name: "JavaScript", percentage: 98 },
+        { name: "Dockerfile", percentage: 2 },
+      ],
       isPinned: false,
     },
   ]
