@@ -170,30 +170,36 @@ export function ProjectsSection() {
 
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex items-start justify-between mb-4">
-                    <Typography variant="h3" color="secondary" className="flex-1 pr-4">
-                      {project.title}
-                    </Typography>
-                    <div className="flex flex-col gap-2 min-w-0">
-                      {project.languages.slice(0, 3).map((lang, langIndex) => (
-                        <div key={langIndex} className="flex items-center gap-2 min-w-0">
-                          <div
-                            className="w-3 h-3 rounded-full flex-shrink-0"
-                            style={{ backgroundColor: getLanguageColor(lang.name) }}
-                          />
-                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }} className="truncate">
-                            {lang.name}
-                          </Typography>
-                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }} className="flex-shrink-0">
-                            {lang.percentage}%
-                          </Typography>
-                        </div>
-                      ))}
-                      {project.languages.length > 3 && (
-                        <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }} className="text-center">
-                          +{project.languages.length - 3} more
-                        </Typography>
-                      )}
+                    <div className="flex-1 pr-4">
+                      <Typography variant="h3" color="secondary" className="mb-2">
+                        {project.title}
+                      </Typography>
                     </div>
+
+                    {/* Languages display - fixed layout */}
+                    {project.languages.length > 0 && (
+                      <div className="flex flex-col gap-1 min-w-[120px] max-w-[140px]">
+                        {project.languages.slice(0, 3).map((lang, langIndex) => (
+                          <div key={langIndex} className="flex items-center gap-2 text-xs">
+                            <div
+                              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                              style={{ backgroundColor: getLanguageColor(lang.name) }}
+                            />
+                            <span className="truncate flex-1 text-xs" style={{ color: SITE_TEXT_COLOR }}>
+                              {lang.name}
+                            </span>
+                            <span className="text-xs flex-shrink-0" style={{ color: SITE_TEXT_COLOR }}>
+                              {lang.percentage}%
+                            </span>
+                          </div>
+                        ))}
+                        {project.languages.length > 3 && (
+                          <div className="text-xs text-center" style={{ color: SITE_TEXT_COLOR }}>
+                            +{project.languages.length - 3} more
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <Typography variant="body1" gutterBottom className="mb-4">

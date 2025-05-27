@@ -25,17 +25,30 @@ interface PinnedRepo {
 
 export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
   try {
-    const pinnedRepos = await fetchPinnedRepositories()
+    // Since GitHub API doesn't expose pinned repos, let's manually specify your pinned ones
+    // You can update these repo names to match your actual pinned repositories
+    const pinnedRepoNames = [
+      "nifty-league-contracts", // Replace with your actual pinned repo names
+      "nifty-league-app", // Replace with your actual pinned repo names
+    ]
+
+    const pinnedRepos = await fetchSpecificRepos(pinnedRepoNames, true)
     const popularRepos = await fetchPopularRepositories()
+
+    // Filter out pinned repos from popular repos to avoid duplicates
+    const filteredPopularRepos = popularRepos.filter(
+      (repo) => !pinnedRepoNames.some((pinnedName) => repo.url.includes(pinnedName)),
+    )
 
     // Combine pinned repos (first) with top 2 popular repos
     const neededPopular = Math.max(0, 4 - pinnedRepos.length)
-    const selectedRepos = [...pinnedRepos, ...popularRepos.slice(0, neededPopular)].slice(0, 4)
+    const selectedRepos = [...pinnedRepos, ...filteredPopularRepos.slice(0, neededPopular)].slice(0, 4)
 
     // Fetch languages for each repo
     const reposWithLanguages = await Promise.all(
       selectedRepos.map(async (repo) => {
-        const languages = await fetchRepoLanguages(repo.name)
+        const repoName = repo.url.split("/").pop() || ""
+        const languages = await fetchRepoLanguages(repoName)
         return {
           ...repo,
           languages,
@@ -50,63 +63,37 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
   }
 }
 
-async function fetchPinnedRepositories(): Promise<Omit<PinnedRepo, "languages">[]> {
-  try {
-    // GitHub doesn't have a direct API for pinned repos, but we can use GraphQL
-    // For now, we'll use a workaround by checking for specific repos or topics
-    const response = await fetch("https://api.github.com/users/0xPlayerOne/repos?sort=updated&per_page=50", {
-      headers: {
-        Accept: "application/vnd.github.v3+json",
-        "User-Agent": "AndrewMF-Portfolio",
-      },
-    })
+async function fetchSpecificRepos(repoNames: string[], isPinned: boolean): Promise<Omit<PinnedRepo, "languages">[]> {
+  const repos: Omit<PinnedRepo, "languages">[] = []
 
-    if (!response.ok) {
-      throw new Error(`GitHub API error: ${response.status}`)
-    }
-
-    const repos: GitHubRepo[] = await response.json()
-
-    // Look for repos that are likely pinned based on:
-    // 1. High star count relative to your other repos
-    // 2. Recent activity
-    // 3. Good descriptions
-    // 4. Specific repo names you want to highlight
-    const pinnedCandidates = repos
-      .filter(
-        (repo) =>
-          !repo.name.includes("0xPlayerOne") && // Exclude profile repo
-          repo.description && // Must have description
-          !repo.name.toLowerCase().includes("fork"), // Exclude obvious forks
-      )
-      .sort((a, b) => {
-        // Prioritize repos with more stars and recent activity
-        const scoreA =
-          a.stargazers_count * 2 +
-          a.forks_count +
-          (new Date(a.updated_at).getTime() > Date.now() - 90 * 24 * 60 * 60 * 1000 ? 10 : 0)
-        const scoreB =
-          b.stargazers_count * 2 +
-          b.forks_count +
-          (new Date(b.updated_at).getTime() > Date.now() - 90 * 24 * 60 * 60 * 1000 ? 10 : 0)
-        return scoreB - scoreA
+  for (const repoName of repoNames) {
+    try {
+      const response = await fetch(`https://api.github.com/repos/0xPlayerOne/${repoName}`, {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+          "User-Agent": "AndrewMF-Portfolio",
+        },
       })
-      .slice(0, 2) // Take top 2 as "pinned"
 
-    return pinnedCandidates.map((repo) => ({
-      title: formatRepoName(repo.name),
-      description: repo.description || "No description available",
-      tech: repo.topics.slice(0, 4), // Only use topics, not language
-      url: repo.html_url,
-      homepage: repo.homepage || undefined,
-      stars: repo.stargazers_count,
-      forks: repo.forks_count,
-      isPinned: true,
-    }))
-  } catch (error) {
-    console.error("Error fetching pinned repos:", error)
-    return []
+      if (response.ok) {
+        const repo: GitHubRepo = await response.json()
+        repos.push({
+          title: formatRepoName(repo.name),
+          description: repo.description || "No description available",
+          tech: repo.topics.slice(0, 4),
+          url: repo.html_url,
+          homepage: repo.homepage || undefined,
+          stars: repo.stargazers_count,
+          forks: repo.forks_count,
+          isPinned,
+        })
+      }
+    } catch (error) {
+      console.error(`Error fetching repo ${repoName}:`, error)
+    }
   }
+
+  return repos
 }
 
 async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">[]> {
@@ -141,7 +128,7 @@ async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">
     return popularRepos.map((repo) => ({
       title: formatRepoName(repo.name),
       description: repo.description || "No description available",
-      tech: repo.topics.slice(0, 4), // Only use topics, not language
+      tech: repo.topics.slice(0, 4),
       url: repo.html_url,
       homepage: repo.homepage || undefined,
       stars: repo.stargazers_count,
@@ -195,25 +182,36 @@ function formatRepoName(name: string): string {
 function getFallbackProjects(): PinnedRepo[] {
   return [
     {
-      title: "Nifty League",
-      description:
-        "A blockchain-based gaming platform combining NFTs with competitive gameplay. Building the future of play-to-earn gaming.",
-      tech: ["Blockchain", "Gaming", "NFTs"],
+      title: "Nifty League Contracts",
+      description: "Smart contracts powering the Nifty League ecosystem. ERC-721 NFTs, staking, and game mechanics.",
+      tech: ["smart-contracts", "nft", "gaming"],
       url: "https://github.com/0xPlayerOne",
       stars: 0,
       forks: 0,
       languages: [
-        { name: "TypeScript", percentage: 65 },
-        { name: "Solidity", percentage: 25 },
-        { name: "JavaScript", percentage: 10 },
+        { name: "Solidity", percentage: 85 },
+        { name: "JavaScript", percentage: 15 },
       ],
       isPinned: true,
     },
     {
-      title: "Retro Pong Header",
-      description:
-        "An interactive retro-style header with pixel art and physics-based animations. Showcasing creative web development.",
-      tech: ["Canvas", "Animation", "Pixel Art"],
+      title: "Nifty League App",
+      description: "Frontend application for Nifty League. React-based gaming platform with Web3 integration.",
+      tech: ["react", "web3", "gaming"],
+      url: "https://github.com/0xPlayerOne",
+      stars: 0,
+      forks: 0,
+      languages: [
+        { name: "TypeScript", percentage: 70 },
+        { name: "JavaScript", percentage: 20 },
+        { name: "CSS", percentage: 10 },
+      ],
+      isPinned: true,
+    },
+    {
+      title: "Portfolio Website",
+      description: "Personal portfolio website with retro gaming aesthetics and interactive elements.",
+      tech: ["nextjs", "typescript", "portfolio"],
       url: "https://github.com/0xPlayerOne",
       stars: 0,
       forks: 0,
@@ -222,33 +220,18 @@ function getFallbackProjects(): PinnedRepo[] {
         { name: "CSS", percentage: 15 },
         { name: "HTML", percentage: 5 },
       ],
-      isPinned: true,
-    },
-    {
-      title: "DeFi Protocol",
-      description:
-        "Decentralized finance protocol enabling innovative yield farming and liquidity provision mechanisms.",
-      tech: ["DeFi", "Smart Contracts", "Web3"],
-      url: "https://github.com/0xPlayerOne",
-      stars: 0,
-      forks: 0,
-      languages: [
-        { name: "Solidity", percentage: 70 },
-        { name: "JavaScript", percentage: 30 },
-      ],
       isPinned: false,
     },
     {
-      title: "Metaverse Platform",
-      description:
-        "Virtual world platform where users can create, explore, and monetize digital experiences and assets.",
-      tech: ["VR", "Metaverse"],
+      title: "Web3 Utils",
+      description: "Collection of utilities and helpers for Web3 development and blockchain interactions.",
+      tech: ["web3", "utilities", "blockchain"],
       url: "https://github.com/0xPlayerOne",
       stars: 0,
       forks: 0,
       languages: [
-        { name: "C#", percentage: 85 },
-        { name: "JavaScript", percentage: 15 },
+        { name: "JavaScript", percentage: 60 },
+        { name: "TypeScript", percentage: 40 },
       ],
       isPinned: false,
     },
