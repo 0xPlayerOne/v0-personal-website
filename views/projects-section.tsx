@@ -11,6 +11,13 @@ import { cn } from "@/lib/utils"
 import { fetchPinnedRepos } from "@/lib/github"
 import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-react"
 
+// ===== CONFIGURATION =====
+const MAX_PROJECTS_DISPLAY = 6
+const LANGUAGES_TO_SHOW = 2
+const GRID_COLS_LG = 3 // 3 columns on large screens for 6 projects
+const GRID_COLS_MD = 2 // 2 columns on medium screens
+const GRID_COLS_SM = 1 // 1 column on small screens
+
 interface PinnedRepo {
   title: string
   description: string
@@ -111,10 +118,14 @@ export function ProjectsSection() {
         </div>
       )}
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {loading ? (
-          <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
-            {[...Array(4)].map((_, index) => (
+          <div
+            className={cn(
+              `grid grid-cols-${GRID_COLS_SM} md:grid-cols-${GRID_COLS_MD} lg:grid-cols-${GRID_COLS_LG} gap-6 sm:gap-8`,
+            )}
+          >
+            {[...Array(MAX_PROJECTS_DISPLAY)].map((_, index) => (
               <Card
                 key={index}
                 className="border-0 animate-pulse"
@@ -136,7 +147,11 @@ export function ProjectsSection() {
             ))}
           </div>
         ) : (
-          <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
+          <div
+            className={cn(
+              `grid grid-cols-${GRID_COLS_SM} md:grid-cols-${GRID_COLS_MD} lg:grid-cols-${GRID_COLS_LG} gap-6 sm:gap-8`,
+            )}
+          >
             {projects.map((project, index) => (
               <Card
                 key={index}
@@ -170,7 +185,7 @@ export function ProjectsSection() {
 
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1 pr-4">
+                    <div className={cn("flex-1 pr-4", project.isPinned ? "mt-8" : "")}>
                       <Typography variant="h3" color="secondary" className="mb-2">
                         {project.title}
                       </Typography>
@@ -178,8 +193,13 @@ export function ProjectsSection() {
 
                     {/* Languages display - top 2 only */}
                     {project.languages.length > 0 && (
-                      <div className="flex flex-col gap-1 min-w-[120px] max-w-[140px]">
-                        {project.languages.slice(0, 2).map((lang, langIndex) => (
+                      <div
+                        className={cn(
+                          "flex flex-col gap-1 min-w-[120px] max-w-[140px]",
+                          project.isPinned ? "mt-8" : "",
+                        )}
+                      >
+                        {project.languages.slice(0, LANGUAGES_TO_SHOW).map((lang, langIndex) => (
                           <div key={langIndex} className="flex items-center gap-2 text-xs">
                             <div
                               className="w-2.5 h-2.5 rounded-full flex-shrink-0"
@@ -193,9 +213,9 @@ export function ProjectsSection() {
                             </span>
                           </div>
                         ))}
-                        {project.languages.length > 2 && (
+                        {project.languages.length > LANGUAGES_TO_SHOW && (
                           <div className="text-xs text-left" style={{ color: SITE_TEXT_COLOR }}>
-                            +{project.languages.length - 2} more
+                            +{project.languages.length - LANGUAGES_TO_SHOW} more
                           </div>
                         )}
                       </div>

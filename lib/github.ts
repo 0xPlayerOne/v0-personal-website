@@ -1,3 +1,7 @@
+// ===== CONFIGURATION =====
+const MAX_PROJECTS = 6
+const MAX_LANGUAGES_DISPLAYED = 5
+
 interface GitHubRepo {
   id: number
   name: string
@@ -29,32 +33,32 @@ interface PinnedRepoConfig {
   displayName?: string // Optional custom display name
 }
 
+// ===== PINNED REPOSITORIES CONFIGURATION =====
+const PINNED_REPO_CONFIGS: PinnedRepoConfig[] = [
+  {
+    owner: "NiftyLeague",
+    repo: "nifty-fe-monorepo",
+    displayName: "Nifty League Frontend",
+  },
+  {
+    owner: "NiftyLeague",
+    repo: "nifty-smart-contracts",
+    displayName: "Nifty League Contracts",
+  },
+]
+
 export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
   try {
-    // Define your pinned repositories with their owners
-    const pinnedRepoConfigs: PinnedRepoConfig[] = [
-      {
-        owner: "NiftyLeague",
-        repo: "nifty-fe-monorepo",
-        displayName: "Nifty League Frontend", // Optional custom name
-      },
-      {
-        owner: "NiftyLeague",
-        repo: "nifty-smart-contracts",
-        displayName: "Nifty League Contracts",
-      },
-    ]
-
-    const pinnedRepos = await fetchSpecificRepos(pinnedRepoConfigs, true)
+    const pinnedRepos = await fetchSpecificRepos(PINNED_REPO_CONFIGS, true)
     const popularRepos = await fetchPopularRepositories()
 
     // Filter out pinned repos from popular repos to avoid duplicates
     const pinnedUrls = pinnedRepos.map((repo) => repo.url)
     const filteredPopularRepos = popularRepos.filter((repo) => !pinnedUrls.includes(repo.url))
 
-    // Combine pinned repos (first) with top 2 popular repos
-    const neededPopular = Math.max(0, 4 - pinnedRepos.length)
-    const selectedRepos = [...pinnedRepos, ...filteredPopularRepos.slice(0, neededPopular)].slice(0, 4)
+    // Combine pinned repos (first) with popular repos to reach MAX_PROJECTS
+    const neededPopular = Math.max(0, MAX_PROJECTS - pinnedRepos.length)
+    const selectedRepos = [...pinnedRepos, ...filteredPopularRepos.slice(0, neededPopular)].slice(0, MAX_PROJECTS)
 
     // Fetch languages for each repo
     const reposWithLanguages = await Promise.all(
@@ -182,7 +186,7 @@ async function fetchRepoLanguages(owner: string, repoName: string): Promise<{ na
         percentage: Math.round((bytes / total) * 100),
       }))
       .sort((a, b) => b.percentage - a.percentage)
-      .slice(0, 5) // Show top 5 languages
+      .slice(0, MAX_LANGUAGES_DISPLAYED)
   } catch (error) {
     console.error(`Error fetching languages for ${owner}/${repoName}:`, error)
     return []
@@ -224,32 +228,6 @@ function getFallbackProjects(): PinnedRepo[] {
         { name: "JavaScript", percentage: 15 },
       ],
       isPinned: true,
-    },
-    {
-      title: "Portfolio Website",
-      description: "Personal portfolio website with retro gaming aesthetics and interactive elements.",
-      tech: ["nextjs", "typescript", "portfolio"],
-      url: "https://github.com/0xPlayerOne",
-      stars: 0,
-      forks: 0,
-      languages: [
-        { name: "TypeScript", percentage: 80 },
-        { name: "CSS", percentage: 20 },
-      ],
-      isPinned: false,
-    },
-    {
-      title: "Web3 Utils",
-      description: "Collection of utilities and helpers for Web3 development and blockchain interactions.",
-      tech: ["web3", "utilities", "blockchain"],
-      url: "https://github.com/0xPlayerOne",
-      stars: 0,
-      forks: 0,
-      languages: [
-        { name: "JavaScript", percentage: 60 },
-        { name: "TypeScript", percentage: 40 },
-      ],
-      isPinned: false,
     },
   ]
 }
