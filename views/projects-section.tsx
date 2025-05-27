@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
 import { fetchPinnedRepos } from "@/lib/github"
-import { ExternalLink, Star, GitFork, RefreshCw, Github } from "lucide-react"
+import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-react"
 
 interface PinnedRepo {
   title: string
@@ -19,7 +19,8 @@ interface PinnedRepo {
   homepage?: string
   stars: number
   forks: number
-  language: string | null
+  languages: { name: string; percentage: number }[]
+  isPinned: boolean
 }
 
 export function ProjectsSection() {
@@ -47,7 +48,7 @@ export function ProjectsSection() {
     loadProjects()
   }, [])
 
-  const getLanguageColor = (language: string | null) => {
+  const getLanguageColor = (language: string) => {
     const colors: Record<string, string> = {
       TypeScript: "#3178c6",
       JavaScript: "#f1e05a",
@@ -62,8 +63,14 @@ export function ProjectsSection() {
       CSS: "#1572B6",
       Vue: "#4FC08D",
       React: "#61DAFB",
+      Swift: "#FA7343",
+      Kotlin: "#A97BFF",
+      Dart: "#00B4AB",
+      PHP: "#777BB4",
+      Ruby: "#701516",
+      Shell: "#89e051",
     }
-    return colors[language || ""] || SITE_BTN_COLOR
+    return colors[language] || SITE_BTN_COLOR
   }
 
   return (
@@ -99,7 +106,7 @@ export function ProjectsSection() {
       {lastUpdated && (
         <div className="text-center mb-6">
           <Typography variant="caption" color="textSecondary">
-            Last updated: {lastUpdated.toLocaleTimeString()}
+            Last updated: {lastUpdated.toLocaleTimeString()} • Pinned repos shown first
           </Typography>
         </div>
       )}
@@ -133,7 +140,7 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0"
+                className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0 relative"
                 style={{
                   backgroundColor: SITE_CARD_COLOR,
                   boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
@@ -145,22 +152,46 @@ export function ProjectsSection() {
                   e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
                 }}
               >
+                {project.isPinned && (
+                  <div className="absolute top-3 left-3 z-10">
+                    <div
+                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs"
+                      style={{
+                        backgroundColor: `${SITE_BTN_COLOR}20`,
+                        color: SITE_BTN_COLOR,
+                        border: `1px solid ${SITE_BTN_COLOR}40`,
+                      }}
+                    >
+                      <Pin size={12} />
+                      <span>Pinned</span>
+                    </div>
+                  </div>
+                )}
+
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex items-start justify-between mb-4">
-                    <Typography variant="h3" color="secondary" className="flex-1">
+                    <Typography variant="h3" color="secondary" className="flex-1 pr-4">
                       {project.title}
                     </Typography>
-                    <div className="flex items-center gap-2 ml-4">
-                      {project.language && (
-                        <div className="flex items-center gap-1">
+                    <div className="flex flex-col gap-2 min-w-0">
+                      {project.languages.slice(0, 3).map((lang, langIndex) => (
+                        <div key={langIndex} className="flex items-center gap-2 min-w-0">
                           <div
-                            className="w-3 h-3 rounded-full"
-                            style={{ backgroundColor: getLanguageColor(project.language) }}
+                            className="w-3 h-3 rounded-full flex-shrink-0"
+                            style={{ backgroundColor: getLanguageColor(lang.name) }}
                           />
-                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
-                            {project.language}
+                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }} className="truncate">
+                            {lang.name}
+                          </Typography>
+                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }} className="flex-shrink-0">
+                            {lang.percentage}%
                           </Typography>
                         </div>
+                      ))}
+                      {project.languages.length > 3 && (
+                        <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }} className="text-center">
+                          +{project.languages.length - 3} more
+                        </Typography>
                       )}
                     </div>
                   </div>
@@ -188,17 +219,19 @@ export function ProjectsSection() {
                     )}
                   </div>
 
-                  <div className={cn("flex flex-wrap gap-2 mb-6")}>
-                    {project.tech.slice(0, 4).map((tech, techIndex) => (
-                      <Badge
-                        key={techIndex}
-                        variant="secondary"
-                        style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
+                  {project.tech.length > 0 && (
+                    <div className={cn("flex flex-wrap gap-2 mb-6")}>
+                      {project.tech.slice(0, 4).map((tech, techIndex) => (
+                        <Badge
+                          key={techIndex}
+                          variant="secondary"
+                          style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="flex gap-3">
                     <Button
