@@ -2,7 +2,7 @@
 
 import { PongGame } from "@/lib/games/pong"
 import { CANVAS_COLOR, BALL_COLOR, PIXEL_COLOR, HIT_COLOR, PADDLE_COLOR } from "@/constants/colors"
-import { HEADER_TEXT } from "@/constants/header"
+import { HEADER_TEXT } from "@/constants/content"
 
 interface RetroCanvasProps {
   navbarHeight: number

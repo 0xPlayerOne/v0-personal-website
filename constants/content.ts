@@ -1,3 +1,5 @@
+export const HEADER_TEXT = ["ANDREW M-F", "CEO OF NIFTY LEAGUE"]
+
 export const SKILLS_DATA = [
   {
     category: "Web & Full-Stack",
