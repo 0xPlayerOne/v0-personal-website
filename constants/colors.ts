@@ -22,12 +22,10 @@ export const NAV_HOVER_COLOR = DARK_NEON_GREEN
 // ===== SITE COLORS =====
 export const SITE_BG_COLOR = BG
 export const SITE_HEADER_COLOR = NEON_GREEN
-export const SITE_SUBHEADER_COLOR = LIGHT_GREEN
+export const SITE_SUBHEADER_COLOR = LIGHT_PURPLE
 export const SITE_TEXT_COLOR = LIGHT_GREEN
+export const SITE_SUBTEXT_COLOR = LIGHT_PURPLE
 export const SITE_BORDER_COLOR = NEON_PURPLE
 export const SITE_BTN_COLOR = LIGHT_PURPLE
 export const SITE_LINK_COLOR = LIGHT_PURPLE
 export const SITE_CARD_COLOR = BG
-
-// Export individual colors for more granular use
-// export const NEON_GREEN = NEON_GREEN

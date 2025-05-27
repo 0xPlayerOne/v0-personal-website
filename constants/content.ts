@@ -90,9 +90,8 @@ export const CONTACT_LINKS = [
 
 export const ABOUT_CONTENT = {
   intro:
-    "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain technology, and innovative digital experiences. As the CEO of Nifty League, I'm creating a new path for indie studios to develop & publish games",
-  mission:
-    "My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+    "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain technology, and innovative digital experiences. My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+  mission: "",
   stats: [
     { label: "Years Experience", value: "10+", icon: "zap" },
     { label: "Projects Shipped", value: "50+", icon: "rocket" },

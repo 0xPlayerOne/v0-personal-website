@@ -46,7 +46,7 @@ export function AboutSection() {
       </Typography>
 
       {/* Tab Navigation */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-4">
         <div className="flex gap-2 p-1 rounded-lg" style={{ backgroundColor: `${SITE_CARD_COLOR}80` }}>
           {[
             { id: "overview", label: "Overview" },
@@ -62,7 +62,8 @@ export function AboutSection() {
               )}
               style={{
                 backgroundColor: activeTab === tab.id ? SITE_BTN_COLOR : "transparent",
-                color: activeTab === tab.id ? SITE_CARD_COLOR : SITE_TEXT_COLOR,
+                color: activeTab === tab.id ? SITE_CARD_COLOR : SITE_BTN_COLOR,
+                border: activeTab === tab.id ? "none" : `1px solid ${SITE_BTN_COLOR}`
               }}
             >
               {tab.label}
@@ -79,9 +80,12 @@ export function AboutSection() {
               <Typography variant="body1" align="center" gutterBottom>
                 {ABOUT_CONTENT.intro}
               </Typography>
-              <Typography variant="body1" align="center" gutterBottom>
-                {ABOUT_CONTENT.mission}
-              </Typography>
+              {ABOUT_CONTENT.mission ? (
+                <Typography variant="body1" align="center" gutterBottom>
+                  {ABOUT_CONTENT.mission}
+                </Typography>
+                ) : null
+              }
             </div>
 
             <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8")}>
