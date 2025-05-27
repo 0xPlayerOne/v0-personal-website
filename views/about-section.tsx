@@ -87,7 +87,7 @@ export function AboutSection() {
             </div>
 
             {/* Overview Cards - Hidden on small screens */}
-            <div className={cn("hidden sm:grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8")}>
+            <div className={cn("hidden md:grid md:grid-cols-3 gap-6 sm:gap-8")}>
               {Object.entries(ABOUT_CONTENT.values).map(([key, value]) => {
                 const IconComponent = ICON_MAP[value.icon as keyof typeof ICON_MAP]
                 return (
