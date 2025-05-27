@@ -14,7 +14,7 @@ import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-reac
 // ===== CONFIGURATION =====
 const MAX_PROJECTS_DISPLAY = 6
 const LANGUAGES_TO_SHOW = 2
-const GRID_COLS_LG = 3 // 3 columns on large screens for 6 projects
+const GRID_COLS_LG = 2 // Keep 2 columns on large screens
 const GRID_COLS_MD = 2 // 2 columns on medium screens
 const GRID_COLS_SM = 1 // 1 column on small screens
 
@@ -118,13 +118,9 @@ export function ProjectsSection() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {loading ? (
-          <div
-            className={cn(
-              `grid grid-cols-${GRID_COLS_SM} md:grid-cols-${GRID_COLS_MD} lg:grid-cols-${GRID_COLS_LG} gap-6 sm:gap-8`,
-            )}
-          >
+          <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
             {[...Array(MAX_PROJECTS_DISPLAY)].map((_, index) => (
               <Card
                 key={index}
@@ -147,11 +143,7 @@ export function ProjectsSection() {
             ))}
           </div>
         ) : (
-          <div
-            className={cn(
-              `grid grid-cols-${GRID_COLS_SM} md:grid-cols-${GRID_COLS_MD} lg:grid-cols-${GRID_COLS_LG} gap-6 sm:gap-8`,
-            )}
-          >
+          <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
             {projects.map((project, index) => (
               <Card
                 key={index}
