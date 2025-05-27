@@ -65,7 +65,17 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
         const urlParts = repo.url.split("/")
         const owner = urlParts[urlParts.length - 2]
         const repoName = urlParts[urlParts.length - 1]
-        const languages = await fetchRepoLanguages(owner, repoName)
+        let languages = await fetchRepoLanguages(owner, repoName)
+
+        // If languages fetch failed and this is a fallback project, use fallback languages
+        if (languages.length === 0) {
+          const fallbackProjects = [...getFallbackPinnedProjects(), ...getFallbackPopularProjects()]
+          const fallbackProject = fallbackProjects.find((p) => p.url === repo.url)
+          if (fallbackProject) {
+            languages = fallbackProject.languages
+          }
+        }
+
         return {
           ...repo,
           languages,
