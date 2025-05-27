@@ -43,10 +43,18 @@ export function throttle<T extends (...args: any[]) => any>(func: T, limit: numb
 export function smoothScrollToSection(sectionId: string, offset = 0) {
   const element = document.getElementById(sectionId)
   if (element) {
+    // Temporarily disable scroll snap for smooth navigation
+    document.documentElement.style.scrollSnapType = "none"
+
     const elementPosition = element.offsetTop - offset
     window.scrollTo({
       top: elementPosition,
       behavior: "smooth",
     })
+
+    // Re-enable scroll snap after navigation completes
+    setTimeout(() => {
+      document.documentElement.style.scrollSnapType = "y mandatory"
+    }, 1000)
   }
 }
