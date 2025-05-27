@@ -13,7 +13,7 @@ import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-reac
 
 // ===== CONFIGURATION =====
 const MAX_PROJECTS_DISPLAY = 6
-const LANGUAGES_TO_SHOW = 2
+const LANGUAGES_TO_SHOW = 5
 const GRID_COLS_LG = 2 // Keep 2 columns on large screens
 const GRID_COLS_MD = 2 // 2 columns on medium screens
 const GRID_COLS_SM = 1 // 1 column on small screens
@@ -183,59 +183,55 @@ export function ProjectsSection() {
                       </Typography>
                     </div>
 
-                    {/* Languages display - top 2 only */}
-                    {project.languages.length > 0 && (
-                      <div
-                        className={cn(
-                          "flex flex-col gap-1 min-w-[120px] max-w-[140px]",
-                          project.isPinned ? "mt-8" : "",
-                        )}
-                      >
-                        {project.languages.slice(0, LANGUAGES_TO_SHOW).map((lang, langIndex) => (
-                          <div key={langIndex} className="flex items-center gap-2 text-xs">
-                            <div
-                              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                              style={{ backgroundColor: getLanguageColor(lang.name) }}
-                            />
-                            <span className="truncate flex-1 text-xs" style={{ color: SITE_TEXT_COLOR }}>
-                              {lang.name}
-                            </span>
-                            <span className="text-xs flex-shrink-0" style={{ color: SITE_TEXT_COLOR }}>
-                              {lang.percentage}%
-                            </span>
-                          </div>
-                        ))}
-                        {project.languages.length > LANGUAGES_TO_SHOW && (
-                          <div className="text-xs text-left" style={{ color: SITE_TEXT_COLOR }}>
-                            +{project.languages.length - LANGUAGES_TO_SHOW} more
-                          </div>
-                        )}
-                      </div>
-                    )}
+                    {/* Stars and forks display - top right */}
+                    <div className={cn("flex flex-col gap-2 min-w-[80px]", project.isPinned ? "mt-8" : "")}>
+                      {project.stars > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Star size={14} style={{ color: SITE_BTN_COLOR }} />
+                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
+                            {project.stars}
+                          </Typography>
+                        </div>
+                      )}
+                      {project.forks > 0 && (
+                        <div className="flex items-center gap-1">
+                          <GitFork size={14} style={{ color: SITE_BTN_COLOR }} />
+                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
+                            {project.forks}
+                          </Typography>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <Typography variant="body1" gutterBottom className="mb-4">
                     {project.description}
                   </Typography>
 
-                  <div className="flex items-center gap-4 mb-4">
-                    {project.stars > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Star size={14} style={{ color: SITE_BTN_COLOR }} />
-                        <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
-                          {project.stars}
-                        </Typography>
-                      </div>
-                    )}
-                    {project.forks > 0 && (
-                      <div className="flex items-center gap-1">
-                        <GitFork size={14} style={{ color: SITE_BTN_COLOR }} />
-                        <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
-                          {project.forks}
-                        </Typography>
-                      </div>
-                    )}
-                  </div>
+                  {/* Languages display - horizontal layout */}
+                  {project.languages.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      {project.languages.slice(0, LANGUAGES_TO_SHOW).map((lang, langIndex) => (
+                        <div key={langIndex} className="flex items-center gap-1.5 text-sm">
+                          <div
+                            className="w-3 h-3 rounded-full flex-shrink-0"
+                            style={{ backgroundColor: getLanguageColor(lang.name) }}
+                          />
+                          <span className="text-sm" style={{ color: SITE_TEXT_COLOR }}>
+                            {lang.name}
+                          </span>
+                          <span className="text-xs" style={{ color: SITE_TEXT_COLOR }}>
+                            ({lang.percentage}%)
+                          </span>
+                        </div>
+                      ))}
+                      {project.languages.length > LANGUAGES_TO_SHOW && (
+                        <span className="text-sm" style={{ color: SITE_TEXT_COLOR }}>
+                          +{project.languages.length - LANGUAGES_TO_SHOW} more
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   {project.tech.length > 0 && (
                     <div className={cn("flex flex-wrap gap-2 mb-6")}>
