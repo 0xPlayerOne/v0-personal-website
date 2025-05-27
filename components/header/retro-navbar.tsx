@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { NAV_BG_COLOR, NAV_BORDER_COLOR, NAV_TEXT_COLOR, NAV_HOVER_COLOR } from "@/constants/colors"
-import { smoothScrollToSection } from "@/lib/utils"
+import { smoothScrollToSection } from "@/lib/smooth-scroll"
 import { NAVIGATION_SECTIONS } from "@/constants/navigation"
 
 interface RetroNavbarProps {

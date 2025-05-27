@@ -39,14 +39,3 @@ export function throttle<T extends (...args: any[]) => any>(func: T, limit: numb
     }
   }
 }
-
-export function smoothScrollToSection(sectionId: string, offset = 0) {
-  const element = document.getElementById(sectionId)
-  if (element) {
-    const elementPosition = element.offsetTop - offset
-    window.scrollTo({
-      top: elementPosition,
-      behavior: "smooth",
-    })
-  }
-}
