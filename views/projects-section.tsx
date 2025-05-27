@@ -106,7 +106,7 @@ export function ProjectsSection() {
       {lastUpdated && (
         <div className="text-center mb-6">
           <Typography variant="caption" color="textSecondary">
-            Last updated: {lastUpdated.toLocaleTimeString()} • Pinned repos shown first
+            Last updated: {lastUpdated.toLocaleTimeString()}
           </Typography>
         </div>
       )}
@@ -176,10 +176,10 @@ export function ProjectsSection() {
                       </Typography>
                     </div>
 
-                    {/* Languages display - fixed layout */}
+                    {/* Languages display - top 2 only */}
                     {project.languages.length > 0 && (
                       <div className="flex flex-col gap-1 min-w-[120px] max-w-[140px]">
-                        {project.languages.slice(0, 3).map((lang, langIndex) => (
+                        {project.languages.slice(0, 2).map((lang, langIndex) => (
                           <div key={langIndex} className="flex items-center gap-2 text-xs">
                             <div
                               className="w-2.5 h-2.5 rounded-full flex-shrink-0"
@@ -193,9 +193,9 @@ export function ProjectsSection() {
                             </span>
                           </div>
                         ))}
-                        {project.languages.length > 3 && (
-                          <div className="text-xs text-center" style={{ color: SITE_TEXT_COLOR }}>
-                            +{project.languages.length - 3} more
+                        {project.languages.length > 2 && (
+                          <div className="text-xs text-left" style={{ color: SITE_TEXT_COLOR }}>
+                            +{project.languages.length - 2} more
                           </div>
                         )}
                       </div>

@@ -23,22 +23,34 @@ interface PinnedRepo {
   isPinned: boolean
 }
 
+interface PinnedRepoConfig {
+  owner: string
+  repo: string
+  displayName?: string // Optional custom display name
+}
+
 export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
   try {
-    // Since GitHub API doesn't expose pinned repos, let's manually specify your pinned ones
-    // You can update these repo names to match your actual pinned repositories
-    const pinnedRepoNames = [
-      "nifty-league-contracts", // Replace with your actual pinned repo names
-      "nifty-league-app", // Replace with your actual pinned repo names
+    // Define your pinned repositories with their owners
+    const pinnedRepoConfigs: PinnedRepoConfig[] = [
+      {
+        owner: "NiftyLeague",
+        repo: "nifty-fe-monorepo",
+        displayName: "Nifty League Frontend", // Optional custom name
+      },
+      {
+        owner: "NiftyLeague",
+        repo: "nifty-smart-contracts",
+        displayName: "Nifty League Contracts",
+      },
     ]
 
-    const pinnedRepos = await fetchSpecificRepos(pinnedRepoNames, true)
+    const pinnedRepos = await fetchSpecificRepos(pinnedRepoConfigs, true)
     const popularRepos = await fetchPopularRepositories()
 
     // Filter out pinned repos from popular repos to avoid duplicates
-    const filteredPopularRepos = popularRepos.filter(
-      (repo) => !pinnedRepoNames.some((pinnedName) => repo.url.includes(pinnedName)),
-    )
+    const pinnedUrls = pinnedRepos.map((repo) => repo.url)
+    const filteredPopularRepos = popularRepos.filter((repo) => !pinnedUrls.includes(repo.url))
 
     // Combine pinned repos (first) with top 2 popular repos
     const neededPopular = Math.max(0, 4 - pinnedRepos.length)
@@ -47,8 +59,10 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
     // Fetch languages for each repo
     const reposWithLanguages = await Promise.all(
       selectedRepos.map(async (repo) => {
-        const repoName = repo.url.split("/").pop() || ""
-        const languages = await fetchRepoLanguages(repoName)
+        const urlParts = repo.url.split("/")
+        const owner = urlParts[urlParts.length - 2]
+        const repoName = urlParts[urlParts.length - 1]
+        const languages = await fetchRepoLanguages(owner, repoName)
         return {
           ...repo,
           languages,
@@ -63,12 +77,15 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
   }
 }
 
-async function fetchSpecificRepos(repoNames: string[], isPinned: boolean): Promise<Omit<PinnedRepo, "languages">[]> {
+async function fetchSpecificRepos(
+  repoConfigs: PinnedRepoConfig[],
+  isPinned: boolean,
+): Promise<Omit<PinnedRepo, "languages">[]> {
   const repos: Omit<PinnedRepo, "languages">[] = []
 
-  for (const repoName of repoNames) {
+  for (const config of repoConfigs) {
     try {
-      const response = await fetch(`https://api.github.com/repos/0xPlayerOne/${repoName}`, {
+      const response = await fetch(`https://api.github.com/repos/${config.owner}/${config.repo}`, {
         headers: {
           Accept: "application/vnd.github.v3+json",
           "User-Agent": "AndrewMF-Portfolio",
@@ -78,7 +95,7 @@ async function fetchSpecificRepos(repoNames: string[], isPinned: boolean): Promi
       if (response.ok) {
         const repo: GitHubRepo = await response.json()
         repos.push({
-          title: formatRepoName(repo.name),
+          title: config.displayName || formatRepoName(repo.name),
           description: repo.description || "No description available",
           tech: repo.topics.slice(0, 4),
           url: repo.html_url,
@@ -89,7 +106,7 @@ async function fetchSpecificRepos(repoNames: string[], isPinned: boolean): Promi
         })
       }
     } catch (error) {
-      console.error(`Error fetching repo ${repoName}:`, error)
+      console.error(`Error fetching repo ${config.owner}/${config.repo}:`, error)
     }
   }
 
@@ -141,9 +158,9 @@ async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">
   }
 }
 
-async function fetchRepoLanguages(repoName: string): Promise<{ name: string; percentage: number }[]> {
+async function fetchRepoLanguages(owner: string, repoName: string): Promise<{ name: string; percentage: number }[]> {
   try {
-    const response = await fetch(`https://api.github.com/repos/0xPlayerOne/${repoName}/languages`, {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repoName}/languages`, {
       headers: {
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "AndrewMF-Portfolio",
@@ -167,7 +184,7 @@ async function fetchRepoLanguages(repoName: string): Promise<{ name: string; per
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 5) // Show top 5 languages
   } catch (error) {
-    console.error(`Error fetching languages for ${repoName}:`, error)
+    console.error(`Error fetching languages for ${owner}/${repoName}:`, error)
     return []
   }
 }
@@ -182,29 +199,29 @@ function formatRepoName(name: string): string {
 function getFallbackProjects(): PinnedRepo[] {
   return [
     {
+      title: "Nifty League Frontend",
+      description: "Frontend monorepo for Nifty League gaming platform. React-based Web3 gaming experience.",
+      tech: ["react", "web3", "gaming", "monorepo"],
+      url: "https://github.com/NiftyLeague/nifty-fe-monorepo",
+      stars: 0,
+      forks: 0,
+      languages: [
+        { name: "TypeScript", percentage: 75 },
+        { name: "JavaScript", percentage: 20 },
+        { name: "CSS", percentage: 5 },
+      ],
+      isPinned: true,
+    },
+    {
       title: "Nifty League Contracts",
       description: "Smart contracts powering the Nifty League ecosystem. ERC-721 NFTs, staking, and game mechanics.",
-      tech: ["smart-contracts", "nft", "gaming"],
-      url: "https://github.com/0xPlayerOne",
+      tech: ["smart-contracts", "nft", "gaming", "solidity"],
+      url: "https://github.com/NiftyLeague/nifty-smart-contracts",
       stars: 0,
       forks: 0,
       languages: [
         { name: "Solidity", percentage: 85 },
         { name: "JavaScript", percentage: 15 },
-      ],
-      isPinned: true,
-    },
-    {
-      title: "Nifty League App",
-      description: "Frontend application for Nifty League. React-based gaming platform with Web3 integration.",
-      tech: ["react", "web3", "gaming"],
-      url: "https://github.com/0xPlayerOne",
-      stars: 0,
-      forks: 0,
-      languages: [
-        { name: "TypeScript", percentage: 70 },
-        { name: "JavaScript", percentage: 20 },
-        { name: "CSS", percentage: 10 },
       ],
       isPinned: true,
     },
@@ -217,8 +234,7 @@ function getFallbackProjects(): PinnedRepo[] {
       forks: 0,
       languages: [
         { name: "TypeScript", percentage: 80 },
-        { name: "CSS", percentage: 15 },
-        { name: "HTML", percentage: 5 },
+        { name: "CSS", percentage: 20 },
       ],
       isPinned: false,
     },
