@@ -1,3 +1,5 @@
+export const HEADER_TEXT = ["ANDREW M-F", "CEO OF NIFTY LEAGUE"]
+
 export const SKILLS_DATA = [
   {
     category: "Web & Full-Stack",
@@ -88,21 +90,55 @@ export const CONTACT_LINKS = [
 
 export const ABOUT_CONTENT = {
   intro:
-    "I'm a passionate developer and entrepreneur with a focus on blockchain technology, gaming, and innovative digital experiences. As the CEO of Nifty League, I'm building the future of gaming and NFTs.",
-  mission:
-    "My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+    "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain technology, and innovative digital experiences. My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+  mission: "",
+  stats: [
+    { label: "Years Experience", value: "10+", icon: "zap" },
+    { label: "Projects Shipped", value: "50+", icon: "rocket" },
+    { label: "Team Members Led", value: "20+", icon: "users" },
+    { label: "Startups Founded", value: "3", icon: "building" },
+  ],
+  journey: [
+    {
+      year: "2015",
+      title: "Started Coding",
+      description: "Began my journey with web development and fell in love with creating digital experiences.",
+      icon: "code",
+    },
+    {
+      year: "2017",
+      title: "Blockchain Roots",
+      description: "Dove deep into blockchain technology and built several GPU mining rigs for Ethereum.",
+      icon: "blocks",
+    },
+    {
+      year: "2018",
+      title: "First 2 Startups",
+      description: "Co-founded my first tech startups, learning the ropes of entrepreneurship and product development.",
+      icon: "lightbulb",
+    },
+    {
+      year: "2021",
+      title: "Founded Nifty League",
+      description: "Launched Nifty League, combining my passion for gaming with cutting-edge Web3 technology.",
+      icon: "gamepad2",
+    },
+  ],
   values: {
     innovation: {
       title: "Innovation",
       description: "Constantly exploring new technologies and pushing creative boundaries.",
+      icon: "flask",
     },
     leadership: {
       title: "Leadership",
       description: "Building and leading teams to create exceptional digital experiences.",
+      icon: "chart-no-axes-combined",
     },
     vision: {
       title: "Vision",
-      description: "Focused on the future of gaming, blockchain, and interactive entertainment.",
+      description: "Focused on the future of technology, and interactive entertainment.",
+      icon: "eye",
     },
   },
 } as const

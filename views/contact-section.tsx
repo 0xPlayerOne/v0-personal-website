@@ -18,7 +18,14 @@ export function ContactSection() {
         </Typography>
         <div className={cn("grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12")}>
           {CONTACT_LINKS.map((contact, index) => (
-            <Card key={index} style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
+            <Card
+              key={index}
+              className="border-0"
+              style={{
+                backgroundColor: SITE_CARD_COLOR,
+                boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+              }}
+            >
               <CardContent className="p-4 sm:p-6">
                 <Typography variant="h3" align="center" color="secondary" gutterBottom>
                   {contact.platform}
