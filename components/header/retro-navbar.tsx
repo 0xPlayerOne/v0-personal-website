@@ -20,7 +20,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
 
   return (
     <nav
-      className="flex items-center"
+      className="flex items-center border-0"
       style={{
         height: `${height}px`,
         backgroundColor: isSticky ? `${NAV_BG_COLOR}f8` : NAV_BG_COLOR,

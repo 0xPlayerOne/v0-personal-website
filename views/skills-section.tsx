@@ -34,7 +34,7 @@ export function SkillsSection() {
             return (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
+                className="group transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border-0"
                 style={{
                   backgroundColor: SITE_CARD_COLOR,
                   boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,

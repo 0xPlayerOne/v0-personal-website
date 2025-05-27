@@ -57,7 +57,7 @@ export function AboutSection() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
               className={cn(
-                "px-4 py-2 rounded-md text-sm font-medium transition-all duration-300",
+                "px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 border-0",
                 activeTab === tab.id ? "scale-105" : "hover:scale-102",
               )}
               style={{
@@ -93,16 +93,16 @@ export function AboutSection() {
                 return (
                   <Card
                     key={key}
-                    className="group transition-all duration-300 hover:scale-105 cursor-pointer"
+                    className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0"
                     style={{
                       backgroundColor: SITE_CARD_COLOR,
                       boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `0 0 20px ${SITE_BTN_COLOR}40`
+                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 20px ${SITE_BTN_COLOR}40`
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = "none"
+                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
                     }}
                   >
                     <CardContent className="text-center p-6">
@@ -146,7 +146,7 @@ export function AboutSection() {
                     <div key={index} className="relative flex items-start gap-6">
                       {/* Timeline dot with icon */}
                       <div
-                        className="w-16 h-16 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
+                        className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center border-0"
                         style={{
                           backgroundColor: SITE_CARD_COLOR,
                           boxShadow: `0 0 0 2px ${SITE_BORDER_COLOR}, 0 0 15px ${SITE_BTN_COLOR}60`,
@@ -156,7 +156,7 @@ export function AboutSection() {
                       </div>
 
                       <Card
-                        className="flex-1 group transition-all duration-300 hover:scale-102"
+                        className="flex-1 group transition-all duration-300 hover:scale-102 border-0"
                         style={{
                           backgroundColor: SITE_CARD_COLOR,
                           boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
@@ -193,16 +193,16 @@ export function AboutSection() {
               return (
                 <Card
                   key={index}
-                  className="group transition-all duration-300 hover:scale-110 cursor-pointer"
+                  className="group transition-all duration-300 hover:scale-110 cursor-pointer border-0"
                   style={{
                     backgroundColor: SITE_CARD_COLOR,
                     boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = `0 0 25px ${SITE_BTN_COLOR}50`
+                    e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 25px ${SITE_BTN_COLOR}50`
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "none"
+                    e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
                   }}
                 >
                   <CardContent className="text-center p-6">

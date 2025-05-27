@@ -20,6 +20,7 @@ export function ContactSection() {
           {CONTACT_LINKS.map((contact, index) => (
             <Card
               key={index}
+              className="border-0"
               style={{
                 backgroundColor: SITE_CARD_COLOR,
                 boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,

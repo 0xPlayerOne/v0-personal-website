@@ -30,7 +30,7 @@ export function Section({ id, children }: SectionProps) {
   return (
     <section
       id={id}
-      className={cn("flex items-center justify-center py-8 sm:py-12 md:py-16")}
+      className={cn("flex items-center justify-center py-8 sm:py-12 md:py-16 border-0")}
       style={{
         minHeight: sectionHeight,
         backgroundColor: SITE_BG_COLOR,
