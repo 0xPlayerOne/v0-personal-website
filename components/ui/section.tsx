@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { NAVBAR_HEIGHT } from "@/constants/navigation"
-import { SITE_BG_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
+import { SITE_BG_COLOR, SITE_TEXT_COLOR, SITE_BORDER_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
 
 interface SectionProps {
@@ -35,6 +35,7 @@ export function Section({ id, children }: SectionProps) {
         minHeight: sectionHeight,
         backgroundColor: SITE_BG_COLOR,
         color: SITE_TEXT_COLOR,
+        boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}20, 0 0 5px ${SITE_BORDER_COLOR}30`,
       }}
     >
       <div className="container mx-auto px-4 w-full">{children}</div>

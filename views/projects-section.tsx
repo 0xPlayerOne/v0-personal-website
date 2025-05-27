@@ -15,7 +15,13 @@ export function ProjectsSection() {
       <div className="max-w-6xl mx-auto">
         <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
           {PROJECTS_DATA.map((project, index) => (
-            <Card key={index} style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}>
+            <Card
+              key={index}
+              style={{
+                backgroundColor: SITE_CARD_COLOR,
+                boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+              }}
+            >
               <CardContent className="p-6 sm:p-8">
                 <Typography variant="h3" color="secondary" gutterBottom>
                   {project.title}

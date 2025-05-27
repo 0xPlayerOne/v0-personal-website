@@ -24,12 +24,10 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
       style={{
         height: `${height}px`,
         backgroundColor: isSticky ? `${NAV_BG_COLOR}f8` : NAV_BG_COLOR,
-        borderTop: `1px solid ${NAV_BORDER_COLOR}`,
-        borderBottom: `1px solid ${NAV_BORDER_COLOR}`,
+        boxShadow: `0 0 0 1px ${NAV_BORDER_COLOR}, 0 0 10px ${NAV_BORDER_COLOR}60`,
         backdropFilter: isSticky ? "blur(4px)" : "none",
         WebkitBackdropFilter: isSticky ? "blur(4px)" : "none",
-        boxShadow: isSticky ? "0 2px 8px rgba(0, 0, 0, 0.2)" : "none",
-        display: "flex", // Ensure it's always visible when rendered
+        display: "flex",
       }}
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">

@@ -4,7 +4,7 @@ import { Section } from "@/components/ui/section"
 import { Typography } from "@/components/ui/typography"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
+import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR } from "@/constants/colors"
 import { cn } from "@/lib/utils"
 import { ABOUT_CONTENT } from "@/constants/content"
 import { useState } from "react"
@@ -63,7 +63,7 @@ export function AboutSection() {
               style={{
                 backgroundColor: activeTab === tab.id ? SITE_BTN_COLOR : "transparent",
                 color: activeTab === tab.id ? SITE_CARD_COLOR : SITE_BTN_COLOR,
-                border: activeTab === tab.id ? "none" : `1px solid ${SITE_BTN_COLOR}`
+                border: activeTab === tab.id ? "none" : `1px solid ${SITE_BTN_COLOR}`,
               }}
             >
               {tab.label}
@@ -84,8 +84,7 @@ export function AboutSection() {
                 <Typography variant="body1" align="center" gutterBottom>
                   {ABOUT_CONTENT.mission}
                 </Typography>
-                ) : null
-              }
+              ) : null}
             </div>
 
             <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8")}>
@@ -95,7 +94,10 @@ export function AboutSection() {
                   <Card
                     key={key}
                     className="group transition-all duration-300 hover:scale-105 cursor-pointer"
-                    style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                    style={{
+                      backgroundColor: SITE_CARD_COLOR,
+                      boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+                    }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = `0 0 20px ${SITE_BTN_COLOR}40`
                     }}
@@ -147,8 +149,7 @@ export function AboutSection() {
                         className="w-16 h-16 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
                         style={{
                           backgroundColor: SITE_CARD_COLOR,
-                          borderColor: SITE_BORDER_COLOR,
-                          boxShadow: `0 0 10px ${SITE_BTN_COLOR}60`,
+                          boxShadow: `0 0 0 2px ${SITE_BORDER_COLOR}, 0 0 15px ${SITE_BTN_COLOR}60`,
                         }}
                       >
                         <IconComponent size={24} style={{ color: SITE_BTN_COLOR }} />
@@ -156,7 +157,10 @@ export function AboutSection() {
 
                       <Card
                         className="flex-1 group transition-all duration-300 hover:scale-102"
-                        style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                        style={{
+                          backgroundColor: SITE_CARD_COLOR,
+                          boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+                        }}
                       >
                         <CardContent className="p-6">
                           <div className="flex items-center gap-3 mb-2">
@@ -190,7 +194,10 @@ export function AboutSection() {
                 <Card
                   key={index}
                   className="group transition-all duration-300 hover:scale-110 cursor-pointer"
-                  style={{ backgroundColor: SITE_CARD_COLOR, borderColor: SITE_BORDER_COLOR }}
+                  style={{
+                    backgroundColor: SITE_CARD_COLOR,
+                    boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+                  }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.boxShadow = `0 0 25px ${SITE_BTN_COLOR}50`
                   }}
