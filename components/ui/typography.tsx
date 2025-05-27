@@ -24,8 +24,8 @@ export function Typography({
   }
 
   const variantMap = {
-    h1: { element: "h1", classes: "text-4xl sm:text-5xl font-bold" },
-    h2: { element: "h2", classes: "text-3xl sm:text-4xl font-bold" },
+    h1: { element: "h1", classes: "text-4xl sm:text-5xl font-bold font-pixel" },
+    h2: { element: "h2", classes: "text-3xl sm:text-4xl font-bold font-pixel" },
     h3: { element: "h3", classes: "text-lg sm:text-xl font-semibold" },
     h4: { element: "h4", classes: "text-base sm:text-lg font-semibold" },
     h5: { element: "h5", classes: "text-sm sm:text-base font-semibold" },

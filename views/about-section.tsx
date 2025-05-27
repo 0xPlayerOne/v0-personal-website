@@ -18,7 +18,7 @@ import {
   Lightbulb,
   Gamepad2,
   FlaskRoundIcon as Flask,
-  Target,
+  BarChartIcon as ChartNoAxesCombined,
   Eye,
 } from "lucide-react"
 
@@ -32,7 +32,7 @@ const ICON_MAP = {
   lightbulb: Lightbulb,
   gamepad2: Gamepad2,
   flask: Flask,
-  target: Target,
+  "chart-no-axes-combined": ChartNoAxesCombined,
   eye: Eye,
 } as const
 

@@ -134,7 +134,7 @@ export const ABOUT_CONTENT = {
     leadership: {
       title: "Leadership",
       description: "Building and leading teams to create exceptional digital experiences.",
-      icon: "target",
+      icon: "chart-no-axes-combined",
     },
     vision: {
       title: "Vision",
