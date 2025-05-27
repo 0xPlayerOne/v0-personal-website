@@ -12,7 +12,7 @@ export function ProjectsSection() {
       <Typography variant="h2" align="center" color="primary" gutterBottom>
         Projects
       </Typography>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto mt-8">
         <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
           {PROJECTS_DATA.map((project, index) => (
             <Card

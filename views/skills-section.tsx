@@ -23,7 +23,7 @@ export function SkillsSection() {
       <Typography variant="h2" align="center" color="primary" gutterBottom>
         Skills & Expertise
       </Typography>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto mt-8">
         <div className={cn("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8")}>
           {SKILLS_DATA.map((skillGroup, index) => {
             const IconComponent = SKILL_ICONS[skillGroup.category as keyof typeof SKILL_ICONS]
