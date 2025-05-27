@@ -2,6 +2,19 @@
 const MAX_PROJECTS = 6
 const MAX_LANGUAGES_DISPLAYED = 5
 
+const PINNED_REPO_CONFIGS: PinnedRepoConfig[] = [
+  {
+    owner: "NiftyLeague",
+    repo: "nifty-fe-monorepo",
+    displayName: "Nifty League Frontend",
+  },
+  {
+    owner: "NiftyLeague",
+    repo: "nifty-smart-contracts",
+    displayName: "Nifty League Contracts",
+  },
+]
+
 interface GitHubRepo {
   id: number
   name: string
@@ -32,20 +45,6 @@ interface PinnedRepoConfig {
   repo: string
   displayName?: string // Optional custom display name
 }
-
-// ===== PINNED REPOSITORIES CONFIGURATION =====
-const PINNED_REPO_CONFIGS: PinnedRepoConfig[] = [
-  {
-    owner: "NiftyLeague",
-    repo: "nifty-fe-monorepo",
-    displayName: "Nifty League Frontend",
-  },
-  {
-    owner: "NiftyLeague",
-    repo: "nifty-smart-contracts",
-    displayName: "Nifty League Contracts",
-  },
-]
 
 export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
   try {
@@ -204,28 +203,28 @@ function getFallbackProjects(): PinnedRepo[] {
   return [
     {
       title: "Nifty League Frontend",
-      description: "Frontend monorepo for Nifty League gaming platform. React-based Web3 gaming experience.",
-      tech: ["react", "web3", "gaming", "monorepo"],
+      description: "Monorepo for Nifty League frontend applications.",
+      tech: ["next.js", "web3", "gaming", "monorepo"],
       url: "https://github.com/NiftyLeague/nifty-fe-monorepo",
-      stars: 0,
+      stars: 1,
       forks: 0,
       languages: [
-        { name: "TypeScript", percentage: 75 },
-        { name: "JavaScript", percentage: 20 },
-        { name: "CSS", percentage: 5 },
+        { name: "TypeScript", percentage: 95 },
+        { name: "CSS", percentage: 3 },
+        { name: "JavaScript", percentage: 1 },
       ],
       isPinned: true,
     },
     {
       title: "Nifty League Contracts",
-      description: "Smart contracts powering the Nifty League ecosystem. ERC-721 NFTs, staking, and game mechanics.",
+      description: "Smart Contract repository for Nifty League.",
       tech: ["smart-contracts", "nft", "gaming", "solidity"],
       url: "https://github.com/NiftyLeague/nifty-smart-contracts",
-      stars: 0,
+      stars: 2,
       forks: 0,
       languages: [
-        { name: "Solidity", percentage: 85 },
-        { name: "JavaScript", percentage: 15 },
+        { name: "TypeScript", percentage: 88 },
+        { name: "Solidity", percentage: 12 },
       ],
       isPinned: true,
     },
