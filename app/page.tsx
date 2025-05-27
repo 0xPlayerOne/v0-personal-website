@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <PongHeader />
-      <main className="scroll-snap-container">
+      <main>
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />

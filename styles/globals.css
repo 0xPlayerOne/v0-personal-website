@@ -8,17 +8,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scroll snap for sections */
-html {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
 /* Custom scrollbar to match header colors */
 ::-webkit-scrollbar {
   width: 12px;
@@ -93,7 +82,7 @@ body {
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }

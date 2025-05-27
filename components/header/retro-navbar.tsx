@@ -15,8 +15,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   const scrollToSection = (sectionId: string) => {
-    // Don't pass offset since we want sections to align with viewport top
-    smoothScrollToSection(sectionId, 0)
+    smoothScrollToSection(sectionId, height)
   }
 
   return (
