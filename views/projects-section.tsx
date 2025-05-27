@@ -13,7 +13,7 @@ import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-reac
 
 // ===== CONFIGURATION =====
 const MAX_PROJECTS_DISPLAY = 6
-const LANGUAGES_TO_SHOW = 5
+const LANGUAGES_TO_SHOW = 3
 const GRID_COLS_LG = 2 // Keep 2 columns on large screens
 const GRID_COLS_MD = 2 // 2 columns on medium screens
 const GRID_COLS_SM = 1 // 1 column on small screens
@@ -183,21 +183,26 @@ export function ProjectsSection() {
                       </Typography>
                     </div>
 
-                    {/* Stars and forks display - top right */}
-                    <div className={cn("flex flex-col gap-2 min-w-[80px]", project.isPinned ? "mt-8" : "")}>
-                      {project.stars > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Star size={14} style={{ color: SITE_BTN_COLOR }} />
-                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
-                            {project.stars}
-                          </Typography>
-                        </div>
+                    {/* Stars and forks display - horizontal, right-aligned */}
+                    <div
+                      className={cn(
+                        "flex items-center gap-4 justify-end min-w-[120px]",
+                        project.isPinned ? "mt-8" : "",
                       )}
+                    >
                       {project.forks > 0 && (
                         <div className="flex items-center gap-1">
                           <GitFork size={14} style={{ color: SITE_BTN_COLOR }} />
                           <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
                             {project.forks}
+                          </Typography>
+                        </div>
+                      )}
+                      {project.stars > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Star size={14} style={{ color: SITE_BTN_COLOR }} />
+                          <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>
+                            {project.stars}
                           </Typography>
                         </div>
                       )}
