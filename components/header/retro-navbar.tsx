@@ -15,7 +15,8 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   const scrollToSection = (sectionId: string) => {
-    smoothScrollToSection(sectionId, height)
+    // Don't pass offset since we want sections to align with viewport top
+    smoothScrollToSection(sectionId, 0)
   }
 
   return (
@@ -31,7 +32,7 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
       }}
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">
-        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-8 lg:space-x-6 font-['Press_Start_2P'] text-[8px] sm:text-[10px] md:text-sm lg:text-lg">
+        <ul className="flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8 font-['Press_Start_2P'] text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
           {NAVIGATION_SECTIONS.map((item) => (
             <li key={item.id} className="flex-shrink-0">
               <button
