@@ -93,7 +93,13 @@ async function fetchSpecificRepos(
           Accept: "application/vnd.github.v3+json",
           "User-Agent": "AndrewMF-Portfolio",
         },
+        next: { revalidate: 3600 }, // Cache for 1 hour
       })
+
+      if (response.status === 403) {
+        console.warn(`Rate limited for ${config.owner}/${config.repo}`)
+        continue
+      }
 
       if (response.ok) {
         const repo: GitHubRepo = await response.json()
@@ -123,7 +129,13 @@ async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "AndrewMF-Portfolio",
       },
+      next: { revalidate: 3600 }, // Cache for 1 hour
     })
+
+    if (response.status === 403) {
+      console.warn("GitHub API rate limited, using fallback projects")
+      return []
+    }
 
     if (!response.ok) {
       throw new Error(`GitHub API error: ${response.status}`)
@@ -168,7 +180,13 @@ async function fetchRepoLanguages(owner: string, repoName: string): Promise<{ na
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "AndrewMF-Portfolio",
       },
+      next: { revalidate: 3600 }, // Cache for 1 hour
     })
+
+    if (response.status === 403) {
+      console.warn(`Rate limited for languages ${owner}/${repoName}`)
+      return []
+    }
 
     if (!response.ok) {
       return []
