@@ -76,7 +76,7 @@ export async function fetchPinnedRepos(): Promise<PinnedRepo[]> {
     return reposWithLanguages
   } catch (error) {
     console.error("Error fetching GitHub repos:", error)
-    return getFallbackProjects()
+    return getFallbackPinnedProjects()
   }
 }
 
@@ -169,7 +169,7 @@ async function fetchPopularRepositories(): Promise<Omit<PinnedRepo, "languages">
     }))
   } catch (error) {
     console.error("Error fetching popular repos:", error)
-    return []
+    return getFallbackPopularProjects()
   }
 }
 
@@ -217,7 +217,7 @@ function formatRepoName(name: string): string {
     .join(" ")
 }
 
-function getFallbackProjects(): PinnedRepo[] {
+function getFallbackPinnedProjects(): PinnedRepo[] {
   return [
     {
       title: "Nifty League Frontend",
@@ -245,6 +245,29 @@ function getFallbackProjects(): PinnedRepo[] {
         { name: "Solidity", percentage: 12 },
       ],
       isPinned: true,
+    },
+  ]
+}
+
+function getFallbackPopularProjects(): Omit<PinnedRepo, "languages">[] {
+  return [
+    {
+      title: "Portfolio Website",
+      description: "Personal portfolio website built with Next.js and TypeScript.",
+      tech: ["nextjs", "typescript", "tailwind", "portfolio"],
+      url: "https://github.com/0xPlayerOne/v0-portfolio",
+      stars: 0,
+      forks: 0,
+      isPinned: false,
+    },
+    {
+      title: "Blockchain Utils",
+      description: "Utility functions and helpers for blockchain development.",
+      tech: ["blockchain", "ethereum", "web3", "utilities"],
+      url: "https://github.com/0xPlayerOne/blockchain-utils",
+      stars: 0,
+      forks: 0,
+      isPinned: false,
     },
   ]
 }
