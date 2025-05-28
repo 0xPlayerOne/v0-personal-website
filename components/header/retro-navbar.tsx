@@ -20,7 +20,7 @@ const NavItem = memo(function NavItem({
   onHover,
   hoveredItem,
 }: {
-  item: typeof NAVIGATION_SECTIONS[0]
+  item: typeof NAVIGATION_SECTIONS[number]
   isActive: boolean
   height: number
   onHover: (id: string | null) => void

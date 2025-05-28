@@ -11,24 +11,9 @@ export function PongHeader() {
   
   // Memoize section IDs to prevent unnecessary recalculations
   const sectionIds = useMemo(() => NAVIGATION_SECTIONS.map((section) => section.id), [])
-  
-  // Use the optimized scroll spy hook
-  const activeSection = useScrollSpy({
-    sectionIds,
-    offset: NAVBAR_HEIGHT + 50,
-  })
+  const activeSection = useScrollSpy({ sectionIds, offset: NAVBAR_HEIGHT + 50})
 
-  // Optimize scroll handler with throttling and useCallback
-  const handleScroll = useCallback(() => {
-    if (!window.requestAnimationFrame) {
-      checkStickyState()
-      return
-    }
-    
-    window.requestAnimationFrame(checkStickyState)
-  }, [])
-  
-  // Separate function to check sticky state
+  // Helper function to check sticky state
   const checkStickyState = useCallback(() => {
     const scrollPosition = window.scrollY
     // The navbar should stick when we scroll past the header minus the navbar height
@@ -42,10 +27,19 @@ export function PongHeader() {
     }
   }, [isSticky])
 
+  // Optimized scroll handler with throttling and useCallback
+  const handleScroll = useCallback(() => {
+    if (!window.requestAnimationFrame) {
+      checkStickyState()
+      return
+    }
+    
+    window.requestAnimationFrame(checkStickyState)
+  }, [checkStickyState])
+
   useEffect(() => {
     // Use passive event listener for better performance
     window.addEventListener("scroll", handleScroll, { passive: true })
-    
     // Initial check on mount
     handleScroll()
     
@@ -59,12 +53,11 @@ export function PongHeader() {
 
   return (
     <>
-      <header className="w-full h-dvh flex flex-col justify-between">
+      <header className="w-full h-dvh flex flex-col">
         <div className="flex-grow">
           <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
         </div>
-        {/* Only render the navbar at the bottom of the header when not sticky */}
-        {/* Use opacity instead of visibility to maintain layout space */}
+        {/* Use opacity to manage default navbar visibility to maintain layout space */}
         <div style={{ opacity: isSticky ? 0 : 1, height: NAVBAR_HEIGHT }}>
           <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSectionString} />
         </div>
