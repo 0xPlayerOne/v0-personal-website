@@ -21,7 +21,7 @@ export const RetroCanvas = memo(function RetroCanvas({ navbarHeight }: RetroCanv
   }), [])
 
   return (
-    <div className="flex-1">
+    <div className="w-full h-full">
       <PongGame
         navbarHeight={navbarHeight}
         headerText={HEADER_TEXT}
