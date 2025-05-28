@@ -4,6 +4,7 @@ import { useState } from "react"
 import { NAV_BG_COLOR, NAV_BORDER_COLOR, NAV_TEXT_COLOR, NAV_HOVER_COLOR } from "@/constants/colors"
 import { smoothScrollToSection } from "@/lib/smooth-scroll"
 import { NAVIGATION_SECTIONS } from "@/constants/navigation"
+import { cn } from "@/lib/utils"
 
 interface RetroNavbarProps {
   height: number
@@ -20,15 +21,15 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
 
   return (
     <nav
-      className="flex items-center border-0"
+      className={cn(
+        "flex items-center border-0 mt-px", // Added flex from inline, mt-px for marginTop: 1px
+        `shadow-[0_0_0_1px_${NAV_BORDER_COLOR},0_0_10px_${NAV_BORDER_COLOR}60]`,
+        isSticky ? `bg-[${NAV_BG_COLOR}f8] backdrop-blur-sm` : `bg-[${NAV_BG_COLOR}]` // backdrop-blur-sm for blur(4px)
+      )}
       style={{
-        height: `${height}px`,
-        backgroundColor: isSticky ? `${NAV_BG_COLOR}f8` : NAV_BG_COLOR,
-        boxShadow: `0 0 0 1px ${NAV_BORDER_COLOR}, 0 0 10px ${NAV_BORDER_COLOR}60`,
-        backdropFilter: isSticky ? "blur(4px)" : "none",
-        WebkitBackdropFilter: isSticky ? "blur(4px)" : "none",
-        display: "flex",
-        marginTop: "1px",
+        height: `${height}px`, // Dynamic height remains inline
+        // textRendering, WebkitFontSmoothing, MozOsxFontSmoothing are very specific,
+        // better kept for direct button styling or global CSS if widely applicable.
       }}
     >
       <div className="container mx-auto px-2 sm:px-4 w-full">
@@ -37,16 +38,14 @@ export function RetroNavbar({ height = 100, isSticky = false, activeSection = ""
             <li key={item.id} className="flex-shrink-0">
               <button
                 onClick={() => scrollToSection(item.id)}
-                className="transition-colors block whitespace-nowrap px-1 sm:px-2"
+                className={cn(
+                  "transition-colors block whitespace-nowrap px-1 sm:px-2",
+                  "border-b align-baseline m-0 py-[10px] leading-none", // Converted styles
+                  hoveredItem === item.id ? `text-[${NAV_HOVER_COLOR}]` : `text-[${NAV_TEXT_COLOR}]`,
+                  activeSection === item.id ? `border-[${NAV_BORDER_COLOR}]` : "border-transparent"
+                )}
                 style={{
-                  color: hoveredItem === item.id ? NAV_HOVER_COLOR : NAV_TEXT_COLOR,
-                  borderColor: activeSection === item.id ? NAV_BORDER_COLOR : "transparent",
-                  borderBottomWidth: "1px",
-                  borderBottomStyle: "solid",
-                  lineHeight: "1",
-                  padding: "10px 0",
-                  margin: "0",
-                  verticalAlign: "baseline",
+                  // Specific text rendering/smoothing properties remain inline if necessary
                   textRendering: "optimizeSpeed",
                   WebkitFontSmoothing: "none",
                   MozOsxFontSmoothing: "unset",

@@ -30,14 +30,11 @@ export function PongHeader() {
     <>
       <header className="w-full h-dvh flex flex-col">
         <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
-        {!isSticky && <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSection || ""} />}
-      </header>
-
-      {isSticky && (
-        <div className="fixed top-0 left-0 right-0 z-50">
-          <RetroNavbar height={NAVBAR_HEIGHT} isSticky={true} activeSection={activeSection || ""} />
+        {/* Conditionally apply styles for sticky and non-sticky states */}
+        <div className={isSticky ? "fixed top-0 left-0 right-0 z-50" : ""}>
+          <RetroNavbar height={NAVBAR_HEIGHT} isSticky={isSticky} activeSection={activeSection || ""} />
         </div>
-      )}
+      </header>
     </>
   )
 }

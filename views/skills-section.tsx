@@ -34,29 +34,28 @@ export function SkillsSection() {
             return (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border-0"
-                style={{
-                  backgroundColor: SITE_CARD_COLOR,
-                  boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 20px ${SITE_BTN_COLOR}40`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
-                }}
+                className={cn(
+                  "group transition-all duration-300 hover:scale-105 cursor-pointer border-0",
+                  `bg-[${SITE_CARD_COLOR}]`,
+                  `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]`, // 40% opacity
+                  `hover:shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_20px_${SITE_BTN_COLOR}66]` // 40% opacity
+                )}
               >
                 <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center gap-3 mb-4">
                     {IconComponent && (
                       <div
-                        className="p-2 rounded-lg transition-colors duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                        className={cn(
+                          "p-2 rounded-lg transition-colors duration-300 group-hover:scale-110",
+                          `bg-[${SITE_BTN_COLOR}33]` // 20% opacity
+                        )}
                       >
                         <IconComponent
                           size={24}
-                          style={{ color: SITE_BTN_COLOR }}
-                          className="transition-transform duration-300 group-hover:rotate-12"
+                          className={cn(
+                            "transition-transform duration-300 group-hover:rotate-12",
+                            `text-[${SITE_BTN_COLOR}]`
+                          )}
                         />
                       </div>
                     )}
@@ -78,24 +77,28 @@ export function SkillsSection() {
                               {[...Array(5)].map((_, i) => (
                                 <div
                                   key={i}
-                                  className="w-2 h-2 rounded-full transition-all duration-300"
-                                  style={{
-                                    backgroundColor: i < filledDots ? SITE_BTN_COLOR : `${SITE_TEXT_COLOR}30`,
-                                  }}
+                                  className={cn(
+                                    "w-2 h-2 rounded-full transition-all duration-300",
+                                    i < filledDots ? `bg-[${SITE_BTN_COLOR}]` : `bg-[${SITE_TEXT_COLOR}4D]` // 30% opacity
+                                  )}
                                 />
                               ))}
                             </div>
                           </div>
                           <div
-                            className="h-1 rounded-full transition-all duration-500 group-hover/skill:h-2"
-                            style={{ backgroundColor: `${SITE_TEXT_COLOR}20` }}
+                            className={cn(
+                              "h-1 rounded-full transition-all duration-500 group-hover/skill:h-2",
+                              `bg-[${SITE_TEXT_COLOR}33]` // 20% opacity
+                            )}
                           >
                             <div
-                              className="h-full rounded-full transition-all duration-700 ease-out"
+                              className={cn(
+                                "h-full rounded-full transition-all duration-700 ease-out",
+                                `bg-[${SITE_BTN_COLOR}]`,
+                                `shadow-[0_0_8px_${SITE_BTN_COLOR}99]` // 60% opacity
+                              )}
                               style={{
-                                backgroundColor: SITE_BTN_COLOR,
-                                width: `${skill.level}%`,
-                                boxShadow: `0 0 8px ${SITE_BTN_COLOR}60`,
+                                width: `${skill.level}%`, // Dynamic width must stay inline
                               }}
                             />
                           </div>
@@ -104,15 +107,15 @@ export function SkillsSection() {
                     })}
                   </div>
 
-                  <div className="mt-4 pt-4 border-t" style={{ borderColor: `${SITE_BORDER_COLOR}40` }}>
+                  <div className={cn("mt-4 pt-4 border-t", `border-[${SITE_BORDER_COLOR}66]`)}> {/* 40% opacity */}
                     <div className="flex items-center justify-between text-xs">
-                      <span style={{ color: SITE_TEXT_COLOR }}>{skillGroup.skills.length} core skills</span>
+                      <span className={`text-[${SITE_TEXT_COLOR}]`}>{skillGroup.skills.length} core skills</span>
                       <span
-                        className="px-2 py-1 rounded font-mono"
-                        style={{
-                          backgroundColor: `${SITE_BTN_COLOR}20`,
-                          color: SITE_BTN_COLOR,
-                        }}
+                        className={cn(
+                          "px-2 py-1 rounded font-mono",
+                          `bg-[${SITE_BTN_COLOR}33]`, // 20% opacity
+                          `text-[${SITE_BTN_COLOR}]`
+                        )}
                       >
                         LVL {avgLevel}
                       </span>

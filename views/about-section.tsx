@@ -47,7 +47,7 @@ export function AboutSection() {
 
       {/* Tab Navigation */}
       <div className="flex justify-center mb-4">
-        <div className="flex gap-2 p-1 rounded-lg" style={{ backgroundColor: `${SITE_CARD_COLOR}80` }}>
+        <div className={cn("flex gap-2 p-1 rounded-lg", `bg-[${SITE_CARD_COLOR}CC]`)}> {/* 80% opacity */}
           {[
             { id: "overview", label: "Overview" },
             { id: "journey", label: "Journey" },
@@ -56,14 +56,11 @@ export function AboutSection() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
               className={cn(
-                "px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 border-0",
-                activeTab === tab.id ? "scale-105" : "hover:scale-102",
+                "px-4 py-2 rounded-md text-sm font-medium transition-all duration-300",
+                activeTab === tab.id
+                  ? `scale-105 bg-[${SITE_BTN_COLOR}] text-[${SITE_CARD_COLOR}] border-0`
+                  : `hover:scale-102 bg-transparent text-[${SITE_BTN_COLOR}] border border-[${SITE_BTN_COLOR}]`,
               )}
-              style={{
-                backgroundColor: activeTab === tab.id ? SITE_BTN_COLOR : "transparent",
-                color: activeTab === tab.id ? SITE_CARD_COLOR : SITE_BTN_COLOR,
-                border: activeTab === tab.id ? "none" : `1px solid ${SITE_BTN_COLOR}`,
-              }}
             >
               {tab.label}
             </button>
@@ -93,28 +90,27 @@ export function AboutSection() {
                 return (
                   <Card
                     key={key}
-                    className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0"
-                    style={{
-                      backgroundColor: SITE_CARD_COLOR,
-                      boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 20px ${SITE_BTN_COLOR}40`
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
-                    }}
+                    className={cn(
+                      "group transition-all duration-300 hover:scale-105 cursor-pointer border-0",
+                      `bg-[${SITE_CARD_COLOR}]`,
+                      `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]`, // 40% opacity
+                      `hover:shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_20px_${SITE_BTN_COLOR}66]` // 40% opacity
+                    )}
                   >
                     <CardContent className="text-center p-6">
                       <div className="mb-4 flex justify-center">
                         <div
-                          className="p-3 rounded-lg group-hover:scale-110 transition-transform duration-300"
-                          style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                          className={cn(
+                            "p-3 rounded-lg group-hover:scale-110 transition-transform duration-300",
+                            `bg-[${SITE_BTN_COLOR}33]` // 20% opacity
+                          )}
                         >
                           <IconComponent
                             size={32}
-                            style={{ color: SITE_BTN_COLOR }}
-                            className="transition-transform duration-300 group-hover:rotate-12"
+                            className={cn(
+                              "transition-transform duration-300 group-hover:rotate-12",
+                              `text-[${SITE_BTN_COLOR}]`
+                            )}
                           />
                         </div>
                       </div>
@@ -137,28 +133,27 @@ export function AboutSection() {
                 return (
                   <Card
                     key={index}
-                    className="group transition-all duration-300 hover:scale-110 cursor-pointer border-0"
-                    style={{
-                      backgroundColor: SITE_CARD_COLOR,
-                      boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 25px ${SITE_BTN_COLOR}50`
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
-                    }}
+                    className={cn(
+                      "group transition-all duration-300 hover:scale-110 cursor-pointer border-0",
+                      `bg-[${SITE_CARD_COLOR}]`,
+                      `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]`, // 40% opacity
+                      `hover:shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_25px_${SITE_BTN_COLOR}80]` // 50% opacity
+                    )}
                   >
                     <CardContent className="text-center p-6">
                       <div className="mb-4 flex justify-center">
                         <div
-                          className="p-3 rounded-lg group-hover:scale-125 transition-transform duration-300"
-                          style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                          className={cn(
+                            "p-3 rounded-lg group-hover:scale-125 transition-transform duration-300",
+                            `bg-[${SITE_BTN_COLOR}33]` // 20% opacity
+                          )}
                         >
                           <IconComponent
                             size={32}
-                            style={{ color: SITE_BTN_COLOR }}
-                            className="transition-transform duration-300 group-hover:rotate-12"
+                            className={cn(
+                              "transition-transform duration-300 group-hover:rotate-12",
+                              `text-[${SITE_BTN_COLOR}]`
+                            )}
                           />
                         </div>
                       </div>
@@ -186,7 +181,7 @@ export function AboutSection() {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5" style={{ backgroundColor: SITE_BORDER_COLOR }} />
+              <div className={cn("absolute left-8 top-0 bottom-0 w-0.5", `bg-[${SITE_BORDER_COLOR}]`)} />
 
               <div className="space-y-8">
                 {ABOUT_CONTENT.journey.map((item, index) => {
@@ -195,27 +190,28 @@ export function AboutSection() {
                     <div key={index} className="relative flex items-start gap-6">
                       {/* Timeline dot with icon */}
                       <div
-                        className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center border-0"
-                        style={{
-                          backgroundColor: SITE_CARD_COLOR,
-                          boxShadow: `0 0 0 2px ${SITE_BORDER_COLOR}, 0 0 15px ${SITE_BTN_COLOR}60`,
-                        }}
+                        className={cn(
+                          "w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center border-0",
+                          `bg-[${SITE_CARD_COLOR}]`,
+                          `shadow-[0_0_0_2px_${SITE_BORDER_COLOR},0_0_15px_${SITE_BTN_COLOR}99]` // 60% opacity
+                        )}
                       >
-                        <IconComponent size={24} style={{ color: SITE_BTN_COLOR }} />
+                        <IconComponent size={24} className={`text-[${SITE_BTN_COLOR}]`} />
                       </div>
 
                       <Card
-                        className="flex-1 group transition-all duration-300 hover:scale-102 border-0"
-                        style={{
-                          backgroundColor: SITE_CARD_COLOR,
-                          boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                        }}
+                        className={cn(
+                          "flex-1 group transition-all duration-300 hover:scale-102 border-0",
+                          `bg-[${SITE_CARD_COLOR}]`,
+                          `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]` // 40% opacity
+                          // No hover shadow change specified for these cards, keeping it simple
+                        )}
                       >
                         <CardContent className="p-6">
                           <div className="flex items-center gap-3 mb-2">
                             <Badge
                               variant="secondary"
-                              style={{ backgroundColor: SITE_BTN_COLOR, color: SITE_CARD_COLOR }}
+                              className={cn(`bg-[${SITE_BTN_COLOR}] text-[${SITE_CARD_COLOR}]`)}
                             >
                               {item.year}
                             </Badge>

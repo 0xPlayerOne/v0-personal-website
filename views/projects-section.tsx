@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
-import { cn } from "@/lib/utils"
+import { cn, getLanguageColor } from "@/lib/utils"
 import { fetchPinnedRepos } from "@/lib/github"
 import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-react"
 
@@ -55,29 +55,11 @@ export function ProjectsSection() {
     loadProjects()
   }, [])
 
-  const getLanguageColor = (language: string) => {
-    const colors: Record<string, string> = {
-      TypeScript: "#3178c6",
-      JavaScript: "#f1e05a",
-      Python: "#3572A5",
-      Solidity: "#AA6746",
-      Go: "#00ADD8",
-      Rust: "#dea584",
-      "C#": "#239120",
-      Java: "#b07219",
-      "C++": "#f34b7d",
-      HTML: "#e34c26",
-      CSS: "#1572B6",
-      Vue: "#4FC08D",
-      React: "#61DAFB",
-      Swift: "#FA7343",
-      Kotlin: "#A97BFF",
-      Dart: "#00B4AB",
-      PHP: "#777BB4",
-      Ruby: "#701516",
-      Shell: "#89e051",
-    }
-    return colors[language] || SITE_BTN_COLOR
+  // Common button style
+  const commonButtonStyle = {
+    backgroundColor: `${SITE_BTN_COLOR}20`, // Assuming 20% opacity
+    color: SITE_BTN_COLOR,
+    borderColor: SITE_BTN_COLOR,
   }
 
   return (
@@ -92,11 +74,7 @@ export function ProjectsSection() {
           onClick={loadProjects}
           disabled={loading}
           className="border-0"
-          style={{
-            backgroundColor: `${SITE_BTN_COLOR}20`,
-            color: SITE_BTN_COLOR,
-            borderColor: SITE_BTN_COLOR,
-          }}
+          style={commonButtonStyle}
         >
           <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
         </Button>
@@ -124,11 +102,11 @@ export function ProjectsSection() {
             {[...Array(MAX_PROJECTS_DISPLAY)].map((_, index) => (
               <Card
                 key={index}
-                className="border-0 animate-pulse"
-                style={{
-                  backgroundColor: SITE_CARD_COLOR,
-                  boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                }}
+                className={cn(
+                  "border-0 animate-pulse",
+                  `bg-[${SITE_CARD_COLOR}]`,
+                  `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]` // Assuming 40% opacity is '66' in hex
+                )}
               >
                 <CardContent className="p-6 sm:p-8">
                   <div className="h-6 bg-gray-600 rounded mb-4"></div>
@@ -147,26 +125,21 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0 relative"
-                style={{
-                  backgroundColor: SITE_CARD_COLOR,
-                  boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 20px ${SITE_BTN_COLOR}40`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
-                }}
+                className={cn(
+                  "group transition-all duration-300 hover:scale-105 cursor-pointer border-0 relative",
+                  `bg-[${SITE_CARD_COLOR}]`,
+                  `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]`, // Assuming 40% opacity
+                  `hover:shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_20px_${SITE_BTN_COLOR}66]` // Assuming 40% opacity
+                )}
               >
                 {project.isPinned && (
                   <div className="absolute top-3 left-3 z-10">
                     <div
                       className="flex items-center gap-1 px-2 py-1 rounded-full text-xs"
                       style={{
-                        backgroundColor: `${SITE_BTN_COLOR}20`,
+                        backgroundColor: `${SITE_BTN_COLOR}33`, // 20% opacity
                         color: SITE_BTN_COLOR,
-                        border: `1px solid ${SITE_BTN_COLOR}40`,
+                        border: `1px solid ${SITE_BTN_COLOR}66`, // 40% opacity
                       }}
                     >
                       <Pin size={12} />
@@ -244,7 +217,7 @@ export function ProjectsSection() {
                         <Badge
                           key={techIndex}
                           variant="secondary"
-                          style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
+                          style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }} // Keeping this as is, could be a Tailwind class e.g. bg-[--site-btn-color] text-[--canvas-color]
                         >
                           {tech}
                         </Badge>
@@ -258,11 +231,7 @@ export function ProjectsSection() {
                       size="sm"
                       asChild
                       className="flex-1 border-0"
-                      style={{
-                        backgroundColor: `${SITE_BTN_COLOR}20`,
-                        color: SITE_BTN_COLOR,
-                        borderColor: SITE_BTN_COLOR,
-                      }}
+                      style={commonButtonStyle}
                     >
                       <a href={project.url} target="_blank" rel="noopener noreferrer">
                         <Github size={16} className="mr-2" />
@@ -275,7 +244,7 @@ export function ProjectsSection() {
                         size="sm"
                         asChild
                         className="flex-1"
-                        style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
+                        style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }} // Keeping this for consistency with Badge or could be made a class
                       >
                         <a href={project.homepage} target="_blank" rel="noopener noreferrer">
                           <ExternalLink size={16} className="mr-2" />
@@ -296,11 +265,7 @@ export function ProjectsSection() {
           variant="outline"
           asChild
           className="border-0"
-          style={{
-            backgroundColor: `${SITE_BTN_COLOR}20`,
-            color: SITE_BTN_COLOR,
-            borderColor: SITE_BTN_COLOR,
-          }}
+          style={commonButtonStyle}
         >
           <a href="https://github.com/0xPlayerOne" target="_blank" rel="noopener noreferrer">
             <Github size={16} className="mr-2" />

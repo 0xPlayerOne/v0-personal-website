@@ -5,7 +5,7 @@ import { Typography } from "@/components/ui/typography"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR } from "@/constants/colors"
-import { cn } from "@/lib/utils"
+import { cn, getPlatformUrl } from "@/lib/utils"
 import { CONTACT_LINKS, CONTACT_CONTENT } from "@/constants/content"
 import { Twitter, Github, Linkedin, Mail } from "lucide-react"
 
@@ -22,57 +22,42 @@ export function ContactSection() {
         <div className={cn("grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12")}>
           {CONTACT_LINKS.map((contact, index) => {
             const getIcon = (platform: string) => {
+              const iconCn = `text-[${SITE_BTN_COLOR}]`
               switch (platform.toLowerCase()) {
                 case "twitter":
-                  return <Twitter size={24} style={{ color: SITE_BTN_COLOR }} />
+                  return <Twitter size={24} className={iconCn} />
                 case "github":
-                  return <Github size={24} style={{ color: SITE_BTN_COLOR }} />
+                  return <Github size={24} className={iconCn} />
                 case "linkedin":
-                  return <Linkedin size={24} style={{ color: SITE_BTN_COLOR }} />
+                  return <Linkedin size={24} className={iconCn} />
                 default:
                   return null
-              }
-            }
-
-            const getUrl = (platform: string, handle: string) => {
-              switch (platform.toLowerCase()) {
-                case "twitter":
-                  return `https://twitter.com/${handle.replace("@", "")}`
-                case "github":
-                  return `https://github.com/${handle.replace("@", "")}`
-                case "linkedin":
-                  return `https://linkedin.com/in/${handle.replace("@", "")}`
-                default:
-                  return "#"
               }
             }
 
             return (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0"
-                style={{
-                  backgroundColor: SITE_CARD_COLOR,
-                  boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 20px ${SITE_BTN_COLOR}40`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
-                }}
+                className={cn(
+                  "group transition-all duration-300 hover:scale-105 cursor-pointer border-0",
+                  `bg-[${SITE_CARD_COLOR}]`,
+                  `shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_10px_${SITE_BORDER_COLOR}66]`, // 40% opacity
+                  `hover:shadow-[0_0_0_1px_${SITE_BORDER_COLOR},0_0_20px_${SITE_BTN_COLOR}66]` // 40% opacity
+                )}
               >
                 <CardContent className="p-4 sm:p-6">
                   <a
-                    href={getUrl(contact.platform, contact.handle)}
+                    href={getPlatformUrl(contact.platform, contact.handle)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-center"
                   >
                     <div className="mb-3 flex justify-center">
                       <div
-                        className="p-3 rounded-lg group-hover:scale-110 transition-transform duration-300"
-                        style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+                        className={cn(
+                          "p-3 rounded-lg group-hover:scale-110 transition-transform duration-300",
+                          `bg-[${SITE_BTN_COLOR}33]` // 20% opacity
+                        )}
                       >
                         {getIcon(contact.platform)}
                       </div>
@@ -91,8 +76,10 @@ export function ContactSection() {
         </div>
         <Button
           size="lg"
-          className="text-base sm:text-lg group"
-          style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
+          className={cn(
+            "text-base sm:text-lg group",
+            `bg-[${SITE_BTN_COLOR}] text-[${CANVAS_COLOR}] hover:bg-[${SITE_BTN_COLOR}]/90`
+          )}
           onClick={() => {
             // Anti-spam email encoding
             const user = "contact"
