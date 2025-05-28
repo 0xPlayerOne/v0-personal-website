@@ -31,6 +31,8 @@ export function PongHeader() {
   // Separate function to check sticky state
   const checkStickyState = useCallback(() => {
     const scrollPosition = window.scrollY
+    // The navbar should stick when we scroll past the header minus the navbar height
+    // This ensures the navbar is at the bottom of the header and sticks when scrolled past
     const headerHeight = window.innerHeight - NAVBAR_HEIGHT
     const shouldBeSticky = scrollPosition > headerHeight
     
@@ -57,11 +59,15 @@ export function PongHeader() {
 
   return (
     <>
-      <header className="w-full h-dvh flex flex-col">
-        <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
-        {!isSticky && <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSectionString} />}
+      <header className="w-full h-dvh flex flex-col justify-between">
+        <div className="flex-grow">
+          <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
+        </div>
+        {/* Always render the navbar at the bottom of the header */}
+        <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSectionString} />
       </header>
 
+      {/* When sticky, show a fixed navbar at the top */}
       {isSticky && (
         <div className="fixed top-0 left-0 right-0 z-50">
           <RetroNavbar height={NAVBAR_HEIGHT} isSticky={true} activeSection={activeSectionString} />
