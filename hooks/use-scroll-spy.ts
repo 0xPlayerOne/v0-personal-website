@@ -13,16 +13,6 @@ export const useScrollSpy = ({ sectionIds, offset = 0 }: UseScrollSpyProps) => {
   // Memoize section IDs array to prevent unnecessary recalculations
   const sectionIdsArray = useMemo(() => [...sectionIds], [sectionIds])
 
-  // Throttle scroll handler for better performance
-  const handleScroll = useCallback(() => {
-    // Use requestAnimationFrame for better performance
-    if (!window.requestAnimationFrame) {
-      return throttledScrollHandler()
-    }
-    
-    window.requestAnimationFrame(throttledScrollHandler)
-  }, [sectionIdsArray, offset])
-  
   // Optimized scroll handler with throttling
   const throttledScrollHandler = useCallback(() => {
     let currentSection: string | null = null
@@ -49,6 +39,16 @@ export const useScrollSpy = ({ sectionIds, offset = 0 }: UseScrollSpyProps) => {
       setActiveSection(currentSection)
     }
   }, [sectionIdsArray, offset, activeSection])
+
+  // Throttle scroll handler for better performance
+  const handleScroll = useCallback(() => {
+    // Use requestAnimationFrame for better performance
+    if (!window.requestAnimationFrame) {
+      return throttledScrollHandler()
+    }
+    
+    window.requestAnimationFrame(throttledScrollHandler)
+  }, [throttledScrollHandler])
 
   useEffect(() => {
     // Use passive event listener for better performance
