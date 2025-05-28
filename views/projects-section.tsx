@@ -11,6 +11,15 @@ import { cn } from "@/lib/utils"
 import { fetchPinnedRepos } from "@/lib/github"
 import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-react"
 
+const gameCreditsData = [
+  { title: "Call of Duty: Vanguard", year: 2021 },
+  { title: "Call of Duty: Black Ops - Cold War", year: 2020 },
+  { title: "Crash Bandicoot 4: It's About Time", year: 2020 },
+  { title: "Tony Hawk's Pro Skater 1 + 2", year: 2020 },
+  { title: "Call of Duty: Warzone", year: 2020 },
+  { title: "Call of Duty: Modern Warfare", year: 2019 },
+];
+
 // ===== CONFIGURATION =====
 const MAX_PROJECTS_DISPLAY = 6
 const LANGUAGES_TO_SHOW = 3
@@ -29,6 +38,65 @@ interface PinnedRepo {
   languages: { name: string; percentage: number }[]
   isPinned: boolean
 }
+
+// ===== GAME CREDITS CARD =====
+interface GameCredit {
+  title: string;
+  year: number | string;
+}
+
+interface GameCreditsCardProps {
+  credits: GameCredit[];
+  mobyGamesUrl: string;
+}
+
+const GameCreditsCard: React.FC<GameCreditsCardProps> = ({ credits, mobyGamesUrl }) => {
+  return (
+    <Card
+      className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0 relative w-full max-w-2xl"
+      style={{
+        backgroundColor: SITE_CARD_COLOR,
+        boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 20px ${SITE_BTN_COLOR}40`
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`
+      }}
+    >
+      <CardContent className="p-6 sm:p-8">
+        <Typography variant="h3" color="secondary" className="mb-4">
+          Game Credits
+        </Typography>
+        <div className="mb-6">
+          {credits.map((credit, index) => (
+            <div key={index} className="flex justify-between items-center my-2">
+              <Typography variant="body1" style={{ color: SITE_TEXT_COLOR }}>{credit.title}</Typography>
+              <Typography variant="caption" style={{ color: SITE_TEXT_COLOR }}>{credit.year}</Typography>
+            </div>
+          ))}
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          asChild
+          className="w-full border-0" // Ensure button takes full width like others if needed, or adjust as per design
+          style={{
+            backgroundColor: `${SITE_BTN_COLOR}20`,
+            color: SITE_BTN_COLOR,
+            borderColor: SITE_BTN_COLOR,
+          }}
+        >
+          <a href={mobyGamesUrl} target="_blank" rel="noopener noreferrer">
+            <ExternalLink size={16} className="mr-2" />
+            View on MobyGames
+          </a>
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
 
 export function ProjectsSection() {
   const [projects, setProjects] = useState<PinnedRepo[]>([])
@@ -307,6 +375,11 @@ export function ProjectsSection() {
             View All Projects on GitHub
           </a>
         </Button>
+      </div>
+
+      {/* Add the GameCreditsCard here */}
+      <div className="mt-8 mb-8 flex justify-center"> {/* Added a container for centering and margin */}
+        <GameCreditsCard credits={gameCreditsData} mobyGamesUrl="https://www.mobygames.com/person/1037893/andrew-mahoney-fernandes/" />
       </div>
     </Section>
   )
