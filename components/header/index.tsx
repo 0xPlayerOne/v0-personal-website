@@ -63,8 +63,11 @@ export function PongHeader() {
         <div className="flex-grow">
           <RetroCanvas navbarHeight={NAVBAR_HEIGHT} />
         </div>
-        {/* Always render the navbar at the bottom of the header */}
-        <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSectionString} />
+        {/* Only render the navbar at the bottom of the header when not sticky */}
+        {/* Use opacity instead of visibility to maintain layout space */}
+        <div style={{ opacity: isSticky ? 0 : 1, height: NAVBAR_HEIGHT }}>
+          <RetroNavbar height={NAVBAR_HEIGHT} isSticky={false} activeSection={activeSectionString} />
+        </div>
       </header>
 
       {/* When sticky, show a fixed navbar at the top */}
