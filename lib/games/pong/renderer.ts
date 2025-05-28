@@ -1,5 +1,10 @@
-import type { GameState } from "./types"
+import type { GameState, Pixel, Particle, Paddle } from "./types"
 
+// Cache for pixel rendering to avoid redundant state changes
+let lastPixelHit = false
+let lastPixelColor = ''
+
+// Optimized renderer with batched rendering and reduced state changes
 export function render(ctx: CanvasRenderingContext2D, game: GameState): void {
   const { width, height, pixels, ball, paddles, particles, colors } = game
 
@@ -7,39 +12,81 @@ export function render(ctx: CanvasRenderingContext2D, game: GameState): void {
   ctx.fillStyle = colors.background
   ctx.fillRect(0, 0, width, height)
 
-  // Render pixels
-  for (const pixel of pixels) {
-    ctx.shadowColor = pixel.hit ? colors.hitPixel : colors.pixel
-    ctx.shadowBlur = pixel.size * 0.5
-    ctx.fillStyle = pixel.hit ? colors.hitPixel : colors.pixel
-    ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size)
+  // Batch render pixels by hit state to reduce context switches
+  renderPixels(ctx, pixels, colors)
+
+  // Batch render particles
+  if (particles.length > 0) {
+    renderParticles(ctx, particles, colors.pixel)
   }
 
-  // Render particles
+  // Render ball with optimized shadow
+  renderBall(ctx, ball, colors.ball)
+
+  // Batch render paddles
+  renderPaddles(ctx, paddles, colors.paddle)
+}
+
+// Optimized pixel rendering with batching by hit state
+function renderPixels(ctx: CanvasRenderingContext2D, pixels: Pixel[], colors: GameState['colors']): void {
+  // First render non-hit pixels
+  const nonHitPixels = pixels.filter(p => !p.hit)
+  const hitPixels = pixels.filter(p => p.hit)
+  
+  if (nonHitPixels.length > 0) {
+    ctx.shadowColor = colors.pixel
+    ctx.shadowBlur = nonHitPixels[0].size * 0.5
+    ctx.fillStyle = colors.pixel
+    
+    for (const pixel of nonHitPixels) {
+      ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size)
+    }
+  }
+  
+  if (hitPixels.length > 0) {
+    ctx.shadowColor = colors.hitPixel
+    ctx.shadowBlur = hitPixels[0].size * 0.5
+    ctx.fillStyle = colors.hitPixel
+    
+    for (const pixel of hitPixels) {
+      ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size)
+    }
+  }
+}
+
+// Optimized particle rendering
+function renderParticles(ctx: CanvasRenderingContext2D, particles: Particle[], color: string): void {
+  ctx.fillStyle = color
+  
   for (const particle of particles) {
     ctx.globalAlpha = particle.alpha
-    ctx.fillStyle = colors.pixel
     ctx.fillRect(particle.x - 1, particle.y - 1, 2, 2)
   }
-
-  // Render ball
+  
+  // Reset alpha
   ctx.globalAlpha = 1
-  ctx.shadowColor = colors.ball
+}
+
+// Optimized ball rendering
+function renderBall(ctx: CanvasRenderingContext2D, ball: GameState['ball'], color: string): void {
+  ctx.shadowColor = color
   ctx.shadowBlur = ball.radius * 1.5
-  ctx.fillStyle = colors.ball
+  ctx.fillStyle = color
   ctx.beginPath()
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2)
   ctx.fill()
+}
 
-  // Render paddles
-  ctx.shadowColor = colors.paddle
+// Optimized paddle rendering
+function renderPaddles(ctx: CanvasRenderingContext2D, paddles: Paddle[], color: string): void {
+  ctx.shadowColor = color
   ctx.shadowBlur = 8
-  ctx.fillStyle = colors.paddle
+  ctx.fillStyle = color
+  
   for (const paddle of paddles) {
     ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height)
   }
-
-  // Reset context
+  
+  // Reset shadow
   ctx.shadowBlur = 0
-  ctx.globalAlpha = 1
 }
