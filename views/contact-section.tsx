@@ -91,7 +91,7 @@ export function ContactSection() {
         </div>
         <Button
           size="lg"
-          className="text-base sm:text-lg group"
+          className="text-base sm:text-lg group hover:scale-105 transition-transform duration-300"
           style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
           onClick={() => {
             // Anti-spam email encoding

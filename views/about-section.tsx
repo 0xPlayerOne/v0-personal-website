@@ -54,7 +54,7 @@ const TabButton = memo(function TabButton({
       onClick={onClick}
       className={cn(
         "px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 border-0",
-        isActive ? "scale-105" : "hover:scale-102",
+        isActive ? "scale-105" : "hover:scale-105 transition-transform duration-300",
       )}
       style={{
         backgroundColor: isActive ? SITE_BTN_COLOR : "transparent",
@@ -105,7 +105,7 @@ const ValueCard = memo(function ValueCard({
   return (
     <Card
       key={keyId}
-      className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0"
+      className="group transition-all duration-300 hover:scale-105 border-0"
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -135,7 +135,7 @@ const ValueCard = memo(function ValueCard({
 })
 
 // Memoized stat card component
-const StatCard = memo(function StatCard({ stat }: { stat: typeof ABOUT_CONTENT.stats[0] }) {
+const StatCard = memo(function StatCard({ stat }: { stat: typeof ABOUT_CONTENT.stats[number] }) {
   const IconComponent = ICON_MAP[stat.icon as keyof typeof ICON_MAP]
   
   // Memoize the card style
@@ -165,7 +165,7 @@ const StatCard = memo(function StatCard({ stat }: { stat: typeof ABOUT_CONTENT.s
 
   return (
     <Card
-      className="group transition-all duration-300 hover:scale-110 cursor-pointer border-0"
+      className="group transition-all duration-300 hover:scale-110 border-0"
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -200,7 +200,7 @@ const StatCard = memo(function StatCard({ stat }: { stat: typeof ABOUT_CONTENT.s
 })
 
 // Memoized journey item component
-const JourneyItem = memo(function JourneyItem({ item }: { item: typeof ABOUT_CONTENT.journey[0] }) {
+const JourneyItem = memo(function JourneyItem({ item }: { item: typeof ABOUT_CONTENT.journey[number] }) {
   const IconComponent = ICON_MAP[item.icon as keyof typeof ICON_MAP]
   
   // Memoize the timeline dot style
@@ -230,7 +230,7 @@ const JourneyItem = memo(function JourneyItem({ item }: { item: typeof ABOUT_CON
     <div className="relative flex items-start gap-6">
       {/* Timeline dot with icon */}
       <div
-        className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center border-0"
+        className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center border-0 hover:scale-105"
         style={timelineDotStyle}
       >
         <IconComponent size={24} style={iconStyle} />
