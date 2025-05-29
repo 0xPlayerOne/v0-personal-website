@@ -57,12 +57,6 @@ export const SKILLS_DATA = [
   },
 ] as const
 
-export const CONTACT_LINKS = [
-  { platform: "Twitter", handle: "@0xPlayerOne" },
-  { platform: "GitHub", handle: "@0xPlayerOne" },
-  { platform: "LinkedIn", handle: "@AMahoneyFernandes" },
-] as const
-
 export const ABOUT_CONTENT = {
   intro:
     "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain technology, and innovative digital experiences. My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
@@ -117,6 +111,22 @@ export const ABOUT_CONTENT = {
     },
   },
 } as const
+
+export const GAME_CREDITS = [
+  { title: "Nifty Smashers", year: 2025, link: "https://niftysmashers.com" },
+  { title: "Call of Duty: Vanguard", year: 2021, link: "https://www.mobygames.com/game/174847/call-of-duty-vanguard/" },
+  { title: "Call of Duty: Black Ops - Cold War", year: 2020, link: "https://www.mobygames.com/game/153502/call-of-duty-black-ops-cold-war/" },
+  { title: "Crash Bandicoot 4: It's About Time", year: 2020, link: "https://www.mobygames.com/game/151114/crash-bandicoot-4-its-about-time/" },
+  { title: "Tony Hawk's Pro Skater 1 + 2", year: 2020, link: "https://www.mobygames.com/game/150140/tony-hawks-pro-skater-1-2/" },
+  { title: "Call of Duty: Warzone", year: 2020, link: "https://www.mobygames.com/game/143392/call-of-duty-warzone/" },
+  { title: "Call of Duty: Modern Warfare", year: 2019, link: "https://www.mobygames.com/game/136496/call-of-duty-modern-warfare/" },
+] as const;
+
+export const CONTACT_LINKS = [
+  { platform: "Twitter", handle: "@0xPlayerOne" },
+  { platform: "GitHub", handle: "@0xPlayerOne" },
+  { platform: "LinkedIn", handle: "@AMahoneyFernandes" },
+] as const
 
 export const CONTACT_CONTENT = {
   title: "Get In Touch",

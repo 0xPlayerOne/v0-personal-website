@@ -34,7 +34,7 @@ export function SkillsSection() {
             return (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border-0"
+                className="group transition-all duration-300 hover:scale-105 hover:shadow-lg border-0"
                 style={{
                   backgroundColor: SITE_CARD_COLOR,
                   boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
@@ -107,14 +107,8 @@ export function SkillsSection() {
                   <div className="mt-4 pt-4 border-t" style={{ borderColor: `${SITE_BORDER_COLOR}40` }}>
                     <div className="flex items-center justify-between text-xs">
                       <span style={{ color: SITE_TEXT_COLOR }}>{skillGroup.skills.length} core skills</span>
-                      <span
-                        className="px-2 py-1 rounded font-mono"
-                        style={{
-                          backgroundColor: `${SITE_BTN_COLOR}20`,
-                          color: SITE_BTN_COLOR,
-                        }}
-                      >
-                        LVL {avgLevel}
+                      <span className="px-2 py-1 rounded font-mono" style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}>
+                        <Typography variant="caption" color="textSecondary">LVL {avgLevel}</Typography>
                       </span>
                     </div>
                   </div>
