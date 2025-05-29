@@ -45,7 +45,7 @@ const GameCreditsCard = () => {
         <div className="mb-6">
           {GAME_CREDITS.map((credit, index) => (
             <div key={index} className="flex justify-between items-center my-2">
-              <a href={credit.link} target="_blank" rel="noopener noreferrer">
+              <a href={credit.link} target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition-transform duration-300">
                 <Typography variant="body1">{credit.title}</Typography>
               </a>
               <span className="px-2 py-1 rounded font-mono" style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}>
