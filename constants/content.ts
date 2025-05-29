@@ -59,12 +59,12 @@ export const SKILLS_DATA = [
 
 export const ABOUT_CONTENT = {
   intro:
-    "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain technology, and innovative digital experiences. My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
+    "I'm a passionate developer and entrepreneur with a focus on AI, gaming, blockchain, and innovative digital experiences. My journey combines technical expertise with business acumen, creating products that push the boundaries of what's possible in the digital space.",
   mission: "",
   stats: [
     { label: "Years Experience", value: "10+", icon: "zap" },
     { label: "Projects Shipped", value: "50+", icon: "rocket" },
-    { label: "Team Members Led", value: "20+", icon: "users" },
+    { label: "Employees Led", value: "20+", icon: "users" },
     { label: "Startups Founded", value: "3", icon: "building" },
   ],
   journey: [
@@ -83,7 +83,7 @@ export const ABOUT_CONTENT = {
     {
       year: "2018",
       title: "First 2 Startups",
-      description: "Co-founded my first tech startups, learning the ropes of entrepreneurship and product development.",
+      description: "Co-founded my first tech startups, learning the ropes of entrepreneurship and product engineering.",
       icon: "lightbulb",
     },
     {
@@ -131,6 +131,6 @@ export const CONTACT_LINKS = [
 export const CONTACT_CONTENT = {
   title: "Get In Touch",
   description:
-    "Interested in collaborating, discussing opportunities, or just want to connect? I'd love to hear from you.",
+    "Interested in collaborating, discussing opportunities, or just want to connect? I'd love to hear from you!",
   buttonText: "Let's Connect",
 } as const
