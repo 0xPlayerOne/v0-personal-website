@@ -49,4 +49,5 @@ export interface GameState {
   paddles: Paddle[]
   particles: Particle[]
   colors: PongColors
+  score: number
 }

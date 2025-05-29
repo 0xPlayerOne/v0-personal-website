@@ -6,7 +6,7 @@ let lastPixelColor = ''
 
 // Optimized renderer with batched rendering and reduced state changes
 export function render(ctx: CanvasRenderingContext2D, game: GameState): void {
-  const { width, height, pixels, ball, paddles, particles, colors } = game
+  const { width, height, pixels, ball, paddles, particles, colors, score } = game
 
   // Clear canvas
   ctx.fillStyle = colors.background
@@ -25,6 +25,17 @@ export function render(ctx: CanvasRenderingContext2D, game: GameState): void {
 
   // Batch render paddles
   renderPaddles(ctx, paddles, colors.paddle)
+
+  // Render score
+  ctx.fillStyle = colors.pixel // NEON_GREEN for text
+  ctx.strokeStyle = colors.hitPixel // DARK_NEON_GREEN for border
+  ctx.lineWidth = 1
+  ctx.font = "24px sans-serif"
+  ctx.textAlign = "left"
+  ctx.textBaseline = "top"
+  const scoreText = `Score: ${score}`
+  ctx.fillText(scoreText, 20, 20)
+  ctx.strokeText(scoreText, 20, 20)
 }
 
 // Optimized pixel rendering with batching by hit state

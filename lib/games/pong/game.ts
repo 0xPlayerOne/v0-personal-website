@@ -29,6 +29,7 @@ export function createGame(width: number, height: number, colors: PongColors, he
   const horizontalPaddleX = width / 2 - halfPaddleLength
 
   return {
+    score: 0,
     width,
     height,
     scale,
@@ -186,6 +187,7 @@ function checkPixelCollisions(game: GameState): Particle[] {
       ball.y - ball.radius < pixel.y + pixel.size
     ) {
       pixel.hit = true
+      game.score++
       
       // Create particles
       createParticles(pixel, newParticles)
