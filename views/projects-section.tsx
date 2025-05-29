@@ -1,34 +1,22 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Section } from "@/components/ui/section"
-import { Typography } from "@/components/ui/typography"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
-import { cn } from "@/lib/utils"
-import { fetchPinnedRepos } from "@/lib/github"
 import { ExternalLink, Star, GitFork, RefreshCw, Github, Pin } from "lucide-react"
 
-// ===== CONFIGURATION =====
-const MAX_PROJECTS_DISPLAY = 6
-const LANGUAGES_TO_SHOW = 3
-const GRID_COLS_LG = 2 // Keep 2 columns on large screens
-const GRID_COLS_MD = 2 // 2 columns on medium screens
-const GRID_COLS_SM = 1 // 1 column on small screens
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Section } from "@/components/ui/section"
+import { Typography } from "@/components/ui/typography"
+import { GameCreditsCard } from "@/components/game-credits"
 
-interface PinnedRepo {
-  title: string
-  description: string
-  tech: string[]
-  url: string
-  homepage?: string
-  stars: number
-  forks: number
-  languages: { name: string; percentage: number }[]
-  isPinned: boolean
-}
+import type { PinnedRepo } from "@/types/github"
+import { GITHUB_LINK } from "@/constants/links"
+import { LANGUAGES_DISPLAYED, PROJECTS_DISPLAYED } from "@/constants/github"
+import { SITE_CARD_COLOR, SITE_BORDER_COLOR, SITE_BTN_COLOR, CANVAS_COLOR, SITE_TEXT_COLOR } from "@/constants/colors"
+import { fetchPinnedRepos } from "@/lib/github"
+import { getLanguageColor } from "@/lib/language-colors"
+import { cn } from "@/lib/utils"
 
 export function ProjectsSection() {
   const [projects, setProjects] = useState<PinnedRepo[]>([])
@@ -55,31 +43,6 @@ export function ProjectsSection() {
     loadProjects()
   }, [])
 
-  const getLanguageColor = (language: string) => {
-    const colors: Record<string, string> = {
-      TypeScript: "#3178c6",
-      JavaScript: "#f1e05a",
-      Python: "#3572A5",
-      Solidity: "#AA6746",
-      Go: "#00ADD8",
-      Rust: "#dea584",
-      "C#": "#239120",
-      Java: "#b07219",
-      "C++": "#f34b7d",
-      HTML: "#e34c26",
-      CSS: "#1572B6",
-      Vue: "#4FC08D",
-      React: "#61DAFB",
-      Swift: "#FA7343",
-      Kotlin: "#A97BFF",
-      Dart: "#00B4AB",
-      PHP: "#777BB4",
-      Ruby: "#701516",
-      Shell: "#89e051",
-    }
-    return colors[language] || SITE_BTN_COLOR
-  }
-
   return (
     <Section id="projects">
       <div className="flex items-center justify-center gap-4 mb-8">
@@ -91,7 +54,7 @@ export function ProjectsSection() {
           size="sm"
           onClick={loadProjects}
           disabled={loading}
-          className="border-0"
+          className="border-0 hover:scale-105"
           style={{
             backgroundColor: `${SITE_BTN_COLOR}20`,
             color: SITE_BTN_COLOR,
@@ -121,7 +84,7 @@ export function ProjectsSection() {
       <div className="max-w-6xl mx-auto">
         {loading ? (
           <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8")}>
-            {[...Array(MAX_PROJECTS_DISPLAY)].map((_, index) => (
+            {[...Array(PROJECTS_DISPLAYED)].map((_, index) => (
               <Card
                 key={index}
                 className="border-0 animate-pulse"
@@ -147,7 +110,7 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="group transition-all duration-300 hover:scale-105 cursor-pointer border-0 relative"
+                className="group transition-all duration-300 hover:scale-105 border-0 relative"
                 style={{
                   backgroundColor: SITE_CARD_COLOR,
                   boxShadow: `0 0 0 1px ${SITE_BORDER_COLOR}, 0 0 10px ${SITE_BORDER_COLOR}40`,
@@ -216,7 +179,7 @@ export function ProjectsSection() {
                   {/* Languages display - horizontal layout */}
                   {project.languages.length > 0 && (
                     <div className="flex flex-wrap items-center gap-2 mb-4">
-                      {project.languages.slice(0, LANGUAGES_TO_SHOW).map((lang, langIndex) => (
+                      {project.languages.slice(0, LANGUAGES_DISPLAYED).map((lang, langIndex) => (
                         <div key={langIndex} className="flex items-center gap-1.5 text-sm">
                           <div
                             className="w-3 h-3 rounded-full flex-shrink-0"
@@ -230,9 +193,9 @@ export function ProjectsSection() {
                           </span>
                         </div>
                       ))}
-                      {project.languages.length > LANGUAGES_TO_SHOW && (
+                      {project.languages.length > LANGUAGES_DISPLAYED && (
                         <span className="text-sm" style={{ color: SITE_TEXT_COLOR }}>
-                          +{project.languages.length - LANGUAGES_TO_SHOW} more
+                          +{project.languages.length - LANGUAGES_DISPLAYED} more
                         </span>
                       )}
                     </div>
@@ -257,7 +220,7 @@ export function ProjectsSection() {
                       variant="outline"
                       size="sm"
                       asChild
-                      className="flex-1 border-0"
+                      className="flex-1 border-0 hover:scale-105 transition-transform duration-300"
                       style={{
                         backgroundColor: `${SITE_BTN_COLOR}20`,
                         color: SITE_BTN_COLOR,
@@ -274,7 +237,7 @@ export function ProjectsSection() {
                         variant="default"
                         size="sm"
                         asChild
-                        className="flex-1"
+                        className="flex-1 hover:scale-105 transition-transform duration-300"
                         style={{ backgroundColor: SITE_BTN_COLOR, color: CANVAS_COLOR }}
                       >
                         <a href={project.homepage} target="_blank" rel="noopener noreferrer">
@@ -295,18 +258,22 @@ export function ProjectsSection() {
         <Button
           variant="outline"
           asChild
-          className="border-0"
+          className="border-0 hover:scale-105 transition-transform duration-300"
           style={{
             backgroundColor: `${SITE_BTN_COLOR}20`,
             color: SITE_BTN_COLOR,
             borderColor: SITE_BTN_COLOR,
           }}
         >
-          <a href="https://github.com/0xPlayerOne" target="_blank" rel="noopener noreferrer">
+          <a href={GITHUB_LINK} target="_blank" rel="noopener noreferrer">
             <Github size={16} className="mr-2" />
             View All Projects on GitHub
           </a>
         </Button>
+      </div>
+
+      <div className="mt-16 flex justify-center">
+        <GameCreditsCard  />
       </div>
     </Section>
   )
