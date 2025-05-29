@@ -45,15 +45,28 @@ const GameCreditsCard = () => {
         <div className="mb-6">
           {GAME_CREDITS.map((credit, index) => (
             <div key={index} className="flex justify-between items-center my-2">
-              <a href={credit.link} target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition-transform duration-300">
-                <Typography variant="body1">{credit.title}</Typography>
+              <a
+                href={credit.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 min-w-0 mr-3 hover:scale-105 transition-transform duration-300"
+                style={{ textDecoration: "none" }}
+              >
+                <Typography variant="body1" className="truncate">
+                  {credit.title}
+                </Typography>
               </a>
-              <span className="px-2 py-1 rounded font-mono" style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}>
-                <Typography variant="caption" color="textSecondary">{credit.year}</Typography>
+              <span
+                className="px-2 py-1 rounded font-mono ml-2 flex-shrink-0"
+                style={{ backgroundColor: `${SITE_BTN_COLOR}20` }}
+              >
+                <Typography variant="caption" color="textSecondary">
+                  {credit.year}
+                </Typography>
               </span>
             </div>
           ))}
-        </div>
+        </div>  
         <Button
           variant="outline"
           size="sm"
